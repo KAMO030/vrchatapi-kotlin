@@ -37,7 +37,7 @@ Name | Type | Description | Notes
 **deploymentGroup** | [**DeploymentGroup**](DeploymentGroup.md) |  | 
 **devSdkUrl** | **kotlin.String** | Link to download the development SDK, use downloadUrls instead | 
 **devSdkVersion** | **kotlin.String** | Version of the development SDK | 
-**disCountdown** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | Unknown, \&quot;dis\&quot; maybe for disconnect? | 
+**disCountdown** | **kotlin.String** | Unknown, \&quot;dis\&quot; maybe for disconnect? | 
 **disableAvatarCopying** | **kotlin.Boolean** | Toggles if copying avatars should be disabled | 
 **disableAvatarGating** | **kotlin.Boolean** | Toggles if avatar gating should be disabled. Avatar gating restricts uploading of avatars to people with the &#x60;system_avatar_access&#x60; Tag or &#x60;admin_avatar_access&#x60; Tag | 
 **disableCommunityLabs** | **kotlin.Boolean** | Toggles if the Community Labs should be disabled | 

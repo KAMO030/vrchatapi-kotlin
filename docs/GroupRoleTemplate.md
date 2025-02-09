@@ -4,13 +4,13 @@
 ## Enum
 
 
-    * `default` (value: `"default"`)
+    * `Default` (value: `"default"`)
 
-    * `managedFree` (value: `"managedFree"`)
+    * `ManagedFree` (value: `"managedFree"`)
 
-    * `managedInvite` (value: `"managedInvite"`)
+    * `ManagedInvite` (value: `"managedInvite"`)
 
-    * `managedRequest` (value: `"managedRequest"`)
+    * `ManagedRequest` (value: `"managedRequest"`)
 
 
 

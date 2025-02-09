@@ -13,12 +13,12 @@ Name | Type | Description | Notes
 **statusDescription** | **kotlin.String** |  | 
 **tags** | **kotlin.collections.List&lt;kotlin.String&gt;** | &lt;- Always empty. | 
 **bio** | **kotlin.String** |  |  [optional]
-**bioLinks** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional]
+**bioLinks** | **kotlin.collections.List&lt;kotlin.String&gt;** |   |  [optional]
 **currentAvatarImageUrl** | **kotlin.String** | When profilePicOverride is not empty, use it instead. |  [optional]
 **currentAvatarThumbnailImageUrl** | **kotlin.String** | When profilePicOverride is not empty, use it instead. |  [optional]
 **currentAvatarTags** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional]
 **fallbackAvatar** | **kotlin.String** |  |  [optional]
-**lastLogin** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
+**lastLogin** | **kotlin.String** |  |  [optional]
 **profilePicOverride** | **kotlin.String** |  |  [optional]
 **pronouns** | **kotlin.String** |  |  [optional]
 **userIcon** | **kotlin.String** |  |  [optional]

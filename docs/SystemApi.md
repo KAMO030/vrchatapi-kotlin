@@ -24,8 +24,8 @@ Fetches the CSS code to the frontend React website.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = SystemApi()
 val variant : kotlin.String = variant_example // kotlin.String | Specifies which `variant` of the site. Public is the end-user site, while `internal` is the staff-only site with special pages for moderation and management.
@@ -73,8 +73,8 @@ API config contains configuration that the clients needs to work properly.  Curr
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = SystemApi()
 try {
@@ -116,8 +116,8 @@ Returns the current number of online users.  **NOTE:** The response type is not 
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = SystemApi()
 try {
@@ -159,8 +159,8 @@ Check API Health
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = SystemApi()
 try {
@@ -202,8 +202,8 @@ IPS (Info Push System) is a system for VRChat to push out dynamic information to
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = SystemApi()
 val require : kotlin.String = require_example // kotlin.String | Tags to include (comma-separated). All of the tags needs to be present.
@@ -251,8 +251,8 @@ Fetches the JavaScript code to the frontend React website.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = SystemApi()
 val variant : kotlin.String = variant_example // kotlin.String | Specifies which `variant` of the site. Public is the end-user site, while `internal` is the staff-only site with special pages for moderation and management.
@@ -291,7 +291,7 @@ No authorization required
 
 <a name="getSystemTime"></a>
 # **getSystemTime**
-> java.time.OffsetDateTime getSystemTime()
+> kotlin.String getSystemTime()
 
 Current System Time
 
@@ -300,12 +300,12 @@ Returns the current time of the API server.  **NOTE:** The response type is not 
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = SystemApi()
 try {
-    val result : java.time.OffsetDateTime = apiInstance.getSystemTime()
+    val result : kotlin.String = apiInstance.getSystemTime()
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling SystemApi#getSystemTime")
@@ -321,7 +321,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**java.time.OffsetDateTime**](java.time.OffsetDateTime.md)
+**kotlin.String**
 
 ### Authorization
 

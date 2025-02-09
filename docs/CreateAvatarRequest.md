@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **assetUrl** | **kotlin.String** |  |  [optional]
 **id** | **kotlin.String** |  |  [optional]
 **description** | **kotlin.String** |  |  [optional]
-**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional]
+**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |   |  [optional]
 **releaseStatus** | [**ReleaseStatus**](ReleaseStatus.md) |  |  [optional]
 **version** | **kotlin.Int** |  |  [optional]
 **unityPackageUrl** | **kotlin.String** |  |  [optional]

@@ -4,11 +4,11 @@
 ## Enum
 
 
-    * `public` (value: `"public"`)
+    * `Public` (value: `"public"`)
 
-    * `plus` (value: `"plus"`)
+    * `Plus` (value: `"plus"`)
 
-    * `members` (value: `"members"`)
+    * `Members` (value: `"members"`)
 
 
 

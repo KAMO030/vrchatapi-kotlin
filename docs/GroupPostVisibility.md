@@ -4,9 +4,9 @@
 ## Enum
 
 
-    * `group` (value: `"group"`)
+    * `Group` (value: `"group"`)
 
-    * `public` (value: `"public"`)
+    * `Public` (value: `"public"`)
 
 
 

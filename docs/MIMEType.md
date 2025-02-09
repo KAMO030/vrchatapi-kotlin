@@ -4,33 +4,33 @@
 ## Enum
 
 
-    * `imageSlashJpeg` (value: `"image/jpeg"`)
+    * `ImageSlashJpeg` (value: `"image/jpeg"`)
 
-    * `imageSlashJpg` (value: `"image/jpg"`)
+    * `ImageSlashJpg` (value: `"image/jpg"`)
 
-    * `imageSlashPng` (value: `"image/png"`)
+    * `ImageSlashPng` (value: `"image/png"`)
 
-    * `imageSlashWebp` (value: `"image/webp"`)
+    * `ImageSlashWebp` (value: `"image/webp"`)
 
-    * `imageSlashGif` (value: `"image/gif"`)
+    * `ImageSlashGif` (value: `"image/gif"`)
 
-    * `imageSlashBmp` (value: `"image/bmp"`)
+    * `ImageSlashBmp` (value: `"image/bmp"`)
 
-    * `imageSlashSvgXml` (value: `"image/svg＋xml"`)
+    * `ImageSlashSvgXml` (value: `"image/svg＋xml"`)
 
-    * `imageSlashTiff` (value: `"image/tiff"`)
+    * `ImageSlashTiff` (value: `"image/tiff"`)
 
-    * `applicationSlashXMinusAvatar` (value: `"application/x-avatar"`)
+    * `ApplicationSlashXMinusAvatar` (value: `"application/x-avatar"`)
 
-    * `applicationSlashXMinusWorld` (value: `"application/x-world"`)
+    * `ApplicationSlashXMinusWorld` (value: `"application/x-world"`)
 
-    * `applicationSlashGzip` (value: `"application/gzip"`)
+    * `ApplicationSlashGzip` (value: `"application/gzip"`)
 
-    * `applicationSlashXMinusRsyncMinusSignature` (value: `"application/x-rsync-signature"`)
+    * `ApplicationSlashXMinusRsyncMinusSignature` (value: `"application/x-rsync-signature"`)
 
-    * `applicationSlashXMinusRsyncMinusDelta` (value: `"application/x-rsync-delta"`)
+    * `ApplicationSlashXMinusRsyncMinusDelta` (value: `"application/x-rsync-delta"`)
 
-    * `applicationSlashOctetMinusStream` (value: `"application/octet-stream"`)
+    * `ApplicationSlashOctetMinusStream` (value: `"application/octet-stream"`)
 
 
 

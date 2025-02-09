@@ -22,14 +22,14 @@ Close an instance or update the closedAt time when it will be closed.  You can o
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InstancesApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.
 val instanceId : kotlin.String = instanceId_example // kotlin.String | Must be a valid instance ID.
 val hardClose : kotlin.Boolean = true // kotlin.Boolean | Whether to hard close the instance. Defaults to false.
-val closedAt : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | The time after which users won't be allowed to join the instances. If omitted, the instance will be closed immediately.
+val closedAt : kotlin.String = 2013-10-20T19:20:30+01:00 // kotlin.String | The time after which users won't be allowed to join the instances. If omitted, the instance will be closed immediately.
 try {
     val result : Instance = apiInstance.closeInstance(worldId, instanceId, hardClose, closedAt)
     println(result)
@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
  **worldId** | **kotlin.String**| Must be a valid world ID. |
  **instanceId** | **kotlin.String**| Must be a valid instance ID. |
  **hardClose** | **kotlin.Boolean**| Whether to hard close the instance. Defaults to false. | [optional]
- **closedAt** | **java.time.OffsetDateTime**| The time after which users won&#39;t be allowed to join the instances. If omitted, the instance will be closed immediately. | [optional]
+ **closedAt** | **kotlin.String**| The time after which users won&#39;t be allowed to join the instances. If omitted, the instance will be closed immediately. | [optional]
 
 ### Return type
 
@@ -78,8 +78,8 @@ Create an instance
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InstancesApi()
 val createInstanceRequest : CreateInstanceRequest =  // CreateInstanceRequest | 
@@ -128,8 +128,8 @@ Returns an instance. Please read [Instances Tutorial](https://vrchatapi.github.i
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InstancesApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.
@@ -180,8 +180,8 @@ Returns an instance. Please read [Instances Tutorial](https://vrchatapi.github.i
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InstancesApi()
 val shortName : kotlin.String = shortName_example // kotlin.String | Must be a valid instance short name.
@@ -230,8 +230,8 @@ Returns an instance short name.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InstancesApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.

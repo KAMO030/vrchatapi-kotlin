@@ -25,8 +25,8 @@ Returns a single Invite Message. This returns the exact same information but les
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InviteApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -79,8 +79,8 @@ Returns a list of all the users Invite Messages. Admin Credentials are required 
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InviteApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -131,8 +131,8 @@ Sends self an invite to an instance
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InviteApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.
@@ -183,8 +183,8 @@ Sends an invite to a user. Returns the Notification of type &#x60;invite&#x60; t
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InviteApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -235,8 +235,8 @@ Requests an invite from a user. Returns the Notification of type &#x60;requestIn
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InviteApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -287,8 +287,8 @@ Resets a single Invite Message back to its original message, and then returns a 
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InviteApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -341,8 +341,8 @@ Respond to an invite request by sending a world invite to the requesting user. &
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InviteApi()
 val notificationId : kotlin.String = notificationId_example // kotlin.String | Must be a valid notification ID.
@@ -393,8 +393,8 @@ Updates a single Invite Message and then returns a list of all of them. Admin Cr
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = InviteApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.

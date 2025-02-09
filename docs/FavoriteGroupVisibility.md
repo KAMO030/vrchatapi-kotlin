@@ -4,11 +4,11 @@
 ## Enum
 
 
-    * `private` (value: `"private"`)
+    * `Private` (value: `"private"`)
 
-    * `friends` (value: `"friends"`)
+    * `Friends` (value: `"friends"`)
 
-    * `public` (value: `"public"`)
+    * `Public` (value: `"public"`)
 
 
 

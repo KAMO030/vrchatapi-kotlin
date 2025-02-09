@@ -4,13 +4,13 @@
 ## Enum
 
 
-    * `blue` (value: `"blue"`)
+    * `Blue` (value: `"blue"`)
 
-    * `green` (value: `"green"`)
+    * `Green` (value: `"green"`)
 
-    * `grape` (value: `"grape"`)
+    * `Grape` (value: `"grape"`)
 
-    * `cherry` (value: `"cherry"`)
+    * `Cherry` (value: `"cherry"`)
 
 
 

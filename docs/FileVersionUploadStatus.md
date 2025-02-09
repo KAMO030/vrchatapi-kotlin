@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **fileName** | **kotlin.String** |  | 
 **nextPartNumber** | **kotlin.Int** |  | 
 **maxParts** | **kotlin.Int** |  | 
-**parts** | [**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md) |  | 
-**etags** | [**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md) | Unknown | 
+**parts** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
+**etags** | **kotlin.collections.List&lt;kotlin.String&gt;** | Unknown | 
 
 
 

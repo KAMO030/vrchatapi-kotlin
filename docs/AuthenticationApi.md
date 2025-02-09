@@ -25,8 +25,8 @@ Checks if a user by a given &#x60;username&#x60;, &#x60;displayName&#x60; or &#x
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AuthenticationApi()
 val email : kotlin.String = email_example // kotlin.String | Filter by email.
@@ -78,8 +78,8 @@ Deletes the account with given ID. Normal users only have permission to delete t
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AuthenticationApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -128,8 +128,8 @@ This endpoint does the following two operations:   1) Checks if you are already 
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AuthenticationApi()
 try {
@@ -180,8 +180,8 @@ Invalidates the login session.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AuthenticationApi()
 try {
@@ -226,8 +226,8 @@ Finishes the login sequence with a normal 2FA-generated code for accounts with 2
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AuthenticationApi()
 val twoFactorAuthCode : TwoFactorAuthCode =  // TwoFactorAuthCode | 
@@ -276,8 +276,8 @@ Finishes the login sequence with an 2FA email code.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AuthenticationApi()
 val twoFactorEmailCode : TwoFactorEmailCode =  // TwoFactorEmailCode | 
@@ -326,8 +326,8 @@ Verify whether the currently provided Auth Token is valid.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AuthenticationApi()
 try {
@@ -372,8 +372,8 @@ Finishes the login sequence with an OTP (One Time Password) recovery code for ac
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AuthenticationApi()
 val twoFactorAuthCode : TwoFactorAuthCode =  // TwoFactorAuthCode | 

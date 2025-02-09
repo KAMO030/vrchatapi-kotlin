@@ -28,8 +28,8 @@ Gets the balance of a user
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = EconomyApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -78,8 +78,8 @@ Get a list of all current user subscriptions.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = EconomyApi()
 try {
@@ -124,8 +124,8 @@ Get a single License Group by given ID.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = EconomyApi()
 val licenseGroupId : kotlin.String = licenseGroupId_example // kotlin.String | Must be a valid license group ID.
@@ -174,8 +174,8 @@ Gets a product listing
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = EconomyApi()
 val productId : kotlin.String = productId_example // kotlin.String | Must be a valid product ID.
@@ -226,8 +226,8 @@ Gets the product listings of a given user
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = EconomyApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -286,8 +286,8 @@ Get a single Steam transactions by ID. This returns the exact same information a
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = EconomyApi()
 val transactionId : kotlin.String = transactionId_example // kotlin.String | Must be a valid transaction ID.
@@ -336,8 +336,8 @@ Get all own Steam transactions.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = EconomyApi()
 try {
@@ -382,8 +382,8 @@ List all existing Subscriptions. For example, \&quot;vrchatplus-monthly\&quot; a
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = EconomyApi()
 try {
@@ -428,8 +428,8 @@ Gets the status of Tilia integration
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = EconomyApi()
 try {
@@ -474,8 +474,8 @@ Gets the status of the agreement of a user to the Tilia TOS
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = EconomyApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -524,8 +524,8 @@ Gets the list of token bundles
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = EconomyApi()
 try {

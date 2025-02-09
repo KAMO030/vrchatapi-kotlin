@@ -4,17 +4,17 @@
 ## Enum
 
 
-    * `none` (value: `"None"`)
+    * `None` (value: `"None"`)
 
-    * `excellent` (value: `"Excellent"`)
+    * `Excellent` (value: `"Excellent"`)
 
-    * `good` (value: `"Good"`)
+    * `Good` (value: `"Good"`)
 
-    * `medium` (value: `"Medium"`)
+    * `Medium` (value: `"Medium"`)
 
-    * `poor` (value: `"Poor"`)
+    * `Poor` (value: `"Poor"`)
 
-    * `veryPoor` (value: `"VeryPoor"`)
+    * `VeryPoor` (value: `"VeryPoor"`)
 
 
 

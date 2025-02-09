@@ -21,8 +21,8 @@ Clear All Player Moderations
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = PlayermoderationApi()
 try {
@@ -67,8 +67,8 @@ Returns a list of all player moderations made by **you**.  This endpoint does no
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = PlayermoderationApi()
 val type : kotlin.String = type_example // kotlin.String | Must be one of PlayerModerationType, except unblock. Unblocking simply removes a block.
@@ -119,8 +119,8 @@ Moderate a user, e.g. unmute them or show their avatar.  Please see the [Player 
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = PlayermoderationApi()
 val moderateUserRequest : ModerateUserRequest =  // ModerateUserRequest | 
@@ -169,8 +169,8 @@ Removes a player moderation previously added through &#x60;moderateUser&#x60;. E
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = PlayermoderationApi()
 val moderateUserRequest : ModerateUserRequest =  // ModerateUserRequest | 

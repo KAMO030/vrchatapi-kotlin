@@ -20,8 +20,8 @@ Returns a jam.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = JamsApi()
 val jamId : kotlin.String = jam_0b7e3f6d-4647-4648-b2a1-1431e76906d9 // kotlin.String | Must be a valid query ID.
@@ -70,8 +70,8 @@ Returns all submissions of a jam.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = JamsApi()
 val jamId : kotlin.String = jam_0b7e3f6d-4647-4648-b2a1-1431e76906d9 // kotlin.String | Must be a valid query ID.
@@ -120,8 +120,8 @@ Lists World Jams or Avatar Jams, both currently running and ones that have ended
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = JamsApi()
 val type : kotlin.String = avatar // kotlin.String | Only show jams of this type (`avatar` or `world`).

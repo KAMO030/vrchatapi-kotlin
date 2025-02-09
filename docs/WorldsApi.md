@@ -30,8 +30,8 @@ Create a new world. This endpoint requires &#x60;assetUrl&#x60; to be a valid Fi
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val createWorldRequest : CreateWorldRequest =  // CreateWorldRequest | 
@@ -77,8 +77,8 @@ Delete a world. Notice a world is never fully \&quot;deleted\&quot;, only its Re
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.
@@ -126,8 +126,8 @@ Search and list currently Active worlds by query filters.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val featured : kotlin.Boolean = true // kotlin.Boolean | Filters on featured results.
@@ -198,8 +198,8 @@ Search and list favorited worlds by query filters.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val featured : kotlin.Boolean = true // kotlin.Boolean | Filters on featured results.
@@ -272,8 +272,8 @@ Search and list recently visited worlds by query filters.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val featured : kotlin.Boolean = true // kotlin.Boolean | Filters on featured results.
@@ -346,8 +346,8 @@ Get information about a specific World. Works unauthenticated but when so will a
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.
@@ -393,8 +393,8 @@ Returns a worlds instance.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.
@@ -445,8 +445,8 @@ Return a worlds custom metadata. This is currently believed to be unused. Metada
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.
@@ -495,8 +495,8 @@ Returns a worlds publish status.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.
@@ -545,8 +545,8 @@ Publish a world. You can only publish one world per week.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.
@@ -594,8 +594,8 @@ Search and list any worlds by query filters.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val featured : kotlin.Boolean = true // kotlin.Boolean | Filters on featured results.
@@ -672,8 +672,8 @@ Unpublish a world.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.
@@ -721,8 +721,8 @@ Update information about a specific World.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = WorldsApi()
 val worldId : kotlin.String = worldId_example // kotlin.String | Must be a valid world ID.

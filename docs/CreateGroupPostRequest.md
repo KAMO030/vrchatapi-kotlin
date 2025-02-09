@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **sendNotification** | **kotlin.Boolean** | Send notification to group members. | 
 **visibility** | [**GroupPostVisibility**](GroupPostVisibility.md) |  | 
 **imageId** | **kotlin.String** |  |  [optional]
-**roleIds** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional]
+**roleIds** | **kotlin.collections.List&lt;kotlin.String&gt;** |   |  [optional]
 
 
 

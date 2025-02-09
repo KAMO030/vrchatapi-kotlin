@@ -26,8 +26,8 @@ Create an avatar. It&#39;s possible to optionally specify a ID if you want a cus
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AvatarsApi()
 val createAvatarRequest : CreateAvatarRequest =  // CreateAvatarRequest | 
@@ -76,8 +76,8 @@ Delete an avatar. Notice an avatar is never fully \&quot;deleted\&quot;, only it
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AvatarsApi()
 val avatarId : kotlin.String = avatarId_example // kotlin.String | Must be a valid avatar ID.
@@ -126,8 +126,8 @@ Get information about a specific Avatar.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AvatarsApi()
 val avatarId : kotlin.String = avatarId_example // kotlin.String | Must be a valid avatar ID.
@@ -176,8 +176,8 @@ Search and list favorited avatars by query filters.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AvatarsApi()
 val featured : kotlin.Boolean = true // kotlin.Boolean | Filters on featured results.
@@ -250,8 +250,8 @@ Get the current avatar for the user. This will return an error for any other use
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AvatarsApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -300,8 +300,8 @@ Search and list avatars by query filters. You can only search your own or featur
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AvatarsApi()
 val featured : kotlin.Boolean = true // kotlin.Boolean | Filters on featured results.
@@ -374,8 +374,8 @@ Switches into that avatar.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AvatarsApi()
 val avatarId : kotlin.String = avatarId_example // kotlin.String | Must be a valid avatar ID.
@@ -424,8 +424,8 @@ Switches into that avatar as your fallback avatar.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AvatarsApi()
 val avatarId : kotlin.String = avatarId_example // kotlin.String | Must be a valid avatar ID.
@@ -474,8 +474,8 @@ Update information about a specific avatar.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = AvatarsApi()
 val avatarId : kotlin.String = avatarId_example // kotlin.String | Must be a valid avatar ID.

@@ -4,15 +4,15 @@
 ## Enum
 
 
-    * `active` (value: `"active"`)
+    * `Active` (value: `"active"`)
 
-    * `joinMe` (value: `"join me"`)
+    * `JoinMe` (value: `"join me"`)
 
-    * `askMe` (value: `"ask me"`)
+    * `AskMe` (value: `"ask me"`)
 
-    * `busy` (value: `"busy"`)
+    * `Busy` (value: `"busy"`)
 
-    * `offline` (value: `"offline"`)
+    * `Offline` (value: `"offline"`)
 
 
 

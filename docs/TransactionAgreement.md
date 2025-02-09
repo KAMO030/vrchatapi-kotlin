@@ -13,13 +13,13 @@ Name | Type | Description | Notes
 **billingType** | **kotlin.String** |  | 
 **startDate** | **kotlin.String** |  | 
 **endDate** | **kotlin.String** |  | 
-**recurringAmt** | [**java.math.BigDecimal**](java.math.BigDecimal.md) |  | 
+**recurringAmt** | **kotlin.Double** |  | 
 **currency** | **kotlin.String** |  | 
 **timeCreated** | **kotlin.String** |  | 
 **nextPayment** | **kotlin.String** |  | 
 **lastPayment** | **kotlin.String** |  | 
-**lastAmount** | [**java.math.BigDecimal**](java.math.BigDecimal.md) |  | 
-**lastAmountVat** | [**java.math.BigDecimal**](java.math.BigDecimal.md) |  | 
+**lastAmount** | **kotlin.Double** |  | 
+**lastAmountVat** | **kotlin.Double** |  | 
 **outstanding** | **kotlin.Int** |  | 
 **failedAttempts** | **kotlin.Int** |  | 
 

@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **email** | **kotlin.String** |  |  [optional]
-**birthday** | [**java.time.LocalDate**](java.time.LocalDate.md) |  |  [optional]
+**birthday** | **kotlin.String** |  |  [optional]
 **acceptedTOSVersion** | **kotlin.Int** |  |  [optional]
-**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional]
+**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |   |  [optional]
 **status** | [**UserStatus**](UserStatus.md) |  |  [optional]
 **statusDescription** | **kotlin.String** |  |  [optional]
 **bio** | **kotlin.String** |  |  [optional]

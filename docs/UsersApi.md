@@ -29,8 +29,8 @@ Get public user information about a specific user using their ID.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -79,8 +79,8 @@ Get User by Username
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val username : kotlin.String = username_example // kotlin.String | Username of the user
@@ -129,8 +129,8 @@ Get user&#39;s submitted feedback
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -176,7 +176,7 @@ Configure authCookie:
 
 <a name="getUserGroupInstances"></a>
 # **getUserGroupInstances**
-> InlineResponse200 getUserGroupInstances(userId)
+> GetUserGroupInstances200Response getUserGroupInstances(userId)
 
 Get User Group Instances
 
@@ -185,13 +185,13 @@ Returns a list of group instances for a user
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
 try {
-    val result : InlineResponse200 = apiInstance.getUserGroupInstances(userId)
+    val result : GetUserGroupInstances200Response = apiInstance.getUserGroupInstances(userId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling UsersApi#getUserGroupInstances")
@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InlineResponse200**](InlineResponse200.md)
+[**GetUserGroupInstances200Response**](GetUserGroupInstances200Response.md)
 
 ### Authorization
 
@@ -235,8 +235,8 @@ Returns a list of Groups the user has requested to be invited into.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -285,8 +285,8 @@ Get user&#39;s public groups
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -335,8 +335,8 @@ Get a particular user note
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val userNoteId : kotlin.String = userNoteId_example // kotlin.String | Must be a valid user note ID.
@@ -385,8 +385,8 @@ Get recently updated user notes
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val n : kotlin.Int = 56 // kotlin.Int | The number of objects to return.
@@ -437,8 +437,8 @@ Returns the current group that the user is currently representing
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -487,8 +487,8 @@ Search and list any users by text query
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val search : kotlin.String = search_example // kotlin.String | Searches by `displayName`. Will return empty array if search query is empty or missing.
@@ -543,8 +543,8 @@ Update a users information such as the email and birthday.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -595,8 +595,8 @@ Updates the currently authenticated user&#39;s note on a user
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = UsersApi()
 val updateUserNoteRequest : UpdateUserNoteRequest =  // UpdateUserNoteRequest | 

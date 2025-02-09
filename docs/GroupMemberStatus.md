@@ -4,17 +4,17 @@
 ## Enum
 
 
-    * `inactive` (value: `"inactive"`)
+    * `Inactive` (value: `"inactive"`)
 
-    * `member` (value: `"member"`)
+    * `Member` (value: `"member"`)
 
-    * `requested` (value: `"requested"`)
+    * `Requested` (value: `"requested"`)
 
-    * `invited` (value: `"invited"`)
+    * `Invited` (value: `"invited"`)
 
-    * `banned` (value: `"banned"`)
+    * `Banned` (value: `"banned"`)
 
-    * `userblocked` (value: `"userblocked"`)
+    * `Userblocked` (value: `"userblocked"`)
 
 
 

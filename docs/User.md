@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **currentAvatarImageUrl** | **kotlin.String** | When profilePicOverride is not empty, use it instead. | 
 **currentAvatarThumbnailImageUrl** | **kotlin.String** | When profilePicOverride is not empty, use it instead. | 
 **currentAvatarTags** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
-**dateJoined** | [**java.time.LocalDate**](java.time.LocalDate.md) |  | 
+**dateJoined** | **kotlin.String** |  | 
 **developerType** | [**DeveloperType**](DeveloperType.md) |  | 
 **displayName** | **kotlin.String** | A users visual display name. This is what shows up in-game, and can different from their &#x60;username&#x60;. Changing display name is restricted to a cooldown period. | 
 **friendKey** | **kotlin.String** |  | 
@@ -27,9 +27,9 @@ Name | Type | Description | Notes
 **state** | [**UserState**](UserState.md) |  | 
 **status** | [**UserStatus**](UserStatus.md) |  | 
 **statusDescription** | **kotlin.String** |  | 
-**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
+**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |   | 
 **userIcon** | **kotlin.String** |  | 
-**badges** | [**kotlin.collections.List&lt;Badge&gt;**](Badge.md) |  |  [optional]
+**badges** | [**kotlin.collections.List&lt;Badge&gt;**](Badge.md) |   |  [optional]
 **friendRequestStatus** | **kotlin.String** |  |  [optional]
 **instanceId** | **kotlin.String** | InstanceID can be \&quot;offline\&quot; on User profiles if you are not friends with that user and \&quot;private\&quot; if you are friends and user is in private instance. |  [optional]
 **lastMobile** | **kotlin.String** |  |  [optional]

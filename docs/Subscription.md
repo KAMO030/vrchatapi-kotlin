@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **kotlin.String** |  | 
 **steamItemId** | **kotlin.String** |  | 
-**amount** | [**java.math.BigDecimal**](java.math.BigDecimal.md) |  | 
+**amount** | **kotlin.Double** |  | 
 **description** | **kotlin.String** |  | 
 **period** | [**SubscriptionPeriod**](SubscriptionPeriod.md) |  | 
 **tier** | **kotlin.Int** |  | 

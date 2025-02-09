@@ -4,13 +4,13 @@
 ## Enum
 
 
-    * `avatar` (value: `"avatar"`)
+    * `Avatar` (value: `"avatar"`)
 
-    * `licenseGroup` (value: `"licenseGroup"`)
+    * `LicenseGroup` (value: `"licenseGroup"`)
 
-    * `permission` (value: `"permission"`)
+    * `Permission` (value: `"permission"`)
 
-    * `product` (value: `"product"`)
+    * `Product` (value: `"product"`)
 
 
 

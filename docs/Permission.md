@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **displayName** | **kotlin.String** |  |  [optional]
 **description** | **kotlin.String** |  |  [optional]
 **type** | **kotlin.String** |  |  [optional]
-**data** | [**kotlin.Any**](.md) |  |  [optional]
+**&#x60;data&#x60;** | **kotlin.String** |  |  [optional]
 
 
 

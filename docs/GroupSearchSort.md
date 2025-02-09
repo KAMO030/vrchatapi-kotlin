@@ -4,9 +4,9 @@
 ## Enum
 
 
-    * `asc` (value: `"joinedAt:asc"`)
+    * `Asc` (value: `"joinedAt:asc"`)
 
-    * `desc` (value: `"joinedAt:desc"`)
+    * `Desc` (value: `"joinedAt:desc"`)
 
 
 

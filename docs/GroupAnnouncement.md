@@ -11,8 +11,8 @@ Name | Type | Description | Notes
 **text** | **kotlin.String** |  |  [optional]
 **imageId** | **kotlin.String** |  |  [optional]
 **imageUrl** | **kotlin.String** |  |  [optional]
-**createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
-**updatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
+**createdAt** | **kotlin.String** |  |  [optional]
+**updatedAt** | **kotlin.String** |  |  [optional]
 
 
 

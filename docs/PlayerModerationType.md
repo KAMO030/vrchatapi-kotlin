@@ -4,17 +4,17 @@
 ## Enum
 
 
-    * `mute` (value: `"mute"`)
+    * `Mute` (value: `"mute"`)
 
-    * `unmute` (value: `"unmute"`)
+    * `Unmute` (value: `"unmute"`)
 
-    * `block` (value: `"block"`)
+    * `Block` (value: `"block"`)
 
-    * `unblock` (value: `"unblock"`)
+    * `Unblock` (value: `"unblock"`)
 
-    * `interactOn` (value: `"interactOn"`)
+    * `InteractOn` (value: `"interactOn"`)
 
-    * `interactOff` (value: `"interactOff"`)
+    * `InteractOff` (value: `"interactOff"`)
 
 
 

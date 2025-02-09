@@ -23,8 +23,8 @@ Accept a friend request by notification &#x60;frq_&#x60; ID. Friend requests can
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = NotificationsApi()
 val notificationId : kotlin.String = notificationId_example // kotlin.String | Must be a valid notification ID.
@@ -73,8 +73,8 @@ Clear **all** notifications.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = NotificationsApi()
 try {
@@ -119,8 +119,8 @@ Delete a notification.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = NotificationsApi()
 val notificationId : kotlin.String = notificationId_example // kotlin.String | Must be a valid notification ID.
@@ -169,8 +169,8 @@ Get a notification by notification &#x60;not_&#x60; ID.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = NotificationsApi()
 val notificationId : kotlin.String = notificationId_example // kotlin.String | Must be a valid notification ID.
@@ -219,8 +219,8 @@ Retrieve all of the current user&#39;s notifications.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = NotificationsApi()
 val type : kotlin.String = all // kotlin.String | Only send notifications of this type (can use `all` for all). This parameter no longer does anything, and is deprecated.
@@ -279,8 +279,8 @@ Mark a notification as seen.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = NotificationsApi()
 val notificationId : kotlin.String = notificationId_example // kotlin.String | Must be a valid notification ID.

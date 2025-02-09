@@ -37,13 +37,13 @@ Name | Type | Description | Notes
 **shortName** | **kotlin.String** |  |  [optional]
 **hidden** | **kotlin.String** | A users unique ID, usually in the form of &#x60;usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469&#x60;. Legacy players can have old IDs in the form of &#x60;8JoV9XEdpo&#x60;. The ID can never be changed. |  [optional]
 **friends** | **kotlin.String** | A users unique ID, usually in the form of &#x60;usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469&#x60;. Legacy players can have old IDs in the form of &#x60;8JoV9XEdpo&#x60;. The ID can never be changed. |  [optional]
-**private** | **kotlin.String** | A users unique ID, usually in the form of &#x60;usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469&#x60;. Legacy players can have old IDs in the form of &#x60;8JoV9XEdpo&#x60;. The ID can never be changed. |  [optional]
+**&#x60;private&#x60;** | **kotlin.String** | A users unique ID, usually in the form of &#x60;usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469&#x60;. Legacy players can have old IDs in the form of &#x60;8JoV9XEdpo&#x60;. The ID can never be changed. |  [optional]
 **roleRestricted** | **kotlin.Boolean** |  |  [optional]
 **users** | [**kotlin.collections.List&lt;LimitedUser&gt;**](LimitedUser.md) | The users field is present on instances created by the requesting user. |  [optional]
 **groupAccessType** | [**GroupAccessType**](GroupAccessType.md) |  |  [optional]
 **hasCapacityForYou** | **kotlin.Boolean** |  |  [optional]
 **nonce** | **kotlin.String** |  |  [optional]
-**closedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
+**closedAt** | **kotlin.String** |  |  [optional]
 **hardClose** | **kotlin.Boolean** |  |  [optional]
 
 

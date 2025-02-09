@@ -22,8 +22,8 @@ Deletes an outgoing pending friend request to another user. To delete an incomin
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FriendsApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -72,8 +72,8 @@ Send a friend request to another user.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FriendsApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -122,8 +122,8 @@ Retrieve if the user is currently a friend with a given user, if they have an ou
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FriendsApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.
@@ -172,8 +172,8 @@ List information about friends.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FriendsApi()
 val offset : kotlin.Int = 56 // kotlin.Int | A zero-based offset from the default object sorting from where search results start.
@@ -226,8 +226,8 @@ Unfriend a user by ID.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FriendsApi()
 val userId : kotlin.String = userId_example // kotlin.String | Must be a valid user ID.

@@ -4,11 +4,11 @@
 ## Enum
 
 
-    * `listing` (value: `"listing"`)
+    * `Listing` (value: `"listing"`)
 
-    * `role` (value: `"role"`)
+    * `Role` (value: `"role"`)
 
-    * `udon` (value: `"udon"`)
+    * `Udon` (value: `"udon"`)
 
 
 

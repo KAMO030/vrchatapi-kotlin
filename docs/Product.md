@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **archived** | **kotlin.Boolean** |  | 
-**created** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**created** | **kotlin.String** |  | 
 **description** | **kotlin.String** |  | 
 **displayName** | **kotlin.String** |  | 
 **id** | **kotlin.String** |  | 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **sellerDisplayName** | **kotlin.String** |  | 
 **sellerId** | **kotlin.String** |  | 
 **tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
-**updated** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**updated** | **kotlin.String** |  | 
 **groupAccess** | **kotlin.Boolean** |  |  [optional]
 **groupAccessRemove** | **kotlin.Boolean** |  |  [optional]
 **groupId** | **kotlin.String** |  |  [optional]

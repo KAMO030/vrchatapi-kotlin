@@ -4,19 +4,19 @@
 ## Enum
 
 
-    * `friendRequest` (value: `"friendRequest"`)
+    * `FriendRequest` (value: `"friendRequest"`)
 
-    * `invite` (value: `"invite"`)
+    * `Invite` (value: `"invite"`)
 
-    * `inviteResponse` (value: `"inviteResponse"`)
+    * `InviteResponse` (value: `"inviteResponse"`)
 
-    * `message` (value: `"message"`)
+    * `Message` (value: `"message"`)
 
-    * `requestInvite` (value: `"requestInvite"`)
+    * `RequestInvite` (value: `"requestInvite"`)
 
-    * `requestInviteResponse` (value: `"requestInviteResponse"`)
+    * `RequestInviteResponse` (value: `"requestInviteResponse"`)
 
-    * `votetokick` (value: `"votetokick"`)
+    * `Votetokick` (value: `"votetokick"`)
 
 
 

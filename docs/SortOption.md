@@ -4,41 +4,41 @@
 ## Enum
 
 
-    * `popularity` (value: `"popularity"`)
+    * `Popularity` (value: `"popularity"`)
 
-    * `heat` (value: `"heat"`)
+    * `Heat` (value: `"heat"`)
 
-    * `trust` (value: `"trust"`)
+    * `Trust` (value: `"trust"`)
 
-    * `shuffle` (value: `"shuffle"`)
+    * `Shuffle` (value: `"shuffle"`)
 
-    * `random` (value: `"random"`)
+    * `Random` (value: `"random"`)
 
-    * `favorites` (value: `"favorites"`)
+    * `Favorites` (value: `"favorites"`)
 
-    * `reportScore` (value: `"reportScore"`)
+    * `ReportScore` (value: `"reportScore"`)
 
-    * `reportCount` (value: `"reportCount"`)
+    * `ReportCount` (value: `"reportCount"`)
 
-    * `publicationDate` (value: `"publicationDate"`)
+    * `PublicationDate` (value: `"publicationDate"`)
 
-    * `labsPublicationDate` (value: `"labsPublicationDate"`)
+    * `LabsPublicationDate` (value: `"labsPublicationDate"`)
 
-    * `created` (value: `"created"`)
+    * `Created` (value: `"created"`)
 
-    * `createdAt` (value: `"_created_at"`)
+    * `CreatedAt` (value: `"_created_at"`)
 
-    * `updated` (value: `"updated"`)
+    * `Updated` (value: `"updated"`)
 
-    * `updatedAt` (value: `"_updated_at"`)
+    * `UpdatedAt` (value: `"_updated_at"`)
 
-    * `order` (value: `"order"`)
+    * `Order` (value: `"order"`)
 
-    * `relevance` (value: `"relevance"`)
+    * `Relevance` (value: `"relevance"`)
 
-    * `magic` (value: `"magic"`)
+    * `Magic` (value: `"magic"`)
 
-    * `name` (value: `"name"`)
+    * `Name` (value: `"name"`)
 
 
 

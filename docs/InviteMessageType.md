@@ -4,13 +4,13 @@
 ## Enum
 
 
-    * `message` (value: `"message"`)
+    * `Message` (value: `"message"`)
 
-    * `response` (value: `"response"`)
+    * `Response` (value: `"response"`)
 
-    * `request` (value: `"request"`)
+    * `Request` (value: `"request"`)
 
-    * `requestResponse` (value: `"requestResponse"`)
+    * `RequestResponse` (value: `"requestResponse"`)
 
 
 

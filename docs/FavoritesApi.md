@@ -26,8 +26,8 @@ Add a new favorite.  Friend groups are named &#x60;group_0&#x60; through &#x60;g
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FavoritesApi()
 val addFavoriteRequest : AddFavoriteRequest = {"type":"friend","favoriteId":"usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469","tags":["group_0"]} // AddFavoriteRequest | 
@@ -76,8 +76,8 @@ Clear ALL contents of a specific favorite group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FavoritesApi()
 val favoriteGroupType : kotlin.String = favoriteGroupType_example // kotlin.String | The type of group to fetch, must be a valid FavoriteType.
@@ -130,8 +130,8 @@ Return information about a specific Favorite.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FavoritesApi()
 val favoriteId : kotlin.String = favoriteId_example // kotlin.String | Must be a valid favorite ID.
@@ -180,8 +180,8 @@ Fetch information about a specific favorite group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FavoritesApi()
 val favoriteGroupType : kotlin.String = favoriteGroupType_example // kotlin.String | The type of group to fetch, must be a valid FavoriteType.
@@ -234,8 +234,8 @@ Return a list of favorite groups owned by a user. Returns the same information a
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FavoritesApi()
 val n : kotlin.Int = 56 // kotlin.Int | The number of objects to return.
@@ -288,8 +288,8 @@ Return information about a specific Favorite.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FavoritesApi()
 try {
@@ -334,8 +334,8 @@ Returns a list of favorites.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FavoritesApi()
 val n : kotlin.Int = 56 // kotlin.Int | The number of objects to return.
@@ -390,8 +390,8 @@ Remove a favorite from your favorites list.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FavoritesApi()
 val favoriteId : kotlin.String = favoriteId_example // kotlin.String | Must be a valid favorite ID.
@@ -440,8 +440,8 @@ Update information about a specific favorite group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FavoritesApi()
 val favoriteGroupType : kotlin.String = favoriteGroupType_example // kotlin.String | The type of group to fetch, must be a valid FavoriteType.

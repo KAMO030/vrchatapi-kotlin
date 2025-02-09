@@ -59,8 +59,8 @@ Adds an image to a Group gallery.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -113,8 +113,8 @@ Adds a Role to a Group Member
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -167,8 +167,8 @@ Create a post in a Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -219,8 +219,8 @@ Bans a user from a Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -271,8 +271,8 @@ Cancels a request sent to join the group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -320,8 +320,8 @@ Creates a Group and returns a Group object. **Requires VRC+ Subscription.**
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val createGroupRequest : CreateGroupRequest =  // CreateGroupRequest | 
@@ -370,8 +370,8 @@ Creates an Announcement for a Group. Warning: This will also remove all announce
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -422,8 +422,8 @@ Creates a gallery for a Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -474,8 +474,8 @@ Sends an invite to a user to join the group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -525,8 +525,8 @@ Create a Group role.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -577,8 +577,8 @@ Deletes a Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -627,8 +627,8 @@ Deletes the announcement for a Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -677,8 +677,8 @@ Deletes a gallery for a Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -729,8 +729,8 @@ Deletes an image from a Group gallery.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -783,8 +783,8 @@ Deletes an Group invite sent to a User
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -834,8 +834,8 @@ Delete a Group post
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -886,8 +886,8 @@ Deletes a Group Role by ID and returns the remaining roles.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -938,8 +938,8 @@ Returns a single Group by ID.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -990,8 +990,8 @@ Returns the announcement for a Group. If no announcement has been made, then it 
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1040,15 +1040,15 @@ Returns a list of audit logs for a Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
 val n : kotlin.Int = 56 // kotlin.Int | The number of objects to return.
 val offset : kotlin.Int = 56 // kotlin.Int | A zero-based offset from the default object sorting from where search results start.
-val startDate : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | The start date of the search range.
-val endDate : java.time.OffsetDateTime = 2013-10-20T19:20:30+01:00 // java.time.OffsetDateTime | The end date of the search range.
+val startDate : kotlin.String = 2013-10-20T19:20:30+01:00 // kotlin.String | The start date of the search range.
+val endDate : kotlin.String = 2013-10-20T19:20:30+01:00 // kotlin.String | The end date of the search range.
 val actorIds : kotlin.String = usr_00000000-0000-0000-0000-000000000000,usr_11111111-1111-1111-1111-111111111111 // kotlin.String | The comma-separated actor ids to search for.
 val eventTypes : kotlin.String = group.member.remove,group.instance.kick // kotlin.String | The comma-separated event types to search for.
 val targetIds : kotlin.String = usr_00000000-0000-0000-0000-000000000000,usr_11111111-1111-1111-1111-111111111111 // kotlin.String | The comma-separated target ids to search for.
@@ -1071,8 +1071,8 @@ Name | Type | Description  | Notes
  **groupId** | **kotlin.String**| Must be a valid group ID. |
  **n** | **kotlin.Int**| The number of objects to return. | [optional] [default to 60]
  **offset** | **kotlin.Int**| A zero-based offset from the default object sorting from where search results start. | [optional]
- **startDate** | **java.time.OffsetDateTime**| The start date of the search range. | [optional]
- **endDate** | **java.time.OffsetDateTime**| The end date of the search range. | [optional]
+ **startDate** | **kotlin.String**| The start date of the search range. | [optional]
+ **endDate** | **kotlin.String**| The end date of the search range. | [optional]
  **actorIds** | **kotlin.String**| The comma-separated actor ids to search for. | [optional]
  **eventTypes** | **kotlin.String**| The comma-separated event types to search for. | [optional]
  **targetIds** | **kotlin.String**| The comma-separated target ids to search for. | [optional]
@@ -1104,8 +1104,8 @@ Returns a list of banned users for a Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1158,8 +1158,8 @@ Returns a list of images for a Group gallery.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1216,8 +1216,8 @@ Returns a list of group instances
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1266,8 +1266,8 @@ Returns a list of members that have been invited to the Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1320,8 +1320,8 @@ Returns a LimitedGroup Member.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1372,8 +1372,8 @@ Returns a List of all **other** Group Members. This endpoint will never return t
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1430,8 +1430,8 @@ Returns a List of all possible/available permissions for a Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1480,8 +1480,8 @@ Get posts from a Group
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1536,8 +1536,8 @@ Returns a list of members that have requested to join the Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1592,8 +1592,8 @@ Returns a Group Role by ID.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1642,8 +1642,8 @@ Join a Group by ID and returns the member object.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1692,8 +1692,8 @@ Kicks a Group Member from the Group. The current user must have the \&quot;Remov
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1743,8 +1743,8 @@ Leave a group by ID.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1792,8 +1792,8 @@ Removes a Role from a Group Member
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1846,8 +1846,8 @@ Responds to a Group Join Request with Accept/Deny
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -1899,8 +1899,8 @@ Searches Groups by name or shortCode
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val query : kotlin.String = query_example // kotlin.String | Query to search for, can be either Group Name or Group shortCode
@@ -1950,8 +1950,8 @@ Unbans a user from a Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -2002,8 +2002,8 @@ Updates a Group and returns it.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -2054,8 +2054,8 @@ Updates a gallery for a Group.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -2108,8 +2108,8 @@ Updates a Group Member
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -2162,8 +2162,8 @@ Edits a Group post
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.
@@ -2216,8 +2216,8 @@ Updates a group role by ID.
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = GroupsApi()
 val groupId : kotlin.String = grp_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid group ID.

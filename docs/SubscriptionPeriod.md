@@ -4,15 +4,15 @@
 ## Enum
 
 
-    * `hour` (value: `"hour"`)
+    * `Hour` (value: `"hour"`)
 
-    * `day` (value: `"day"`)
+    * `Day` (value: `"day"`)
 
-    * `week` (value: `"week"`)
+    * `Week` (value: `"week"`)
 
-    * `month` (value: `"month"`)
+    * `Month` (value: `"month"`)
 
-    * `year` (value: `"year"`)
+    * `Year` (value: `"year"`)
 
 
 

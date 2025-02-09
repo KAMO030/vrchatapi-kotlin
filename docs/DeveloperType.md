@@ -4,13 +4,13 @@
 ## Enum
 
 
-    * `none` (value: `"none"`)
+    * `None` (value: `"none"`)
 
-    * `trusted` (value: `"trusted"`)
+    * `Trusted` (value: `"trusted"`)
 
-    * `internal` (value: `"internal"`)
+    * `Internal` (value: `"internal"`)
 
-    * `moderator` (value: `"moderator"`)
+    * `Moderator` (value: `"moderator"`)
 
 
 

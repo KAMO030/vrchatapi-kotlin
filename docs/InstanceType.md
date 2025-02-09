@@ -4,15 +4,15 @@
 ## Enum
 
 
-    * `public` (value: `"public"`)
+    * `Public` (value: `"public"`)
 
-    * `hidden` (value: `"hidden"`)
+    * `Hidden` (value: `"hidden"`)
 
-    * `friends` (value: `"friends"`)
+    * `Friends` (value: `"friends"`)
 
-    * `private` (value: `"private"`)
+    * `Private` (value: `"private"`)
 
-    * `group` (value: `"group"`)
+    * `Group` (value: `"group"`)
 
 
 

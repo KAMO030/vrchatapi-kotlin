@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **badgeImageUrl** | **kotlin.String** | direct url to image | 
 **badgeName** | **kotlin.String** |  | 
 **showcased** | **kotlin.Boolean** |  | 
-**assignedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | only present in CurrentUser badges |  [optional]
+**assignedAt** | **kotlin.String** | only present in CurrentUser badges |  [optional]
 **hidden** | **kotlin.Boolean** | only present in CurrentUser badges |  [optional]
-**updatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) | only present in CurrentUser badges |  [optional]
+**updatedAt** | **kotlin.String** | only present in CurrentUser badges |  [optional]
 
 
 

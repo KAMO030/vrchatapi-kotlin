@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**createdAt** | **kotlin.String** |  | 
 **status** | [**FileStatus**](FileStatus.md) |  | 
 **version** | **kotlin.Int** | Incremental version counter, can only be increased. | 
 **deleted** | **kotlin.Boolean** | Usually only present if &#x60;true&#x60; |  [optional]

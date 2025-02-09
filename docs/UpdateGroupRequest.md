@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **languages** | **kotlin.collections.List&lt;kotlin.String&gt;** | 3 letter language code |  [optional]
 **links** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional]
 **rules** | **kotlin.String** |  |  [optional]
-**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional]
+**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |   |  [optional]
 
 
 

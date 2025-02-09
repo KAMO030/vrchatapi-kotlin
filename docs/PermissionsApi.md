@@ -19,8 +19,8 @@ Returns a list of all permissions currently granted by the user. Permissions are
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = PermissionsApi()
 try {
@@ -65,8 +65,8 @@ Returns a single permission. This endpoint is pretty useless, as it returns the 
 ### Example
 ```kotlin
 // Import classes:
-//import io.github.vrchatapi.infrastructure.*
-//import io.github.vrchatapi.models.*
+//import io.github.kamo030.vrchatapi.infrastructure.*
+//import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = PermissionsApi()
 val permissionId : kotlin.String = permissionId_example // kotlin.String | Must be a valid permission ID.

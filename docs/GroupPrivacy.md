@@ -4,9 +4,9 @@
 ## Enum
 
 
-    * `default` (value: `"default"`)
+    * `Default` (value: `"default"`)
 
-    * `private` (value: `"private"`)
+    * `Private` (value: `"private"`)
 
 
 

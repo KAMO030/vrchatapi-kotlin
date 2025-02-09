@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **contentId** | **kotlin.String** | Either world ID or avatar ID | 
-**createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**createdAt** | **kotlin.String** |  | 
 **description** | **kotlin.String** |  | 
 **id** | **kotlin.String** |  | 
 **jamId** | **kotlin.String** |  | 

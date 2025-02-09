@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **authorName** | **kotlin.String** |  | 
 **capacity** | **kotlin.Int** |  | 
 **description** | **kotlin.String** |  | 
-**createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**createdAt** | **kotlin.String** |  | 
 **favorites** | **kotlin.Int** |  | 
 **favoriteGroup** | **kotlin.String** |  | 
 **favoriteId** | **kotlin.String** |  | 
@@ -23,10 +23,10 @@ Name | Type | Description | Notes
 **popularity** | **kotlin.Int** |  | 
 **publicationDate** | **kotlin.String** |  | 
 **releaseStatus** | [**ReleaseStatus**](ReleaseStatus.md) |  | 
-**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
+**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |   | 
 **thumbnailImageUrl** | **kotlin.String** |  | 
-**unityPackages** | [**kotlin.collections.List&lt;UnityPackage&gt;**](UnityPackage.md) |  | 
-**updatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**unityPackages** | [**kotlin.collections.List&lt;UnityPackage&gt;**](UnityPackage.md) |   | 
+**updatedAt** | **kotlin.String** |  | 
 **urlList** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
 **version** | **kotlin.Int** |  | 
 **recommendedCapacity** | **kotlin.Int** |  |  [optional]

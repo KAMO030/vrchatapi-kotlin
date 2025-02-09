@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **authorId** | **kotlin.String** | A users unique ID, usually in the form of &#x60;usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469&#x60;. Legacy players can have old IDs in the form of &#x60;8JoV9XEdpo&#x60;. The ID can never be changed. | 
 **authorName** | **kotlin.String** |  | 
 **capacity** | **kotlin.Int** |  | 
-**createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**createdAt** | **kotlin.String** |  | 
 **favorites** | **kotlin.Int** |  | 
 **heat** | **kotlin.Int** |  | 
 **id** | **kotlin.String** | WorldID be \&quot;offline\&quot; on User profiles if you are not friends with that user. | 
@@ -19,10 +19,10 @@ Name | Type | Description | Notes
 **popularity** | **kotlin.Int** |  | 
 **publicationDate** | **kotlin.String** |  | 
 **releaseStatus** | [**ReleaseStatus**](ReleaseStatus.md) |  | 
-**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
+**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |   | 
 **thumbnailImageUrl** | **kotlin.String** |  | 
-**unityPackages** | [**kotlin.collections.List&lt;LimitedUnityPackage&gt;**](LimitedUnityPackage.md) |  | 
-**updatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**unityPackages** | [**kotlin.collections.List&lt;LimitedUnityPackage&gt;**](LimitedUnityPackage.md) |   | 
+**updatedAt** | **kotlin.String** |  | 
 **recommendedCapacity** | **kotlin.Int** |  |  [optional]
 **visits** | **kotlin.Int** |  |  [optional]
 **previewYoutubeId** | **kotlin.String** |  |  [optional]

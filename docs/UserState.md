@@ -4,11 +4,11 @@
 ## Enum
 
 
-    * `offline` (value: `"offline"`)
+    * `Offline` (value: `"offline"`)
 
-    * `active` (value: `"active"`)
+    * `Active` (value: `"active"`)
 
-    * `online` (value: `"online"`)
+    * `Online` (value: `"online"`)
 
 
 

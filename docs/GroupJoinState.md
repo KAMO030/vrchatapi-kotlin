@@ -4,13 +4,13 @@
 ## Enum
 
 
-    * `closed` (value: `"closed"`)
+    * `Closed` (value: `"closed"`)
 
-    * `invite` (value: `"invite"`)
+    * `Invite` (value: `"invite"`)
 
-    * `request` (value: `"request"`)
+    * `Request` (value: `"request"`)
 
-    * `open` (value: `"open"`)
+    * `Open` (value: `"open"`)
 
 
 

@@ -16,11 +16,11 @@ Name | Type | Description | Notes
 **iconId** | **kotlin.String** |  |  [optional]
 **bannerId** | **kotlin.String** |  |  [optional]
 **memberCount** | **kotlin.Int** |  |  [optional]
-**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional]
-**createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
+**tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |   |  [optional]
+**createdAt** | **kotlin.String** |  |  [optional]
 **membershipStatus** | [**GroupMemberStatus**](GroupMemberStatus.md) |  |  [optional]
 **isSearchable** | **kotlin.Boolean** |  |  [optional]
-**galleries** | [**kotlin.collections.List&lt;GroupGallery&gt;**](GroupGallery.md) |  |  [optional]
+**galleries** | [**kotlin.collections.List&lt;GroupGallery&gt;**](GroupGallery.md) |   |  [optional]
 
 
 

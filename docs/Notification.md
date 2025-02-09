@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**createdAt** | **kotlin.String** |  | 
 **details** | **kotlin.String** | **NOTICE:** This is not a JSON object when received from the REST API, but it is when received from the Websocket API. When received from the REST API, this is a json **encoded** object, meaning you have to json-de-encode to get the NotificationDetail object depending on the NotificationType. | 
 **id** | **kotlin.String** |  | 
 **message** | **kotlin.String** |  | 

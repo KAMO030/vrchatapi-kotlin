@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **fileSize** | **kotlin.Int** |  | 
 **success** | **kotlin.Boolean** |  | 
 **uncompressedSize** | **kotlin.Int** |  | 
-**createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
+**createdAt** | **kotlin.String** |  |  [optional]
 
 
 

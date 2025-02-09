@@ -10,10 +10,10 @@ Name | Type | Description | Notes
 **moreInfo** | **kotlin.String** |  | 
 **state** | **kotlin.String** | One of: - submissions_open - closed | 
 **stateChangeDates** | [**JamStateChangeDates**](JamStateChangeDates.md) |  | 
-**submissionContentGateDate** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**submissionContentGateDate** | **kotlin.String** |  | 
 **submissionContentGated** | **kotlin.Boolean** |  | 
 **title** | **kotlin.String** |  | 
-**updatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**updatedAt** | **kotlin.String** |  | 
 
 
 

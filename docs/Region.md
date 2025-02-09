@@ -4,19 +4,19 @@
 ## Enum
 
 
-    * `us` (value: `"us"`)
+    * `Us` (value: `"us"`)
 
-    * `use` (value: `"use"`)
+    * `Use` (value: `"use"`)
 
-    * `usw` (value: `"usw"`)
+    * `Usw` (value: `"usw"`)
 
-    * `usx` (value: `"usx"`)
+    * `Usx` (value: `"usx"`)
 
-    * `eu` (value: `"eu"`)
+    * `Eu` (value: `"eu"`)
 
-    * `jp` (value: `"jp"`)
+    * `Jp` (value: `"jp"`)
 
-    * `unknown` (value: `"unknown"`)
+    * `Unknown` (value: `"unknown"`)
 
 
 

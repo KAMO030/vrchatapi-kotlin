@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **requiresTwoFactor** | **kotlin.Boolean** |  |  [optional]
 **requiresPurchase** | **kotlin.Boolean** |  |  [optional]
 **order** | **kotlin.Int** |  |  [optional]
-**createdAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
-**updatedAt** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  |  [optional]
+**createdAt** | **kotlin.String** |  |  [optional]
+**updatedAt** | **kotlin.String** |  |  [optional]
 
 
 

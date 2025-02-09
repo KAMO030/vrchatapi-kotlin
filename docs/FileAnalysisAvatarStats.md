@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **audioSourceCount** | **kotlin.Int** |  | 
 **blendShapeCount** | **kotlin.Int** |  | 
 **boneCount** | **kotlin.Int** |  | 
-**bounds** | [**kotlin.collections.List&lt;java.math.BigDecimal&gt;**](java.math.BigDecimal.md) |  | 
+**bounds** | **kotlin.collections.List&lt;kotlin.Double&gt;** |  | 
 **clothCount** | **kotlin.Int** |  | 
 **constraintCount** | **kotlin.Int** |  | 
 **contactCount** | **kotlin.Int** |  | 

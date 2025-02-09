@@ -4,9 +4,9 @@
 ## Enum
 
 
-    * `wear` (value: `"wear"`)
+    * `Wear` (value: `"wear"`)
 
-    * `have` (value: `"have"`)
+    * `Have` (value: `"have"`)
 
 
 

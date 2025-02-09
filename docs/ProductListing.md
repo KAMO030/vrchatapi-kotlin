@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **active** | **kotlin.Boolean** |  | 
 **archived** | **kotlin.Boolean** |  | 
 **buyerRefundable** | **kotlin.Boolean** |  | 
-**created** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**created** | **kotlin.String** |  | 
 **description** | **kotlin.String** |  | 
 **displayName** | **kotlin.String** |  | 
 **groupIcon** | **kotlin.String** |  | 
@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **priceTokens** | **kotlin.Int** |  | 
 **productIds** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
 **productType** | [**ProductType**](ProductType.md) |  | 
-**products** | [**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md) |  | 
+**products** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
 **recurrable** | **kotlin.Boolean** |  | 
 **refundable** | **kotlin.Boolean** |  | 
 **sellerDisplayName** | **kotlin.String** |  | 
@@ -30,7 +30,7 @@ Name | Type | Description | Notes
 **stackable** | **kotlin.Boolean** |  | 
 **storeIds** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
 **tags** | **kotlin.collections.List&lt;kotlin.String&gt;** |  | 
-**updated** | [**java.time.OffsetDateTime**](java.time.OffsetDateTime.md) |  | 
+**updated** | **kotlin.String** |  | 
 **duration** | **kotlin.Int** |  |  [optional]
 **durationType** | **kotlin.String** |  |  [optional]
 **hydratedProducts** | [**kotlin.collections.List&lt;Product&gt;**](Product.md) |  |  [optional]

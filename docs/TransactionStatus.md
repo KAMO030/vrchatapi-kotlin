@@ -4,13 +4,13 @@
 ## Enum
 
 
-    * `active` (value: `"active"`)
+    * `Active` (value: `"active"`)
 
-    * `failed` (value: `"failed"`)
+    * `Failed` (value: `"failed"`)
 
-    * `expired` (value: `"expired"`)
+    * `Expired` (value: `"expired"`)
 
-    * `chargeback` (value: `"chargeback"`)
+    * `Chargeback` (value: `"chargeback"`)
 
 
 

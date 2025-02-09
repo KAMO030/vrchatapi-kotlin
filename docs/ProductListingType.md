@@ -4,7 +4,7 @@
 ## Enum
 
 
-    * `subscription` (value: `"subscription"`)
+    * `Subscription` (value: `"subscription"`)
 
 
 

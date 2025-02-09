@@ -4,13 +4,13 @@
 ## Enum
 
 
-    * `waiting` (value: `"waiting"`)
+    * `Waiting` (value: `"waiting"`)
 
-    * `complete` (value: `"complete"`)
+    * `Complete` (value: `"complete"`)
 
-    * `none` (value: `"none"`)
+    * `None` (value: `"none"`)
 
-    * `queued` (value: `"queued"`)
+    * `Queued` (value: `"queued"`)
 
 
 

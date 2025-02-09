@@ -4,9 +4,9 @@
 ## Enum
 
 
-    * `accept` (value: `"accept"`)
+    * `Accept` (value: `"accept"`)
 
-    * `reject` (value: `"reject"`)
+    * `Reject` (value: `"reject"`)
 
 
 
