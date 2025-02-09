@@ -170,7 +170,7 @@ open class FriendsApi(
         ).wrap<GetFriendsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetFriendsResponse.Companion::class)
     private class GetFriendsResponse(val value: List<LimitedUser>) {
         @Serializer(GetFriendsResponse::class)
         companion object : KSerializer<GetFriendsResponse> {

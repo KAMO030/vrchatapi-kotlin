@@ -105,7 +105,7 @@ open class EconomyApi(
         ).wrap<GetCurrentSubscriptionsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetCurrentSubscriptionsResponse.Companion::class)
     private class GetCurrentSubscriptionsResponse(val value: List<UserSubscription>) {
         @Serializer(GetCurrentSubscriptionsResponse::class)
         companion object : KSerializer<GetCurrentSubscriptionsResponse> {
@@ -223,7 +223,7 @@ open class EconomyApi(
         ).wrap<GetProductListingsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetProductListingsResponse.Companion::class)
     private class GetProductListingsResponse(val value: List<ProductListing>) {
         @Serializer(GetProductListingsResponse::class)
         companion object : KSerializer<GetProductListingsResponse> {
@@ -296,7 +296,7 @@ open class EconomyApi(
         ).wrap<GetSteamTransactionsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetSteamTransactionsResponse.Companion::class)
     private class GetSteamTransactionsResponse(val value: List<Transaction>) {
         @Serializer(GetSteamTransactionsResponse::class)
         companion object : KSerializer<GetSteamTransactionsResponse> {
@@ -337,7 +337,7 @@ open class EconomyApi(
         ).wrap<GetSubscriptionsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetSubscriptionsResponse.Companion::class)
     private class GetSubscriptionsResponse(val value: List<Subscription>) {
         @Serializer(GetSubscriptionsResponse::class)
         companion object : KSerializer<GetSubscriptionsResponse> {
@@ -441,7 +441,7 @@ open class EconomyApi(
         ).wrap<GetTokenBundlesResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetTokenBundlesResponse.Companion::class)
     private class GetTokenBundlesResponse(val value: List<TokenBundle>) {
         @Serializer(GetTokenBundlesResponse::class)
         companion object : KSerializer<GetTokenBundlesResponse> {

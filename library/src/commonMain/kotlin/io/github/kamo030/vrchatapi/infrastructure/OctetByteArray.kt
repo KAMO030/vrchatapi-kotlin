@@ -6,6 +6,7 @@ import kotlinx.serialization.encoding.*
 
 @Serializable
 class OctetByteArray(val value: ByteArray) {
+    @OptIn(ExperimentalSerializationApi::class)
     @Serializer(OctetByteArray::class)
     companion object : KSerializer<OctetByteArray> {
         override val descriptor = PrimitiveSerialDescriptor("OctetByteArray", PrimitiveKind.STRING)

@@ -440,9 +440,8 @@ open class FilesApi(
         ).wrap<GetFilesResponse>().map { value }
     }
 
-    @Serializable
-    private class GetFilesResponse(val value: List<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray>) {
-        @Serializer(GetFilesResponse::class)
+    @Serializable(GetFilesResponse.Companion::class)
+    data class GetFilesResponse(val value: List<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray>) {
         companion object : KSerializer<GetFilesResponse> {
             private val serializer: KSerializer<List<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray>> = serializer<List<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray>>()
             override val descriptor = serializer.descriptor

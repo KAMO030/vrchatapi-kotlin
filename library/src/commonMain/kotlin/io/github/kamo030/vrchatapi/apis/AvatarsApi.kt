@@ -124,7 +124,7 @@ open class AvatarsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/avatars/{avatarId}".replace("{" + "avatarId" + "}", "$avatarId"),
+            "/avatars/{avatarId}".replace("{" + "avatarId" + "}", avatarId),
             query = localVariableQuery,
             headers = localVariableHeaders
         )
@@ -156,7 +156,7 @@ open class AvatarsApi(
      * @return kotlin.collections.List<Avatar>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getFavoritedAvatars(featured: kotlin.Boolean? = null, sort: SortOption? = popularity, n: kotlin.Int? = 60, order: OrderOption? = descending, offset: kotlin.Int? = null, search: kotlin.String? = null, tag: kotlin.String? = null, notag: kotlin.String? = null, releaseStatus: ReleaseStatus? = public, maxUnityVersion: kotlin.String? = null, minUnityVersion: kotlin.String? = null, platform: kotlin.String? = null, userId: kotlin.String? = null): HttpResponse<kotlin.collections.List<Avatar>> {
+    open suspend fun getFavoritedAvatars(featured: kotlin.Boolean? = null, sort: SortOption? = SortOption.Popularity, n: kotlin.Int? = 60, order: OrderOption? = OrderOption.Descending, offset: kotlin.Int? = null, search: kotlin.String? = null, tag: kotlin.String? = null, notag: kotlin.String? = null, releaseStatus: ReleaseStatus? = ReleaseStatus.Public, maxUnityVersion: kotlin.String? = null, minUnityVersion: kotlin.String? = null, platform: kotlin.String? = null, userId: kotlin.String? = null): HttpResponse<kotlin.collections.List<Avatar>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -193,7 +193,7 @@ open class AvatarsApi(
         ).wrap<GetFavoritedAvatarsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetFavoritedAvatarsResponse.Companion::class)
     private class GetFavoritedAvatarsResponse(val value: List<Avatar>) {
         @Serializer(GetFavoritedAvatarsResponse::class)
         companion object : KSerializer<GetFavoritedAvatarsResponse> {
@@ -255,7 +255,7 @@ open class AvatarsApi(
      * @return kotlin.collections.List<Avatar>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun searchAvatars(featured: kotlin.Boolean? = null, sort: SortOption? = popularity, user: kotlin.String? = null, userId: kotlin.String? = null, n: kotlin.Int? = 60, order: OrderOption? = descending, offset: kotlin.Int? = null, tag: kotlin.String? = null, notag: kotlin.String? = null, releaseStatus: ReleaseStatus? = public, maxUnityVersion: kotlin.String? = null, minUnityVersion: kotlin.String? = null, platform: kotlin.String? = null): HttpResponse<kotlin.collections.List<Avatar>> {
+    open suspend fun searchAvatars(featured: kotlin.Boolean? = null, sort: SortOption? = SortOption.Popularity, user: kotlin.String? = null, userId: kotlin.String? = null, n: kotlin.Int? = 60, order: OrderOption? = OrderOption.Descending, offset: kotlin.Int? = null, tag: kotlin.String? = null, notag: kotlin.String? = null, releaseStatus: ReleaseStatus? = ReleaseStatus.Public, maxUnityVersion: kotlin.String? = null, minUnityVersion: kotlin.String? = null, platform: kotlin.String? = null): HttpResponse<kotlin.collections.List<Avatar>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -292,7 +292,7 @@ open class AvatarsApi(
         ).wrap<SearchAvatarsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(SearchAvatarsResponse.Companion::class)
     private class SearchAvatarsResponse(val value: List<Avatar>) {
         @Serializer(SearchAvatarsResponse::class)
         companion object : KSerializer<SearchAvatarsResponse> {

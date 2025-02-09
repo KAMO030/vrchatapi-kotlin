@@ -45,7 +45,7 @@ open class SystemApi(
      * @return kotlin.String
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getCSS(variant: kotlin.String? = public, branch: kotlin.String? = "main"): HttpResponse<kotlin.String> {
+    open suspend fun getCSS(variant: kotlin.String? = "public", branch: kotlin.String? = "main"): HttpResponse<kotlin.String> {
 
         val localVariableAuthNames = listOf<String>()
 

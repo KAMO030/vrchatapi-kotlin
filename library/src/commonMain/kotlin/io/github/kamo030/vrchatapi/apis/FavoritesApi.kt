@@ -208,7 +208,7 @@ open class FavoritesApi(
         ).wrap<GetFavoriteGroupsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetFavoriteGroupsResponse.Companion::class)
     private class GetFavoriteGroupsResponse(val value: List<FavoriteGroup>) {
         @Serializer(GetFavoriteGroupsResponse::class)
         companion object : KSerializer<GetFavoriteGroupsResponse> {
@@ -288,7 +288,7 @@ open class FavoritesApi(
         ).wrap<GetFavoritesResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetFavoritesResponse.Companion::class)
     private class GetFavoritesResponse(val value: List<Favorite>) {
         @Serializer(GetFavoritesResponse::class)
         companion object : KSerializer<GetFavoritesResponse> {
