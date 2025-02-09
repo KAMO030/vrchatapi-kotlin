@@ -10,8 +10,8 @@ rm src/commonMain/kotlin/io/github/vrchatapi/model -rf
 
 ./node_modules/\@openapitools/openapi-generator-cli/main.js generate \
 -g kotlin \
---additional-properties=groupId=io.github.vrchatapi,packageName=io.github.vrchatapi,library=multiplatform,artifactId=vrchatapi,licenseName=MIT,licenseUrl=https://github.com/vrchatapi/vrchatapi-kotlin/blob/main/LICENSE,developerEmail=me@ruby.js.org,developerName=VRChatAPI,developerOrganization=vrchatapi,developerOrganizationUrl=https://github.com/VRChatAPI,hideGenerationTimestamp=true,sourceFolder=src/commonMain/kotlin \
---git-user-id=vrchatapi \
+--additional-properties=groupId=io.github.kamo030.vrchatapi,packageName=io.github.kamo030.vrchatapi,library=multiplatform,artifactId=vrchatapi,licenseName=MIT,licenseUrl=https://github.com/kamo030/vrchatapi-kotlin/blob/main/LICENSE,developerEmail=kamosama.dev@gmail.com,developerName=KAMOsama,hideGenerationTimestamp=true,sourceFolder=src/commonMain/kotlin \
+--git-user-id=kamo030 \
 --git-repo-id=vrchatapi-kotlin \
 -o . \
 -i https://raw.githubusercontent.com/vrchatapi/specification/gh-pages/openapi.yaml \
@@ -24,5 +24,5 @@ rm api/ -rf
 find src -type f -exec sed -i '/VRChat API Banner/d' {} \;
 
 # Add global cookie storage
-sed -i '/addNetworkInterceptor/a \
-        builder.cookieJar(io.github.vrchatapi.util.SimpleOkHttpCookieJar())' src/commonMain/kotlin/io/github/vrchatapi/ApiClient.kt
+# sed -i '/addNetworkInterceptor/a \
+#         builder.cookieJar(io.github.kamo030.vrchatapi.util.SimpleOkHttpCookieJar())' src/commonMain/kotlin/io/github/vrchatapi/ApiClient.kt
