@@ -3,14 +3,11 @@
 npm install @openapitools/openapi-generator-cli
 
 rm docs -rf
-rm src/commonMain/kotlin/io/github/vrchatapi/*.kt
-rm src/commonMain/kotlin/io/github/vrchatapi/api -rf
-rm src/commonMain/kotlin/io/github/vrchatapi/auth -rf
-rm src/commonMain/kotlin/io/github/vrchatapi/model -rf
+rm library/src -rf
 
 ./node_modules/\@openapitools/openapi-generator-cli/main.js generate \
 -g kotlin \
---additional-properties=dateLibrary=kotlinx-datetime,enumPropertyNaming=PascalCase,omitGradleWrapper=true,useSettingsGradle=true,groupId=io.github.kamo030.vrchatapi,packageName=io.github.kamo030.vrchatapi,library=multiplatform,artifactId=vrchatapi,licenseName=MIT,licenseUrl=https://github.com/kamo030/vrchatapi-kotlin/blob/main/LICENSE,developerEmail=kamosama.dev@gmail.com,developerName=KAMOsama,hideGenerationTimestamp=true,sourceFolder=src/commonMain/kotlin \
+--additional-properties=dateLibrary=kotlinx-datetime,enumPropertyNaming=PascalCase,omitGradleWrapper=true,useSettingsGradle=true,groupId=io.github.kamo030.vrchatapi,packageName=io.github.kamo030.vrchatapi,library=multiplatform,artifactId=vrchatapi,licenseName=MIT,licenseUrl=https://github.com/kamo030/vrchatapi-kotlin/blob/main/LICENSE,developerEmail=kamosama.dev@gmail.com,developerName=KAMOsama,hideGenerationTimestamp=true,sourceFolder=library/src \
 --git-user-id=kamo030 \
 --git-repo-id=vrchatapi-kotlin \
 -o . \
