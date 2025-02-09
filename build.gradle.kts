@@ -4,16 +4,3 @@ plugins {
     alias(libs.plugins.mavenPublish)
 }
 
-val lib = libs
-
-val publishVersion = properties["publish.versions"] as String
-
-val publishGroup = properties["publish.group"] as String
-
-subprojects {
-
-//    mavenPublishing {
-//        coordinates(publishGroup, name, publishVersion)
-//    }
-
-}

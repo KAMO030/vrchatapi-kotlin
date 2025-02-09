@@ -43,3 +43,10 @@ kotlin {
 
     }
 }
+val publishVersion = properties["publish.versions"] as String
+
+val publishGroup = properties["publish.group"] as String
+
+mavenPublishing {
+    coordinates(publishGroup, name, publishVersion)
+}
