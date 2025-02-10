@@ -21,6 +21,7 @@ import io.github.kamo030.vrchatapi.models.Error
 import io.github.kamo030.vrchatapi.models.InfoPush
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -31,11 +32,47 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class SystemApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
+
+
+    /**
+     * enum for parameter variant
+     */
+    @Serializable
+    enum class VariantGetCSS(val value: kotlin.String) {
+
+        @SerialName(value = "public")
+        Public("public"),
+
+        @SerialName(value = "internal")
+        Internal("internal")
+
+    }
 
     /**
      * Download CSS
@@ -45,15 +82,18 @@ open class SystemApi(
      * @return kotlin.String
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getCSS(variant: kotlin.String? = "public", branch: kotlin.String? = "main"): HttpResponse<kotlin.String> {
+    open suspend fun getCSS(
+        variant: VariantGetCSS? = VariantGetCSS.Public,
+        branch: kotlin.String? = "main",
+    ): HttpResponse<kotlin.String> {
 
         val localVariableAuthNames = listOf<String>()
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-        variant?.apply { localVariableQuery["variant"] = listOf("$variant") }
+        variant?.apply { localVariableQuery["variant"] = listOf("${variant.value}") }
         branch?.apply { localVariableQuery["branch"] = listOf("$branch") }
         val localVariableHeaders = mutableMapOf<String, String>()
 
@@ -61,10 +101,11 @@ open class SystemApi(
             RequestMethod.GET,
             "/css/app.css",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -82,7 +123,7 @@ open class SystemApi(
 
         val localVariableAuthNames = listOf<String>()
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -92,10 +133,11 @@ open class SystemApi(
             RequestMethod.GET,
             "/config",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -113,7 +155,7 @@ open class SystemApi(
 
         val localVariableAuthNames = listOf<String>()
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -123,10 +165,11 @@ open class SystemApi(
             RequestMethod.GET,
             "/visits",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -144,7 +187,7 @@ open class SystemApi(
 
         val localVariableAuthNames = listOf<String>()
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -154,10 +197,11 @@ open class SystemApi(
             RequestMethod.GET,
             "/health",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -173,11 +217,14 @@ open class SystemApi(
      * @return kotlin.collections.List<InfoPush>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getInfoPush(require: kotlin.String? = null, include: kotlin.String? = null): HttpResponse<kotlin.collections.List<InfoPush>> {
+    open suspend fun getInfoPush(
+        require: kotlin.String? = null,
+        include: kotlin.String? = null,
+    ): HttpResponse<kotlin.collections.List<InfoPush>> {
 
         val localVariableAuthNames = listOf<String>()
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -189,25 +236,42 @@ open class SystemApi(
             RequestMethod.GET,
             "/infoPush",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetInfoPushResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetInfoPushResponse.Companion::class)
     private class GetInfoPushResponse(val value: List<InfoPush>) {
-        @Serializer(GetInfoPushResponse::class)
         companion object : KSerializer<GetInfoPushResponse> {
             private val serializer: KSerializer<List<InfoPush>> = serializer<List<InfoPush>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetInfoPushResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetInfoPushResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetInfoPushResponse(serializer.deserialize(decoder))
         }
+    }
+
+
+    /**
+     * enum for parameter variant
+     */
+    @Serializable
+    enum class VariantGetJavaScript(val value: kotlin.String) {
+
+        @SerialName(value = "public")
+        Public("public"),
+
+        @SerialName(value = "internal")
+        Internal("internal")
+
     }
 
     /**
@@ -218,15 +282,18 @@ open class SystemApi(
      * @return kotlin.String
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getJavaScript(variant: kotlin.String? = public, branch: kotlin.String? = "main"): HttpResponse<kotlin.String> {
+    open suspend fun getJavaScript(
+        variant: VariantGetJavaScript? = VariantGetJavaScript.Public,
+        branch: kotlin.String? = "main",
+    ): HttpResponse<kotlin.String> {
 
         val localVariableAuthNames = listOf<String>()
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
-        variant?.apply { localVariableQuery["variant"] = listOf("$variant") }
+        variant?.apply { localVariableQuery["variant"] = listOf("${variant.value}") }
         branch?.apply { localVariableQuery["branch"] = listOf("$branch") }
         val localVariableHeaders = mutableMapOf<String, String>()
 
@@ -234,10 +301,11 @@ open class SystemApi(
             RequestMethod.GET,
             "/js/app.js",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -248,14 +316,14 @@ open class SystemApi(
     /**
      * Current System Time
      * Returns the current time of the API server.  **NOTE:** The response type is not a JSON object, but a simple JSON string.
-     * @return kotlin.String
+     * @return kotlinx.datetime.Instant
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getSystemTime(): HttpResponse<kotlin.String> {
+    open suspend fun getSystemTime(): HttpResponse<kotlinx.datetime.Instant> {
 
         val localVariableAuthNames = listOf<String>()
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -265,10 +333,11 @@ open class SystemApi(
             RequestMethod.GET,
             "/time",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames

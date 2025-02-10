@@ -33,10 +33,9 @@ import kotlinx.serialization.encoding.*
  * @param type 
  */
 @Serializable
-
 data class PlayerModeration (
 
-    @SerialName(value = "created") @Required val created: kotlin.String,
+    @SerialName(value = "created") @Required val created: kotlinx.datetime.Instant,
 
     @SerialName(value = "id") @Required val id: kotlin.String,
 
@@ -52,5 +51,5 @@ data class PlayerModeration (
 
     @SerialName(value = "type") @Required val type: PlayerModerationType = PlayerModerationType.Unmute
 
-)
+) 
 

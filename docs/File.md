@@ -1,5 +1,5 @@
 
-# io.github.kamo030.vrchatapi.infrastructure.OctetByteArray
+# OctetByteArray
 
 ## Properties
 Name | Type | Description | Notes

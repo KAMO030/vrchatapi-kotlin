@@ -28,7 +28,6 @@ import kotlinx.serialization.encoding.*
  * @param outgoingRequest 
  */
 @Serializable
-
 data class FriendStatus (
 
     @SerialName(value = "incomingRequest") @Required val incomingRequest: kotlin.Boolean = false,
@@ -37,5 +36,5 @@ data class FriendStatus (
 
     @SerialName(value = "outgoingRequest") @Required val outgoingRequest: kotlin.Boolean = false
 
-)
+) 
 

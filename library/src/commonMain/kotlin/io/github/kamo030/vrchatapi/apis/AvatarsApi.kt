@@ -25,6 +25,7 @@ import io.github.kamo030.vrchatapi.models.SortOption
 import io.github.kamo030.vrchatapi.models.UpdateAvatarRequest
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -34,12 +35,35 @@ import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
+fun ApiClient.createAvatarApi() = AvatarsApi(this)
+
 open class AvatarsApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Create Avatar
@@ -61,16 +85,16 @@ open class AvatarsApi(
             RequestMethod.POST,
             "/avatars",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -84,7 +108,7 @@ open class AvatarsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -94,10 +118,11 @@ open class AvatarsApi(
             RequestMethod.DELETE,
             "/avatars/{avatarId}".replace("{" + "avatarId" + "}", "$avatarId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -116,7 +141,7 @@ open class AvatarsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -124,12 +149,13 @@ open class AvatarsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/avatars/{avatarId}".replace("{" + "avatarId" + "}", avatarId),
+            "/avatars/{avatarId}".replace("{" + "avatarId" + "}", "$avatarId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -156,11 +182,25 @@ open class AvatarsApi(
      * @return kotlin.collections.List<Avatar>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getFavoritedAvatars(featured: kotlin.Boolean? = null, sort: SortOption? = SortOption.Popularity, n: kotlin.Int? = 60, order: OrderOption? = OrderOption.Descending, offset: kotlin.Int? = null, search: kotlin.String? = null, tag: kotlin.String? = null, notag: kotlin.String? = null, releaseStatus: ReleaseStatus? = ReleaseStatus.Public, maxUnityVersion: kotlin.String? = null, minUnityVersion: kotlin.String? = null, platform: kotlin.String? = null, userId: kotlin.String? = null): HttpResponse<kotlin.collections.List<Avatar>> {
+    open suspend fun getFavoritedAvatars(
+        featured: kotlin.Boolean? = null,
+        sort: SortOption? = SortOption.Popularity,
+        n: kotlin.Int? = 60,
+        order: OrderOption? = OrderOption.Descending,
+        offset: kotlin.Int? = null,
+        search: kotlin.String? = null,
+        tag: kotlin.String? = null,
+        notag: kotlin.String? = null,
+        releaseStatus: ReleaseStatus? = ReleaseStatus.Public,
+        maxUnityVersion: kotlin.String? = null,
+        minUnityVersion: kotlin.String? = null,
+        platform: kotlin.String? = null,
+        userId: kotlin.String? = null,
+    ): HttpResponse<kotlin.collections.List<Avatar>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -183,10 +223,11 @@ open class AvatarsApi(
             RequestMethod.GET,
             "/avatars/favorites",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -195,11 +236,12 @@ open class AvatarsApi(
 
     @Serializable(GetFavoritedAvatarsResponse.Companion::class)
     private class GetFavoritedAvatarsResponse(val value: List<Avatar>) {
-        @Serializer(GetFavoritedAvatarsResponse::class)
         companion object : KSerializer<GetFavoritedAvatarsResponse> {
             private val serializer: KSerializer<List<Avatar>> = serializer<List<Avatar>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetFavoritedAvatarsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetFavoritedAvatarsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetFavoritedAvatarsResponse(serializer.deserialize(decoder))
         }
     }
@@ -215,7 +257,7 @@ open class AvatarsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -225,16 +267,28 @@ open class AvatarsApi(
             RequestMethod.GET,
             "/users/{userId}/avatar".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
 
+
+    /**
+     * enum for parameter user
+     */
+    @Serializable
+    enum class UserSearchAvatars(val value: kotlin.String) {
+
+        @SerialName(value = "me")
+        Me("me")
+
+    }
 
     /**
      * Search Avatars
@@ -255,17 +309,31 @@ open class AvatarsApi(
      * @return kotlin.collections.List<Avatar>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun searchAvatars(featured: kotlin.Boolean? = null, sort: SortOption? = SortOption.Popularity, user: kotlin.String? = null, userId: kotlin.String? = null, n: kotlin.Int? = 60, order: OrderOption? = OrderOption.Descending, offset: kotlin.Int? = null, tag: kotlin.String? = null, notag: kotlin.String? = null, releaseStatus: ReleaseStatus? = ReleaseStatus.Public, maxUnityVersion: kotlin.String? = null, minUnityVersion: kotlin.String? = null, platform: kotlin.String? = null): HttpResponse<kotlin.collections.List<Avatar>> {
+    open suspend fun searchAvatars(
+        featured: kotlin.Boolean? = null,
+        sort: SortOption? = SortOption.Popularity,
+        user: UserSearchAvatars? = null,
+        userId: kotlin.String? = null,
+        n: kotlin.Int? = 60,
+        order: OrderOption? = OrderOption.Descending,
+        offset: kotlin.Int? = null,
+        tag: kotlin.String? = null,
+        notag: kotlin.String? = null,
+        releaseStatus: ReleaseStatus? = ReleaseStatus.Public,
+        maxUnityVersion: kotlin.String? = null,
+        minUnityVersion: kotlin.String? = null,
+        platform: kotlin.String? = null,
+    ): HttpResponse<kotlin.collections.List<Avatar>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
         featured?.apply { localVariableQuery["featured"] = listOf("$featured") }
         sort?.apply { localVariableQuery["sort"] = listOf("$sort") }
-        user?.apply { localVariableQuery["user"] = listOf("$user") }
+        user?.apply { localVariableQuery["user"] = listOf("${user.value}") }
         userId?.apply { localVariableQuery["userId"] = listOf("$userId") }
         n?.apply { localVariableQuery["n"] = listOf("$n") }
         order?.apply { localVariableQuery["order"] = listOf("$order") }
@@ -282,10 +350,11 @@ open class AvatarsApi(
             RequestMethod.GET,
             "/avatars",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -294,11 +363,12 @@ open class AvatarsApi(
 
     @Serializable(SearchAvatarsResponse.Companion::class)
     private class SearchAvatarsResponse(val value: List<Avatar>) {
-        @Serializer(SearchAvatarsResponse::class)
         companion object : KSerializer<SearchAvatarsResponse> {
             private val serializer: KSerializer<List<Avatar>> = serializer<List<Avatar>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: SearchAvatarsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: SearchAvatarsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = SearchAvatarsResponse(serializer.deserialize(decoder))
         }
     }
@@ -314,7 +384,7 @@ open class AvatarsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -324,10 +394,11 @@ open class AvatarsApi(
             RequestMethod.PUT,
             "/avatars/{avatarId}/select".replace("{" + "avatarId" + "}", "$avatarId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -346,7 +417,7 @@ open class AvatarsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -356,10 +427,11 @@ open class AvatarsApi(
             RequestMethod.PUT,
             "/avatars/{avatarId}/selectFallback".replace("{" + "avatarId" + "}", "$avatarId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -375,7 +447,10 @@ open class AvatarsApi(
      * @return Avatar
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun updateAvatar(avatarId: kotlin.String, updateAvatarRequest: UpdateAvatarRequest? = null): HttpResponse<Avatar> {
+    open suspend fun updateAvatar(
+        avatarId: kotlin.String,
+        updateAvatarRequest: UpdateAvatarRequest? = null,
+    ): HttpResponse<Avatar> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -388,16 +463,16 @@ open class AvatarsApi(
             RequestMethod.PUT,
             "/avatars/{avatarId}".replace("{" + "avatarId" + "}", "$avatarId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
 }

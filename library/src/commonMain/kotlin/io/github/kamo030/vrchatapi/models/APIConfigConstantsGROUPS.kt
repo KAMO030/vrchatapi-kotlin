@@ -35,7 +35,6 @@ import kotlinx.serialization.encoding.*
  * @param MAX_ROLES Maximum number of roles in a group
  */
 @Serializable
-
 data class APIConfigConstantsGROUPS (
 
     /* Maximum group capacity */

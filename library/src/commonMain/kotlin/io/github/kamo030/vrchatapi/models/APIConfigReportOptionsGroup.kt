@@ -28,7 +28,6 @@ import kotlinx.serialization.encoding.*
  * @param text 
  */
 @Serializable
-
 data class APIConfigReportOptionsGroup (
 
     @SerialName(value = "groupstore") val groupstore: kotlin.collections.List<kotlin.String>? = null,
@@ -37,5 +36,5 @@ data class APIConfigReportOptionsGroup (
 
     @SerialName(value = "text") val text: kotlin.collections.List<kotlin.String>? = null
 
-)
+) 
 

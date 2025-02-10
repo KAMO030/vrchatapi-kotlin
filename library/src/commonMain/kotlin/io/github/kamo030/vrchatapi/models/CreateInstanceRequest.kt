@@ -39,7 +39,6 @@ import kotlinx.serialization.encoding.*
  * @param inviteOnly 
  */
 @Serializable
-
 data class CreateInstanceRequest (
 
     /* WorldID be \"offline\" on User profiles if you are not friends with that user. */
@@ -60,7 +59,7 @@ data class CreateInstanceRequest (
     @SerialName(value = "queueEnabled") val queueEnabled: kotlin.Boolean? = false,
 
     /* The time after which users won't be allowed to join the instance. This doesn't work for public instances. */
-    @SerialName(value = "closedAt") val closedAt: kotlin.String? = null,
+    @SerialName(value = "closedAt") val closedAt: kotlinx.datetime.Instant? = null,
 
     /* Only applies to invite type instances to make them invite+ */
     @SerialName(value = "canRequestInvite") val canRequestInvite: kotlin.Boolean? = false,
@@ -70,5 +69,5 @@ data class CreateInstanceRequest (
 
     @SerialName(value = "inviteOnly") val inviteOnly: kotlin.Boolean? = false
 
-)
+) 
 

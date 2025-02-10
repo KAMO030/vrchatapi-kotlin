@@ -29,7 +29,6 @@ import kotlinx.serialization.encoding.*
  * @param onPressed 
  */
 @Serializable
-
 data class InfoPushDataArticleContent (
 
     @SerialName(value = "text") val text: kotlin.String? = null,
@@ -38,5 +37,5 @@ data class InfoPushDataArticleContent (
 
     @SerialName(value = "onPressed") val onPressed: InfoPushDataClickable? = null
 
-)
+) 
 

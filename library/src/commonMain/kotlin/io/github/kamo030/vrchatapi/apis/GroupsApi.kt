@@ -45,6 +45,7 @@ import io.github.kamo030.vrchatapi.models.UpdateGroupRequest
 import io.github.kamo030.vrchatapi.models.UpdateGroupRoleRequest
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -55,22 +56,47 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class GroupsApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Add Group Gallery Image
      * Adds an image to a Group gallery.
      * @param groupId Must be a valid group ID.
      * @param groupGalleryId Must be a valid group gallery ID.
-     * @param addGroupGalleryImageRequest 
+     * @param addGroupGalleryImageRequest
      * @return GroupGalleryImage
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun addGroupGalleryImage(groupId: kotlin.String, groupGalleryId: kotlin.String, addGroupGalleryImageRequest: AddGroupGalleryImageRequest): HttpResponse<GroupGalleryImage> {
+    open suspend fun addGroupGalleryImage(
+        groupId: kotlin.String,
+        groupGalleryId: kotlin.String,
+        addGroupGalleryImageRequest: AddGroupGalleryImageRequest,
+    ): HttpResponse<GroupGalleryImage> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -81,18 +107,19 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.POST,
-            "/groups/{groupId}/galleries/{groupGalleryId}/images".replace("{" + "groupId" + "}", "$groupId").replace("{" + "groupGalleryId" + "}", "$groupGalleryId"),
+            "/groups/{groupId}/galleries/{groupGalleryId}/images".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "groupGalleryId" + "}", "$groupGalleryId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -104,11 +131,15 @@ open class GroupsApi(
      * @return kotlin.collections.List<kotlin.String>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun addGroupMemberRole(groupId: kotlin.String, userId: kotlin.String, groupRoleId: kotlin.String): HttpResponse<kotlin.collections.List<kotlin.String>> {
+    open suspend fun addGroupMemberRole(
+        groupId: kotlin.String,
+        userId: kotlin.String,
+        groupRoleId: kotlin.String,
+    ): HttpResponse<kotlin.collections.List<kotlin.String>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -116,25 +147,28 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.PUT,
-            "/groups/{groupId}/members/{userId}/roles/{groupRoleId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "userId" + "}", "$userId").replace("{" + "groupRoleId" + "}", "$groupRoleId"),
+            "/groups/{groupId}/members/{userId}/roles/{groupRoleId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "userId" + "}", "$userId").replace("{" + "groupRoleId" + "}", "$groupRoleId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<AddGroupMemberRoleResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(AddGroupMemberRoleResponse.Companion::class)
     private class AddGroupMemberRoleResponse(val value: List<kotlin.String>) {
-        @Serializer(AddGroupMemberRoleResponse::class)
         companion object : KSerializer<AddGroupMemberRoleResponse> {
             private val serializer: KSerializer<List<kotlin.String>> = serializer<List<kotlin.String>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: AddGroupMemberRoleResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: AddGroupMemberRoleResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = AddGroupMemberRoleResponse(serializer.deserialize(decoder))
         }
     }
@@ -143,11 +177,14 @@ open class GroupsApi(
      * Create a post in a Group
      * Create a post in a Group.
      * @param groupId Must be a valid group ID.
-     * @param createGroupPostRequest 
+     * @param createGroupPostRequest
      * @return GroupPost
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun addGroupPost(groupId: kotlin.String, createGroupPostRequest: CreateGroupPostRequest): HttpResponse<GroupPost> {
+    open suspend fun addGroupPost(
+        groupId: kotlin.String,
+        createGroupPostRequest: CreateGroupPostRequest,
+    ): HttpResponse<GroupPost> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -160,10 +197,11 @@ open class GroupsApi(
             RequestMethod.POST,
             "/groups/{groupId}/posts".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -171,16 +209,18 @@ open class GroupsApi(
     }
 
 
-
     /**
      * Ban Group Member
      * Bans a user from a Group.
      * @param groupId Must be a valid group ID.
-     * @param banGroupMemberRequest 
+     * @param banGroupMemberRequest
      * @return GroupMember
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun banGroupMember(groupId: kotlin.String, banGroupMemberRequest: BanGroupMemberRequest): HttpResponse<GroupMember> {
+    open suspend fun banGroupMember(
+        groupId: kotlin.String,
+        banGroupMemberRequest: BanGroupMemberRequest,
+    ): HttpResponse<GroupMember> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -193,16 +233,16 @@ open class GroupsApi(
             RequestMethod.POST,
             "/groups/{groupId}/bans".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -215,7 +255,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -225,10 +265,11 @@ open class GroupsApi(
             RequestMethod.DELETE,
             "/groups/{groupId}/requests".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -239,7 +280,7 @@ open class GroupsApi(
     /**
      * Create Group
      * Creates a Group and returns a Group object. **Requires VRC+ Subscription.**
-     * @param createGroupRequest 
+     * @param createGroupRequest
      * @return Group
      */
     @Suppress("UNCHECKED_CAST")
@@ -256,10 +297,11 @@ open class GroupsApi(
             RequestMethod.POST,
             "/groups",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -267,16 +309,18 @@ open class GroupsApi(
     }
 
 
-
     /**
      * Create Group Announcement
      * Creates an Announcement for a Group. Warning: This will also remove all announcements. To make proper announcements, use the posts endpoint instead
      * @param groupId Must be a valid group ID.
-     * @param createGroupAnnouncementRequest 
+     * @param createGroupAnnouncementRequest
      * @return GroupAnnouncement
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun createGroupAnnouncement(groupId: kotlin.String, createGroupAnnouncementRequest: CreateGroupAnnouncementRequest): HttpResponse<GroupAnnouncement> {
+    open suspend fun createGroupAnnouncement(
+        groupId: kotlin.String,
+        createGroupAnnouncementRequest: CreateGroupAnnouncementRequest,
+    ): HttpResponse<GroupAnnouncement> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -289,10 +333,11 @@ open class GroupsApi(
             RequestMethod.POST,
             "/groups/{groupId}/announcement".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -300,16 +345,18 @@ open class GroupsApi(
     }
 
 
-
     /**
      * Create Group Gallery
      * Creates a gallery for a Group.
      * @param groupId Must be a valid group ID.
-     * @param createGroupGalleryRequest 
+     * @param createGroupGalleryRequest
      * @return GroupGallery
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun createGroupGallery(groupId: kotlin.String, createGroupGalleryRequest: CreateGroupGalleryRequest): HttpResponse<GroupGallery> {
+    open suspend fun createGroupGallery(
+        groupId: kotlin.String,
+        createGroupGalleryRequest: CreateGroupGalleryRequest,
+    ): HttpResponse<GroupGallery> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -322,10 +369,11 @@ open class GroupsApi(
             RequestMethod.POST,
             "/groups/{groupId}/galleries".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -333,15 +381,17 @@ open class GroupsApi(
     }
 
 
-
     /**
      * Invite User to Group
      * Sends an invite to a user to join the group.
      * @param groupId Must be a valid group ID.
-     * @param createGroupInviteRequest 
+     * @param createGroupInviteRequest
      * @return void
      */
-    open suspend fun createGroupInvite(groupId: kotlin.String, createGroupInviteRequest: CreateGroupInviteRequest): HttpResponse<Unit> {
+    open suspend fun createGroupInvite(
+        groupId: kotlin.String,
+        createGroupInviteRequest: CreateGroupInviteRequest,
+    ): HttpResponse<Unit> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -354,10 +404,11 @@ open class GroupsApi(
             RequestMethod.POST,
             "/groups/{groupId}/invites".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -365,16 +416,18 @@ open class GroupsApi(
     }
 
 
-
     /**
      * Create GroupRole
      * Create a Group role.
      * @param groupId Must be a valid group ID.
-     * @param createGroupRoleRequest 
+     * @param createGroupRoleRequest
      * @return GroupRole
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun createGroupRole(groupId: kotlin.String, createGroupRoleRequest: CreateGroupRoleRequest): HttpResponse<GroupRole> {
+    open suspend fun createGroupRole(
+        groupId: kotlin.String,
+        createGroupRoleRequest: CreateGroupRoleRequest,
+    ): HttpResponse<GroupRole> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -387,16 +440,16 @@ open class GroupsApi(
             RequestMethod.POST,
             "/groups/{groupId}/roles".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -410,7 +463,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -420,10 +473,11 @@ open class GroupsApi(
             RequestMethod.DELETE,
             "/groups/{groupId}".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -442,7 +496,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -452,10 +506,11 @@ open class GroupsApi(
             RequestMethod.DELETE,
             "/groups/{groupId}/announcement".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -475,7 +530,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -483,12 +538,14 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/groups/{groupId}/galleries/{groupGalleryId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "groupGalleryId" + "}", "$groupGalleryId"),
+            "/groups/{groupId}/galleries/{groupGalleryId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "groupGalleryId" + "}", "$groupGalleryId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -505,11 +562,15 @@ open class GroupsApi(
      * @return Success
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun deleteGroupGalleryImage(groupId: kotlin.String, groupGalleryId: kotlin.String, groupGalleryImageId: kotlin.String): HttpResponse<Success> {
+    open suspend fun deleteGroupGalleryImage(
+        groupId: kotlin.String,
+        groupGalleryId: kotlin.String,
+        groupGalleryImageId: kotlin.String,
+    ): HttpResponse<Success> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -517,12 +578,17 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/groups/{groupId}/galleries/{groupGalleryId}/images/{groupGalleryImageId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "groupGalleryId" + "}", "$groupGalleryId").replace("{" + "groupGalleryImageId" + "}", "$groupGalleryImageId"),
+            "/groups/{groupId}/galleries/{groupGalleryId}/images/{groupGalleryImageId}".replace(
+                "{" + "groupId" + "}",
+                "$groupId"
+            ).replace("{" + "groupGalleryId" + "}", "$groupGalleryId")
+                .replace("{" + "groupGalleryImageId" + "}", "$groupGalleryImageId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -541,7 +607,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -549,12 +615,14 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/groups/{groupId}/invites/{userId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "userId" + "}", "$userId"),
+            "/groups/{groupId}/invites/{userId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -574,7 +642,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -582,12 +650,14 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/groups/{groupId}/posts/{notificationId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "notificationId" + "}", "$notificationId"),
+            "/groups/{groupId}/posts/{notificationId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "notificationId" + "}", "$notificationId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -603,11 +673,14 @@ open class GroupsApi(
      * @return kotlin.collections.List<GroupRole>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun deleteGroupRole(groupId: kotlin.String, groupRoleId: kotlin.String): HttpResponse<kotlin.collections.List<GroupRole>> {
+    open suspend fun deleteGroupRole(
+        groupId: kotlin.String,
+        groupRoleId: kotlin.String,
+    ): HttpResponse<kotlin.collections.List<GroupRole>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -615,25 +688,28 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/groups/{groupId}/roles/{groupRoleId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "groupRoleId" + "}", "$groupRoleId"),
+            "/groups/{groupId}/roles/{groupRoleId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "groupRoleId" + "}", "$groupRoleId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<DeleteGroupRoleResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(DeleteGroupRoleResponse.Companion::class)
     private class DeleteGroupRoleResponse(val value: List<GroupRole>) {
-        @Serializer(DeleteGroupRoleResponse::class)
         companion object : KSerializer<DeleteGroupRoleResponse> {
             private val serializer: KSerializer<List<GroupRole>> = serializer<List<GroupRole>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: DeleteGroupRoleResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: DeleteGroupRoleResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = DeleteGroupRoleResponse(serializer.deserialize(decoder))
         }
     }
@@ -650,7 +726,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -661,10 +737,11 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups/{groupId}".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -683,7 +760,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -693,10 +770,11 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups/{groupId}/announcement".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -718,11 +796,20 @@ open class GroupsApi(
      * @return PaginatedGroupAuditLogEntryList
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getGroupAuditLogs(groupId: kotlin.String, n: kotlin.Int? = 60, offset: kotlin.Int? = null, startDate: kotlin.String? = null, endDate: kotlin.String? = null, actorIds: kotlin.String? = null, eventTypes: kotlin.String? = null, targetIds: kotlin.String? = null): HttpResponse<PaginatedGroupAuditLogEntryList> {
+    open suspend fun getGroupAuditLogs(
+        groupId: kotlin.String,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+        startDate: kotlinx.datetime.Instant? = null,
+        endDate: kotlinx.datetime.Instant? = null,
+        actorIds: kotlin.String? = null,
+        eventTypes: kotlin.String? = null,
+        targetIds: kotlin.String? = null,
+    ): HttpResponse<PaginatedGroupAuditLogEntryList> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -739,10 +826,11 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups/{groupId}/auditLogs".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -759,11 +847,15 @@ open class GroupsApi(
      * @return kotlin.collections.List<GroupMember>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getGroupBans(groupId: kotlin.String, n: kotlin.Int? = 60, offset: kotlin.Int? = null): HttpResponse<kotlin.collections.List<GroupMember>> {
+    open suspend fun getGroupBans(
+        groupId: kotlin.String,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+    ): HttpResponse<kotlin.collections.List<GroupMember>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -775,23 +867,25 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups/{groupId}/bans".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetGroupBansResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetGroupBansResponse.Companion::class)
     private class GetGroupBansResponse(val value: List<GroupMember>) {
-        @Serializer(GetGroupBansResponse::class)
         companion object : KSerializer<GetGroupBansResponse> {
             private val serializer: KSerializer<List<GroupMember>> = serializer<List<GroupMember>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetGroupBansResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetGroupBansResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetGroupBansResponse(serializer.deserialize(decoder))
         }
     }
@@ -807,11 +901,17 @@ open class GroupsApi(
      * @return kotlin.collections.List<GroupGalleryImage>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getGroupGalleryImages(groupId: kotlin.String, groupGalleryId: kotlin.String, n: kotlin.Int? = 60, offset: kotlin.Int? = null, approved: kotlin.Boolean? = null): HttpResponse<kotlin.collections.List<GroupGalleryImage>> {
+    open suspend fun getGroupGalleryImages(
+        groupId: kotlin.String,
+        groupGalleryId: kotlin.String,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+        approved: kotlin.Boolean? = null,
+    ): HttpResponse<kotlin.collections.List<GroupGalleryImage>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -822,25 +922,28 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/groups/{groupId}/galleries/{groupGalleryId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "groupGalleryId" + "}", "$groupGalleryId"),
+            "/groups/{groupId}/galleries/{groupGalleryId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "groupGalleryId" + "}", "$groupGalleryId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetGroupGalleryImagesResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetGroupGalleryImagesResponse.Companion::class)
     private class GetGroupGalleryImagesResponse(val value: List<GroupGalleryImage>) {
-        @Serializer(GetGroupGalleryImagesResponse::class)
         companion object : KSerializer<GetGroupGalleryImagesResponse> {
             private val serializer: KSerializer<List<GroupGalleryImage>> = serializer<List<GroupGalleryImage>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetGroupGalleryImagesResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetGroupGalleryImagesResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetGroupGalleryImagesResponse(serializer.deserialize(decoder))
         }
     }
@@ -856,7 +959,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -866,23 +969,25 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups/{groupId}/instances".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetGroupInstancesResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetGroupInstancesResponse.Companion::class)
     private class GetGroupInstancesResponse(val value: List<GroupInstance>) {
-        @Serializer(GetGroupInstancesResponse::class)
         companion object : KSerializer<GetGroupInstancesResponse> {
             private val serializer: KSerializer<List<GroupInstance>> = serializer<List<GroupInstance>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetGroupInstancesResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetGroupInstancesResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetGroupInstancesResponse(serializer.deserialize(decoder))
         }
     }
@@ -896,11 +1001,15 @@ open class GroupsApi(
      * @return kotlin.collections.List<GroupMember>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getGroupInvites(groupId: kotlin.String, n: kotlin.Int? = 60, offset: kotlin.Int? = null): HttpResponse<kotlin.collections.List<GroupMember>> {
+    open suspend fun getGroupInvites(
+        groupId: kotlin.String,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+    ): HttpResponse<kotlin.collections.List<GroupMember>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -912,23 +1021,25 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups/{groupId}/invites".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetGroupInvitesResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetGroupInvitesResponse.Companion::class)
     private class GetGroupInvitesResponse(val value: List<GroupMember>) {
-        @Serializer(GetGroupInvitesResponse::class)
         companion object : KSerializer<GetGroupInvitesResponse> {
             private val serializer: KSerializer<List<GroupMember>> = serializer<List<GroupMember>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetGroupInvitesResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetGroupInvitesResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetGroupInvitesResponse(serializer.deserialize(decoder))
         }
     }
@@ -945,7 +1056,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -953,12 +1064,14 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/groups/{groupId}/members/{userId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "userId" + "}", "$userId"),
+            "/groups/{groupId}/members/{userId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -977,11 +1090,17 @@ open class GroupsApi(
      * @return kotlin.collections.List<GroupMember>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getGroupMembers(groupId: kotlin.String, n: kotlin.Int? = 60, offset: kotlin.Int? = null, sort: GroupSearchSort? = null, roleId: kotlin.String? = null): HttpResponse<kotlin.collections.List<GroupMember>> {
+    open suspend fun getGroupMembers(
+        groupId: kotlin.String,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+        sort: GroupSearchSort? = null,
+        roleId: kotlin.String? = null,
+    ): HttpResponse<kotlin.collections.List<GroupMember>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -995,23 +1114,25 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups/{groupId}/members".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetGroupMembersResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetGroupMembersResponse.Companion::class)
     private class GetGroupMembersResponse(val value: List<GroupMember>) {
-        @Serializer(GetGroupMembersResponse::class)
         companion object : KSerializer<GetGroupMembersResponse> {
             private val serializer: KSerializer<List<GroupMember>> = serializer<List<GroupMember>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetGroupMembersResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetGroupMembersResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetGroupMembersResponse(serializer.deserialize(decoder))
         }
     }
@@ -1027,7 +1148,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -1037,23 +1158,25 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups/{groupId}/permissions".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetGroupPermissionsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetGroupPermissionsResponse.Companion::class)
     private class GetGroupPermissionsResponse(val value: List<GroupPermission>) {
-        @Serializer(GetGroupPermissionsResponse::class)
         companion object : KSerializer<GetGroupPermissionsResponse> {
             private val serializer: KSerializer<List<GroupPermission>> = serializer<List<GroupPermission>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetGroupPermissionsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetGroupPermissionsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetGroupPermissionsResponse(serializer.deserialize(decoder))
         }
     }
@@ -1068,11 +1191,16 @@ open class GroupsApi(
      * @return GroupPost
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getGroupPost(groupId: kotlin.String, n: kotlin.Int? = 60, offset: kotlin.Int? = null, publicOnly: kotlin.Boolean? = null): HttpResponse<GroupPost> {
+    open suspend fun getGroupPost(
+        groupId: kotlin.String,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+        publicOnly: kotlin.Boolean? = null,
+    ): HttpResponse<GroupPost> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -1085,10 +1213,11 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups/{groupId}/posts".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -1106,11 +1235,16 @@ open class GroupsApi(
      * @return kotlin.collections.List<GroupMember>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getGroupRequests(groupId: kotlin.String, n: kotlin.Int? = 60, offset: kotlin.Int? = null, blocked: kotlin.Boolean? = null): HttpResponse<kotlin.collections.List<GroupMember>> {
+    open suspend fun getGroupRequests(
+        groupId: kotlin.String,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+        blocked: kotlin.Boolean? = null,
+    ): HttpResponse<kotlin.collections.List<GroupMember>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -1123,23 +1257,25 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups/{groupId}/requests".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetGroupRequestsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetGroupRequestsResponse.Companion::class)
     private class GetGroupRequestsResponse(val value: List<GroupMember>) {
-        @Serializer(GetGroupRequestsResponse::class)
         companion object : KSerializer<GetGroupRequestsResponse> {
             private val serializer: KSerializer<List<GroupMember>> = serializer<List<GroupMember>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetGroupRequestsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetGroupRequestsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetGroupRequestsResponse(serializer.deserialize(decoder))
         }
     }
@@ -1155,7 +1291,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -1165,23 +1301,25 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups/{groupId}/roles".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetGroupRolesResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetGroupRolesResponse.Companion::class)
     private class GetGroupRolesResponse(val value: List<GroupRole>) {
-        @Serializer(GetGroupRolesResponse::class)
         companion object : KSerializer<GetGroupRolesResponse> {
             private val serializer: KSerializer<List<GroupRole>> = serializer<List<GroupRole>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetGroupRolesResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetGroupRolesResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetGroupRolesResponse(serializer.deserialize(decoder))
         }
     }
@@ -1197,7 +1335,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -1207,10 +1345,11 @@ open class GroupsApi(
             RequestMethod.POST,
             "/groups/{groupId}/join".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -1229,7 +1368,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -1237,12 +1376,14 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/groups/{groupId}/members/{userId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "userId" + "}", "$userId"),
+            "/groups/{groupId}/members/{userId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -1260,7 +1401,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -1270,10 +1411,11 @@ open class GroupsApi(
             RequestMethod.POST,
             "/groups/{groupId}/leave".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -1290,11 +1432,15 @@ open class GroupsApi(
      * @return kotlin.collections.List<kotlin.String>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun removeGroupMemberRole(groupId: kotlin.String, userId: kotlin.String, groupRoleId: kotlin.String): HttpResponse<kotlin.collections.List<kotlin.String>> {
+    open suspend fun removeGroupMemberRole(
+        groupId: kotlin.String,
+        userId: kotlin.String,
+        groupRoleId: kotlin.String,
+    ): HttpResponse<kotlin.collections.List<kotlin.String>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -1302,25 +1448,28 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/groups/{groupId}/members/{userId}/roles/{groupRoleId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "userId" + "}", "$userId").replace("{" + "groupRoleId" + "}", "$groupRoleId"),
+            "/groups/{groupId}/members/{userId}/roles/{groupRoleId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "userId" + "}", "$userId").replace("{" + "groupRoleId" + "}", "$groupRoleId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<RemoveGroupMemberRoleResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(RemoveGroupMemberRoleResponse.Companion::class)
     private class RemoveGroupMemberRoleResponse(val value: List<kotlin.String>) {
-        @Serializer(RemoveGroupMemberRoleResponse::class)
         companion object : KSerializer<RemoveGroupMemberRoleResponse> {
             private val serializer: KSerializer<List<kotlin.String>> = serializer<List<kotlin.String>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: RemoveGroupMemberRoleResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: RemoveGroupMemberRoleResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = RemoveGroupMemberRoleResponse(serializer.deserialize(decoder))
         }
     }
@@ -1330,10 +1479,14 @@ open class GroupsApi(
      * Responds to a Group Join Request with Accept/Deny
      * @param groupId Must be a valid group ID.
      * @param userId Must be a valid user ID.
-     * @param respondGroupJoinRequest 
+     * @param respondGroupJoinRequest
      * @return void
      */
-    open suspend fun respondGroupJoinRequest(groupId: kotlin.String, userId: kotlin.String, respondGroupJoinRequest: RespondGroupJoinRequest): HttpResponse<Unit> {
+    open suspend fun respondGroupJoinRequest(
+        groupId: kotlin.String,
+        userId: kotlin.String,
+        respondGroupJoinRequest: RespondGroupJoinRequest,
+    ): HttpResponse<Unit> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -1344,18 +1497,19 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.PUT,
-            "/groups/{groupId}/requests/{userId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "userId" + "}", "$userId"),
+            "/groups/{groupId}/requests/{userId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -1367,11 +1521,15 @@ open class GroupsApi(
      * @return kotlin.collections.List<LimitedGroup>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun searchGroups(query: kotlin.String? = null, offset: kotlin.Int? = null, n: kotlin.Int? = 60): HttpResponse<kotlin.collections.List<LimitedGroup>> {
+    open suspend fun searchGroups(
+        query: kotlin.String? = null,
+        offset: kotlin.Int? = null,
+        n: kotlin.Int? = 60,
+    ): HttpResponse<kotlin.collections.List<LimitedGroup>> {
 
         val localVariableAuthNames = listOf<String>()
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -1384,23 +1542,25 @@ open class GroupsApi(
             RequestMethod.GET,
             "/groups",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<SearchGroupsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(SearchGroupsResponse.Companion::class)
     private class SearchGroupsResponse(val value: List<LimitedGroup>) {
-        @Serializer(SearchGroupsResponse::class)
         companion object : KSerializer<SearchGroupsResponse> {
             private val serializer: KSerializer<List<LimitedGroup>> = serializer<List<LimitedGroup>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: SearchGroupsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: SearchGroupsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = SearchGroupsResponse(serializer.deserialize(decoder))
         }
     }
@@ -1417,7 +1577,7 @@ open class GroupsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -1425,12 +1585,14 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/groups/{groupId}/bans/{userId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "userId" + "}", "$userId"),
+            "/groups/{groupId}/bans/{userId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -1446,7 +1608,10 @@ open class GroupsApi(
      * @return Group
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun updateGroup(groupId: kotlin.String, updateGroupRequest: UpdateGroupRequest? = null): HttpResponse<Group> {
+    open suspend fun updateGroup(
+        groupId: kotlin.String,
+        updateGroupRequest: UpdateGroupRequest? = null,
+    ): HttpResponse<Group> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -1459,16 +1624,16 @@ open class GroupsApi(
             RequestMethod.PUT,
             "/groups/{groupId}".replace("{" + "groupId" + "}", "$groupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -1480,7 +1645,11 @@ open class GroupsApi(
      * @return GroupGallery
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun updateGroupGallery(groupId: kotlin.String, groupGalleryId: kotlin.String, updateGroupGalleryRequest: UpdateGroupGalleryRequest? = null): HttpResponse<GroupGallery> {
+    open suspend fun updateGroupGallery(
+        groupId: kotlin.String,
+        groupGalleryId: kotlin.String,
+        updateGroupGalleryRequest: UpdateGroupGalleryRequest? = null,
+    ): HttpResponse<GroupGallery> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -1491,18 +1660,19 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.PUT,
-            "/groups/{groupId}/galleries/{groupGalleryId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "groupGalleryId" + "}", "$groupGalleryId"),
+            "/groups/{groupId}/galleries/{groupGalleryId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "groupGalleryId" + "}", "$groupGalleryId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -1514,7 +1684,11 @@ open class GroupsApi(
      * @return GroupLimitedMember
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun updateGroupMember(groupId: kotlin.String, userId: kotlin.String, updateGroupMemberRequest: UpdateGroupMemberRequest? = null): HttpResponse<GroupLimitedMember> {
+    open suspend fun updateGroupMember(
+        groupId: kotlin.String,
+        userId: kotlin.String,
+        updateGroupMemberRequest: UpdateGroupMemberRequest? = null,
+    ): HttpResponse<GroupLimitedMember> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -1525,12 +1699,14 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.PUT,
-            "/groups/{groupId}/members/{userId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "userId" + "}", "$userId"),
+            "/groups/{groupId}/members/{userId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -1538,17 +1714,20 @@ open class GroupsApi(
     }
 
 
-
     /**
      * Edits a Group post
      * Edits a Group post
      * @param groupId Must be a valid group ID.
      * @param notificationId Must be a valid notification ID.
-     * @param createGroupPostRequest 
+     * @param createGroupPostRequest
      * @return GroupPost
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun updateGroupPost(groupId: kotlin.String, notificationId: kotlin.String, createGroupPostRequest: CreateGroupPostRequest): HttpResponse<GroupPost> {
+    open suspend fun updateGroupPost(
+        groupId: kotlin.String,
+        notificationId: kotlin.String,
+        createGroupPostRequest: CreateGroupPostRequest,
+    ): HttpResponse<GroupPost> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -1559,18 +1738,19 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.PUT,
-            "/groups/{groupId}/posts/{notificationId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "notificationId" + "}", "$notificationId"),
+            "/groups/{groupId}/posts/{notificationId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "notificationId" + "}", "$notificationId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -1582,7 +1762,11 @@ open class GroupsApi(
      * @return kotlin.collections.List<GroupRole>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun updateGroupRole(groupId: kotlin.String, groupRoleId: kotlin.String, updateGroupRoleRequest: UpdateGroupRoleRequest? = null): HttpResponse<kotlin.collections.List<GroupRole>> {
+    open suspend fun updateGroupRole(
+        groupId: kotlin.String,
+        groupRoleId: kotlin.String,
+        updateGroupRoleRequest: UpdateGroupRoleRequest? = null,
+    ): HttpResponse<kotlin.collections.List<GroupRole>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -1593,12 +1777,14 @@ open class GroupsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.PUT,
-            "/groups/{groupId}/roles/{groupRoleId}".replace("{" + "groupId" + "}", "$groupId").replace("{" + "groupRoleId" + "}", "$groupRoleId"),
+            "/groups/{groupId}/roles/{groupRoleId}".replace("{" + "groupId" + "}", "$groupId")
+                .replace("{" + "groupRoleId" + "}", "$groupRoleId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -1606,13 +1792,14 @@ open class GroupsApi(
     }
 
 
-    @Serializable
+    @Serializable(UpdateGroupRoleResponse.Companion::class)
     private class UpdateGroupRoleResponse(val value: List<GroupRole>) {
-        @Serializer(UpdateGroupRoleResponse::class)
         companion object : KSerializer<UpdateGroupRoleResponse> {
             private val serializer: KSerializer<List<GroupRole>> = serializer<List<GroupRole>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: UpdateGroupRoleResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: UpdateGroupRoleResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = UpdateGroupRoleResponse(serializer.deserialize(decoder))
         }
     }

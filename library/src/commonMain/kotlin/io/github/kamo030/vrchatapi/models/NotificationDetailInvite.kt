@@ -28,7 +28,6 @@ import kotlinx.serialization.encoding.*
  * @param inviteMessage 
  */
 @Serializable
-
 data class NotificationDetailInvite (
 
     /* WorldID be \"offline\" on User profiles if you are not friends with that user. */

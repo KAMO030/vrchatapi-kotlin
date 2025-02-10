@@ -73,7 +73,6 @@ import kotlinx.serialization.encoding.*
  * @param hardClose 
  */
 @Serializable
-
 data class Instance (
 
     @SerialName(value = "active") @Required val active: kotlin.Boolean = true,
@@ -165,9 +164,9 @@ data class Instance (
 
     @SerialName(value = "nonce") val nonce: kotlin.String? = null,
 
-    @SerialName(value = "closedAt") val closedAt: kotlin.String? = null,
+    @SerialName(value = "closedAt") val closedAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "hardClose") val hardClose: kotlin.Boolean? = null
 
-)
+) 
 

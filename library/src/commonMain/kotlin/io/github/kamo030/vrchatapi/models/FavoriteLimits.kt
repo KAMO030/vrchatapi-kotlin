@@ -30,7 +30,6 @@ import kotlinx.serialization.encoding.*
  * @param maxFavoritesPerGroup 
  */
 @Serializable
-
 data class FavoriteLimits (
 
     @SerialName(value = "defaultMaxFavoriteGroups") @Required val defaultMaxFavoriteGroups: kotlin.Int,
@@ -41,5 +40,5 @@ data class FavoriteLimits (
 
     @SerialName(value = "maxFavoritesPerGroup") @Required val maxFavoritesPerGroup: FavoriteGroupLimits
 
-)
+) 
 

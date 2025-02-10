@@ -29,7 +29,6 @@ import kotlinx.serialization.encoding.*
  * @param hasNext Whether there are more results after this page.
  */
 @Serializable
-
 data class PaginatedGroupAuditLogEntryList (
 
     /*   */
@@ -41,5 +40,5 @@ data class PaginatedGroupAuditLogEntryList (
     /* Whether there are more results after this page. */
     @SerialName(value = "hasNext") val hasNext: kotlin.Boolean? = null
 
-)
+) 
 

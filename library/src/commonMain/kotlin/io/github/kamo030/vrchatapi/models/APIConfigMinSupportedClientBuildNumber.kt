@@ -37,7 +37,6 @@ import kotlinx.serialization.encoding.*
  * @param xrElite 
  */
 @Serializable
-
 data class APIConfigMinSupportedClientBuildNumber (
 
     @SerialName(value = "AppStore") @Required val appStore: PlatformBuildInfo,
@@ -62,5 +61,5 @@ data class APIConfigMinSupportedClientBuildNumber (
 
     @SerialName(value = "XRElite") @Required val xrElite: PlatformBuildInfo
 
-)
+) 
 

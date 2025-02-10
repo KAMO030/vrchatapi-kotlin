@@ -26,10 +26,9 @@ import kotlinx.serialization.encoding.*
  * @param economyOnline 
  */
 @Serializable
-
 data class TiliaStatus (
 
     @SerialName(value = "economyOnline") @Required val economyOnline: kotlin.Boolean
 
-)
+) 
 

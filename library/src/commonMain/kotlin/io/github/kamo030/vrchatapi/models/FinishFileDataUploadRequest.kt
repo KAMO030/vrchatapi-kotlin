@@ -28,7 +28,6 @@ import kotlinx.serialization.encoding.*
  * @param etags Array of ETags uploaded.
  */
 @Serializable
-
 data class FinishFileDataUploadRequest (
 
     /* Always a zero in string form, despite how many parts uploaded. */

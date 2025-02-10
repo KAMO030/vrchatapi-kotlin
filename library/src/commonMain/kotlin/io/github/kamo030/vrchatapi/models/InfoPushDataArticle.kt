@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param content 
  */
 @Serializable
-
 data class InfoPushDataArticle (
 
     @SerialName(value = "content") val content: InfoPushDataArticleContent? = null

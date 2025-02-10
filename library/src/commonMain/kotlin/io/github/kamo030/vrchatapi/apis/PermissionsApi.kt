@@ -19,6 +19,7 @@ import io.github.kamo030.vrchatapi.models.Error
 import io.github.kamo030.vrchatapi.models.Permission
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -29,11 +30,32 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class PermissionsApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Get Assigned Permissions
@@ -45,7 +67,7 @@ open class PermissionsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -55,23 +77,25 @@ open class PermissionsApi(
             RequestMethod.GET,
             "/auth/permissions",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetAssignedPermissionsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetAssignedPermissionsResponse.Companion::class)
     private class GetAssignedPermissionsResponse(val value: List<Permission>) {
-        @Serializer(GetAssignedPermissionsResponse::class)
         companion object : KSerializer<GetAssignedPermissionsResponse> {
             private val serializer: KSerializer<List<Permission>> = serializer<List<Permission>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetAssignedPermissionsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetAssignedPermissionsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetAssignedPermissionsResponse(serializer.deserialize(decoder))
         }
     }
@@ -87,7 +111,7 @@ open class PermissionsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -97,10 +121,11 @@ open class PermissionsApi(
             RequestMethod.GET,
             "/permissions/{permissionId}".replace("{" + "permissionId" + "}", "$permissionId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames

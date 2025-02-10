@@ -29,7 +29,6 @@ import kotlinx.serialization.encoding.*
  * @param sendNotification Send notification to group members.
  */
 @Serializable
-
 data class CreateGroupAnnouncementRequest (
 
     /* Announcement title */
@@ -43,5 +42,5 @@ data class CreateGroupAnnouncementRequest (
     /* Send notification to group members. */
     @SerialName(value = "sendNotification") val sendNotification: kotlin.Boolean? = false
 
-)
+) 
 

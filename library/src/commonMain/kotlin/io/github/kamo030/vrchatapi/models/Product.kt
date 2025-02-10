@@ -43,12 +43,11 @@ import kotlinx.serialization.encoding.*
  * @param useForSubscriberList 
  */
 @Serializable
-
 data class Product (
 
     @SerialName(value = "archived") @Required val archived: kotlin.Boolean,
 
-    @SerialName(value = "created") @Required val created: kotlin.String,
+    @SerialName(value = "created") @Required val created: kotlinx.datetime.Instant,
 
     @SerialName(value = "description") @Required val description: kotlin.String,
 
@@ -68,7 +67,7 @@ data class Product (
 
     @SerialName(value = "tags") @Required val tags: kotlin.collections.List<kotlin.String>,
 
-    @SerialName(value = "updated") @Required val updated: kotlin.String?,
+    @SerialName(value = "updated") @Required val updated: kotlinx.datetime.Instant?,
 
     @SerialName(value = "groupAccess") val groupAccess: kotlin.Boolean? = false,
 

@@ -37,5 +37,5 @@ data class APIConfigAnnouncement (
     /* Announcement text */
     @SerialName(value = "text") @Required val text: kotlin.String
 
-)
+) 
 

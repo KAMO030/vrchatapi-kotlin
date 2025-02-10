@@ -29,7 +29,6 @@ import kotlinx.serialization.encoding.*
  * @param status 
  */
 @Serializable
-
 data class TransactionSteamWalletInfo (
 
     @SerialName(value = "state") @Required val state: kotlin.String,
@@ -40,5 +39,5 @@ data class TransactionSteamWalletInfo (
 
     @SerialName(value = "status") @Required val status: kotlin.String
 
-)
+) 
 

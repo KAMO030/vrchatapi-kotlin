@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param LANGUAGE 
  */
 @Serializable
-
 data class APIConfigConstants (
 
     @SerialName(value = "GROUPS") @Required val GROUPS: APIConfigConstantsGROUPS,
@@ -40,5 +39,5 @@ data class APIConfigConstants (
 
     @SerialName(value = "LANGUAGE") @Required val LANGUAGE: APIConfigConstantsLANGUAGE
 
-)
+) 
 

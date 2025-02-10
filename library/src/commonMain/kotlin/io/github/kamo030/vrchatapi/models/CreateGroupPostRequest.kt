@@ -32,7 +32,6 @@ import kotlinx.serialization.encoding.*
  * @param roleIds  
  */
 @Serializable
-
 data class CreateGroupPostRequest (
 
     /* Post title */
@@ -51,5 +50,5 @@ data class CreateGroupPostRequest (
     /*   */
     @SerialName(value = "roleIds") val roleIds: kotlin.collections.List<kotlin.String>? = null
 
-)
+) 
 

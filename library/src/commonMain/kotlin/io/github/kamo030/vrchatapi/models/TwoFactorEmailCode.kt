@@ -26,10 +26,9 @@ import kotlinx.serialization.encoding.*
  * @param code 
  */
 @Serializable
-
 data class TwoFactorEmailCode (
 
     @SerialName(value = "code") @Required val code: kotlin.String
 
-)
+) 
 

@@ -29,6 +29,7 @@ import io.github.kamo030.vrchatapi.models.WorldMetadata
 import io.github.kamo030.vrchatapi.models.WorldPublishStatus
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -39,11 +40,32 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class WorldsApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Create World
@@ -65,16 +87,16 @@ open class WorldsApi(
             RequestMethod.POST,
             "/worlds",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -87,7 +109,7 @@ open class WorldsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -97,10 +119,11 @@ open class WorldsApi(
             RequestMethod.DELETE,
             "/worlds/{worldId}".replace("{" + "worldId" + "}", "$worldId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -126,11 +149,24 @@ open class WorldsApi(
      * @return kotlin.collections.List<LimitedWorld>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getActiveWorlds(featured: kotlin.Boolean? = null, sort: SortOption? = popularity, n: kotlin.Int? = 60, order: OrderOption? = descending, offset: kotlin.Int? = null, search: kotlin.String? = null, tag: kotlin.String? = null, notag: kotlin.String? = null, releaseStatus: ReleaseStatus? = public, maxUnityVersion: kotlin.String? = null, minUnityVersion: kotlin.String? = null, platform: kotlin.String? = null): HttpResponse<kotlin.collections.List<LimitedWorld>> {
+    open suspend fun getActiveWorlds(
+        featured: kotlin.Boolean? = null,
+        sort: SortOption? = SortOption.Popularity,
+        n: kotlin.Int? = 60,
+        order: OrderOption? = OrderOption.Descending,
+        offset: kotlin.Int? = null,
+        search: kotlin.String? = null,
+        tag: kotlin.String? = null,
+        notag: kotlin.String? = null,
+        releaseStatus: ReleaseStatus? = ReleaseStatus.Public,
+        maxUnityVersion: kotlin.String? = null,
+        minUnityVersion: kotlin.String? = null,
+        platform: kotlin.String? = null,
+    ): HttpResponse<kotlin.collections.List<LimitedWorld>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -152,23 +188,25 @@ open class WorldsApi(
             RequestMethod.GET,
             "/worlds/active",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetActiveWorldsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetActiveWorldsResponse.Companion::class)
     private class GetActiveWorldsResponse(val value: List<LimitedWorld>) {
-        @Serializer(GetActiveWorldsResponse::class)
         companion object : KSerializer<GetActiveWorldsResponse> {
             private val serializer: KSerializer<List<LimitedWorld>> = serializer<List<LimitedWorld>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetActiveWorldsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetActiveWorldsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetActiveWorldsResponse(serializer.deserialize(decoder))
         }
     }
@@ -192,11 +230,25 @@ open class WorldsApi(
      * @return kotlin.collections.List<FavoritedWorld>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getFavoritedWorlds(featured: kotlin.Boolean? = null, sort: SortOption? = popularity, n: kotlin.Int? = 60, order: OrderOption? = descending, offset: kotlin.Int? = null, search: kotlin.String? = null, tag: kotlin.String? = null, notag: kotlin.String? = null, releaseStatus: ReleaseStatus? = public, maxUnityVersion: kotlin.String? = null, minUnityVersion: kotlin.String? = null, platform: kotlin.String? = null, userId: kotlin.String? = null): HttpResponse<kotlin.collections.List<FavoritedWorld>> {
+    open suspend fun getFavoritedWorlds(
+        featured: kotlin.Boolean? = null,
+        sort: SortOption? = SortOption.Popularity,
+        n: kotlin.Int? = 60,
+        order: OrderOption? = OrderOption.Descending,
+        offset: kotlin.Int? = null,
+        search: kotlin.String? = null,
+        tag: kotlin.String? = null,
+        notag: kotlin.String? = null,
+        releaseStatus: ReleaseStatus? = ReleaseStatus.Public,
+        maxUnityVersion: kotlin.String? = null,
+        minUnityVersion: kotlin.String? = null,
+        platform: kotlin.String? = null,
+        userId: kotlin.String? = null,
+    ): HttpResponse<kotlin.collections.List<FavoritedWorld>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -219,23 +271,25 @@ open class WorldsApi(
             RequestMethod.GET,
             "/worlds/favorites",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetFavoritedWorldsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetFavoritedWorldsResponse.Companion::class)
     private class GetFavoritedWorldsResponse(val value: List<FavoritedWorld>) {
-        @Serializer(GetFavoritedWorldsResponse::class)
         companion object : KSerializer<GetFavoritedWorldsResponse> {
             private val serializer: KSerializer<List<FavoritedWorld>> = serializer<List<FavoritedWorld>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetFavoritedWorldsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetFavoritedWorldsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetFavoritedWorldsResponse(serializer.deserialize(decoder))
         }
     }
@@ -259,11 +313,25 @@ open class WorldsApi(
      * @return kotlin.collections.List<LimitedWorld>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getRecentWorlds(featured: kotlin.Boolean? = null, sort: SortOption? = popularity, n: kotlin.Int? = 60, order: OrderOption? = descending, offset: kotlin.Int? = null, search: kotlin.String? = null, tag: kotlin.String? = null, notag: kotlin.String? = null, releaseStatus: ReleaseStatus? = public, maxUnityVersion: kotlin.String? = null, minUnityVersion: kotlin.String? = null, platform: kotlin.String? = null, userId: kotlin.String? = null): HttpResponse<kotlin.collections.List<LimitedWorld>> {
+    open suspend fun getRecentWorlds(
+        featured: kotlin.Boolean? = null,
+        sort: SortOption? = SortOption.Popularity,
+        n: kotlin.Int? = 60,
+        order: OrderOption? = OrderOption.Descending,
+        offset: kotlin.Int? = null,
+        search: kotlin.String? = null,
+        tag: kotlin.String? = null,
+        notag: kotlin.String? = null,
+        releaseStatus: ReleaseStatus? = ReleaseStatus.Public,
+        maxUnityVersion: kotlin.String? = null,
+        minUnityVersion: kotlin.String? = null,
+        platform: kotlin.String? = null,
+        userId: kotlin.String? = null,
+    ): HttpResponse<kotlin.collections.List<LimitedWorld>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -286,23 +354,25 @@ open class WorldsApi(
             RequestMethod.GET,
             "/worlds/recent",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetRecentWorldsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetRecentWorldsResponse.Companion::class)
     private class GetRecentWorldsResponse(val value: List<LimitedWorld>) {
-        @Serializer(GetRecentWorldsResponse::class)
         companion object : KSerializer<GetRecentWorldsResponse> {
             private val serializer: KSerializer<List<LimitedWorld>> = serializer<List<LimitedWorld>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetRecentWorldsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetRecentWorldsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetRecentWorldsResponse(serializer.deserialize(decoder))
         }
     }
@@ -318,7 +388,7 @@ open class WorldsApi(
 
         val localVariableAuthNames = listOf<String>()
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -328,10 +398,11 @@ open class WorldsApi(
             RequestMethod.GET,
             "/worlds/{worldId}".replace("{" + "worldId" + "}", "$worldId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -351,7 +422,7 @@ open class WorldsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -359,12 +430,14 @@ open class WorldsApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/worlds/{worldId}/{instanceId}".replace("{" + "worldId" + "}", "$worldId").replace("{" + "instanceId" + "}", "$instanceId"),
+            "/worlds/{worldId}/{instanceId}".replace("{" + "worldId" + "}", "$worldId")
+                .replace("{" + "instanceId" + "}", "$instanceId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -383,7 +456,7 @@ open class WorldsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -393,10 +466,11 @@ open class WorldsApi(
             RequestMethod.GET,
             "/worlds/{worldId}/metadata".replace("{" + "worldId" + "}", "$worldId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -415,7 +489,7 @@ open class WorldsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -425,10 +499,11 @@ open class WorldsApi(
             RequestMethod.GET,
             "/worlds/{worldId}/publish".replace("{" + "worldId" + "}", "$worldId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -446,7 +521,7 @@ open class WorldsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -456,16 +531,28 @@ open class WorldsApi(
             RequestMethod.PUT,
             "/worlds/{worldId}/publish".replace("{" + "worldId" + "}", "$worldId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
 
+
+    /**
+     * enum for parameter user
+     */
+    @Serializable
+    enum class UserSearchWorlds(val value: kotlin.String) {
+
+        @SerialName(value = "me")
+        Me("me")
+
+    }
 
     /**
      * Search All Worlds
@@ -488,17 +575,33 @@ open class WorldsApi(
      * @return kotlin.collections.List<LimitedWorld>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun searchWorlds(featured: kotlin.Boolean? = null, sort: SortOption? = popularity, user: kotlin.String? = null, userId: kotlin.String? = null, n: kotlin.Int? = 60, order: OrderOption? = descending, offset: kotlin.Int? = null, search: kotlin.String? = null, tag: kotlin.String? = null, notag: kotlin.String? = null, releaseStatus: ReleaseStatus? = public, maxUnityVersion: kotlin.String? = null, minUnityVersion: kotlin.String? = null, platform: kotlin.String? = null, fuzzy: kotlin.Boolean? = null): HttpResponse<kotlin.collections.List<LimitedWorld>> {
+    open suspend fun searchWorlds(
+        featured: kotlin.Boolean? = null,
+        sort: SortOption? = SortOption.Popularity,
+        user: UserSearchWorlds? = null,
+        userId: kotlin.String? = null,
+        n: kotlin.Int? = 60,
+        order: OrderOption? = OrderOption.Descending,
+        offset: kotlin.Int? = null,
+        search: kotlin.String? = null,
+        tag: kotlin.String? = null,
+        notag: kotlin.String? = null,
+        releaseStatus: ReleaseStatus? = ReleaseStatus.Public,
+        maxUnityVersion: kotlin.String? = null,
+        minUnityVersion: kotlin.String? = null,
+        platform: kotlin.String? = null,
+        fuzzy: kotlin.Boolean? = null,
+    ): HttpResponse<kotlin.collections.List<LimitedWorld>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
         featured?.apply { localVariableQuery["featured"] = listOf("$featured") }
         sort?.apply { localVariableQuery["sort"] = listOf("$sort") }
-        user?.apply { localVariableQuery["user"] = listOf("$user") }
+        user?.apply { localVariableQuery["user"] = listOf("${user.value}") }
         userId?.apply { localVariableQuery["userId"] = listOf("$userId") }
         n?.apply { localVariableQuery["n"] = listOf("$n") }
         order?.apply { localVariableQuery["order"] = listOf("$order") }
@@ -517,23 +620,25 @@ open class WorldsApi(
             RequestMethod.GET,
             "/worlds",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<SearchWorldsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(SearchWorldsResponse.Companion::class)
     private class SearchWorldsResponse(val value: List<LimitedWorld>) {
-        @Serializer(SearchWorldsResponse::class)
         companion object : KSerializer<SearchWorldsResponse> {
             private val serializer: KSerializer<List<LimitedWorld>> = serializer<List<LimitedWorld>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: SearchWorldsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: SearchWorldsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = SearchWorldsResponse(serializer.deserialize(decoder))
         }
     }
@@ -548,7 +653,7 @@ open class WorldsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -558,10 +663,11 @@ open class WorldsApi(
             RequestMethod.DELETE,
             "/worlds/{worldId}/publish".replace("{" + "worldId" + "}", "$worldId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -577,7 +683,10 @@ open class WorldsApi(
      * @return World
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun updateWorld(worldId: kotlin.String, updateWorldRequest: UpdateWorldRequest? = null): HttpResponse<World> {
+    open suspend fun updateWorld(
+        worldId: kotlin.String,
+        updateWorldRequest: UpdateWorldRequest? = null,
+    ): HttpResponse<World> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -590,16 +699,16 @@ open class WorldsApi(
             RequestMethod.PUT,
             "/worlds/{worldId}".replace("{" + "worldId" + "}", "$worldId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
 }

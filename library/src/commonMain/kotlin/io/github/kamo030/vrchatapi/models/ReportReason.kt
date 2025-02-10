@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param tooltip A brief explanation of what this reason entails
  */
 @Serializable
-
 data class ReportReason (
 
     /* The label or name of the report reason */
@@ -36,5 +35,5 @@ data class ReportReason (
     /* A brief explanation of what this reason entails */
     @SerialName(value = "tooltip") @Required val tooltip: kotlin.String
 
-)
+) 
 

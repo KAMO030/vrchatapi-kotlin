@@ -27,6 +27,7 @@ import io.github.kamo030.vrchatapi.models.Transaction
 import io.github.kamo030.vrchatapi.models.UserSubscription
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -37,11 +38,32 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class EconomyApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Get Balance
@@ -54,7 +76,7 @@ open class EconomyApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -64,10 +86,11 @@ open class EconomyApi(
             RequestMethod.GET,
             "/user/{userId}/balance".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -85,7 +108,7 @@ open class EconomyApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -95,10 +118,11 @@ open class EconomyApi(
             RequestMethod.GET,
             "/auth/user/subscription",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -107,12 +131,14 @@ open class EconomyApi(
 
     @Serializable(GetCurrentSubscriptionsResponse.Companion::class)
     private class GetCurrentSubscriptionsResponse(val value: List<UserSubscription>) {
-        @Serializer(GetCurrentSubscriptionsResponse::class)
         companion object : KSerializer<GetCurrentSubscriptionsResponse> {
             private val serializer: KSerializer<List<UserSubscription>> = serializer<List<UserSubscription>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetCurrentSubscriptionsResponse) = serializer.serialize(encoder, obj.value)
-            override fun deserialize(decoder: Decoder) = GetCurrentSubscriptionsResponse(serializer.deserialize(decoder))
+            override fun serialize(encoder: Encoder, value: GetCurrentSubscriptionsResponse) =
+                serializer.serialize(encoder, value.value)
+
+            override fun deserialize(decoder: Decoder) =
+                GetCurrentSubscriptionsResponse(serializer.deserialize(decoder))
         }
     }
 
@@ -127,7 +153,7 @@ open class EconomyApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -137,10 +163,11 @@ open class EconomyApi(
             RequestMethod.GET,
             "/licenseGroups/{licenseGroupId}".replace("{" + "licenseGroupId" + "}", "$licenseGroupId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -156,11 +183,14 @@ open class EconomyApi(
      * @return ProductListing
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getProductListing(productId: kotlin.String, hydrate: kotlin.Boolean? = null): HttpResponse<ProductListing> {
+    open suspend fun getProductListing(
+        productId: kotlin.String,
+        hydrate: kotlin.Boolean? = null,
+    ): HttpResponse<ProductListing> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -171,10 +201,11 @@ open class EconomyApi(
             RequestMethod.GET,
             "/listing/{productId}".replace("{" + "productId" + "}", "$productId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -194,11 +225,18 @@ open class EconomyApi(
      * @return kotlin.collections.List<ProductListing>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getProductListings(userId: kotlin.String, n: kotlin.Int? = 60, offset: kotlin.Int? = null, hydrate: kotlin.Boolean? = null, groupId: kotlin.String? = null, active: kotlin.Boolean? = null): HttpResponse<kotlin.collections.List<ProductListing>> {
+    open suspend fun getProductListings(
+        userId: kotlin.String,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+        hydrate: kotlin.Boolean? = null,
+        groupId: kotlin.String? = null,
+        active: kotlin.Boolean? = null,
+    ): HttpResponse<kotlin.collections.List<ProductListing>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -213,10 +251,11 @@ open class EconomyApi(
             RequestMethod.GET,
             "/user/{userId}/listings".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -225,11 +264,12 @@ open class EconomyApi(
 
     @Serializable(GetProductListingsResponse.Companion::class)
     private class GetProductListingsResponse(val value: List<ProductListing>) {
-        @Serializer(GetProductListingsResponse::class)
         companion object : KSerializer<GetProductListingsResponse> {
             private val serializer: KSerializer<List<ProductListing>> = serializer<List<ProductListing>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetProductListingsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetProductListingsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetProductListingsResponse(serializer.deserialize(decoder))
         }
     }
@@ -245,7 +285,7 @@ open class EconomyApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -255,10 +295,11 @@ open class EconomyApi(
             RequestMethod.GET,
             "/Steam/transactions/{transactionId}".replace("{" + "transactionId" + "}", "$transactionId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -276,7 +317,7 @@ open class EconomyApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -286,10 +327,11 @@ open class EconomyApi(
             RequestMethod.GET,
             "/Steam/transactions",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -298,11 +340,12 @@ open class EconomyApi(
 
     @Serializable(GetSteamTransactionsResponse.Companion::class)
     private class GetSteamTransactionsResponse(val value: List<Transaction>) {
-        @Serializer(GetSteamTransactionsResponse::class)
         companion object : KSerializer<GetSteamTransactionsResponse> {
             private val serializer: KSerializer<List<Transaction>> = serializer<List<Transaction>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetSteamTransactionsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetSteamTransactionsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetSteamTransactionsResponse(serializer.deserialize(decoder))
         }
     }
@@ -317,7 +360,7 @@ open class EconomyApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -327,10 +370,11 @@ open class EconomyApi(
             RequestMethod.GET,
             "/subscriptions",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -339,11 +383,12 @@ open class EconomyApi(
 
     @Serializable(GetSubscriptionsResponse.Companion::class)
     private class GetSubscriptionsResponse(val value: List<Subscription>) {
-        @Serializer(GetSubscriptionsResponse::class)
         companion object : KSerializer<GetSubscriptionsResponse> {
             private val serializer: KSerializer<List<Subscription>> = serializer<List<Subscription>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetSubscriptionsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetSubscriptionsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetSubscriptionsResponse(serializer.deserialize(decoder))
         }
     }
@@ -358,7 +403,7 @@ open class EconomyApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -368,10 +413,11 @@ open class EconomyApi(
             RequestMethod.GET,
             "/tilia/status",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -390,7 +436,7 @@ open class EconomyApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -400,10 +446,11 @@ open class EconomyApi(
             RequestMethod.GET,
             "/user/{userId}/tilia/tos".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -421,7 +468,7 @@ open class EconomyApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -431,10 +478,11 @@ open class EconomyApi(
             RequestMethod.GET,
             "/tokenBundles",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -443,11 +491,12 @@ open class EconomyApi(
 
     @Serializable(GetTokenBundlesResponse.Companion::class)
     private class GetTokenBundlesResponse(val value: List<TokenBundle>) {
-        @Serializer(GetTokenBundlesResponse::class)
         companion object : KSerializer<GetTokenBundlesResponse> {
             private val serializer: KSerializer<List<TokenBundle>> = serializer<List<TokenBundle>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetTokenBundlesResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetTokenBundlesResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetTokenBundlesResponse(serializer.deserialize(decoder))
         }
     }

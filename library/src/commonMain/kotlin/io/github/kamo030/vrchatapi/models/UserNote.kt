@@ -32,10 +32,9 @@ import kotlinx.serialization.encoding.*
  * @param targetUser 
  */
 @Serializable
-
 data class UserNote (
 
-    @SerialName(value = "createdAt") @Required val createdAt: kotlin.String,
+    @SerialName(value = "createdAt") @Required val createdAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "id") @Required val id: kotlin.String,
 
@@ -49,5 +48,5 @@ data class UserNote (
 
     @SerialName(value = "targetUser") val targetUser: UserNoteTargetUser? = null
 
-)
+) 
 

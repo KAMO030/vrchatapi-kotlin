@@ -63,7 +63,6 @@ import kotlinx.serialization.encoding.*
  * @param roles Only returned if ?includeRoles=true is specified.
  */
 @Serializable
-
 data class Group (
 
     @SerialName(value = "ageVerificationSlotsAvailable") val ageVerificationSlotsAvailable: kotlin.Boolean? = null,
@@ -105,7 +104,7 @@ data class Group (
 
     @SerialName(value = "memberCount") val memberCount: kotlin.Int? = null,
 
-    @SerialName(value = "memberCountSyncedAt") val memberCountSyncedAt: kotlin.String? = null,
+    @SerialName(value = "memberCountSyncedAt") val memberCountSyncedAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "isVerified") val isVerified: kotlin.Boolean? = false,
 
@@ -118,11 +117,11 @@ data class Group (
 
     @SerialName(value = "galleries") val galleries: kotlin.collections.List<GroupGallery>? = null,
 
-    @SerialName(value = "createdAt") val createdAt: kotlin.String? = null,
+    @SerialName(value = "createdAt") val createdAt: kotlinx.datetime.Instant? = null,
 
-    @SerialName(value = "updatedAt") val updatedAt: kotlin.String? = null,
+    @SerialName(value = "updatedAt") val updatedAt: kotlinx.datetime.Instant? = null,
 
-    @SerialName(value = "lastPostCreatedAt") val lastPostCreatedAt: kotlin.String? = null,
+    @SerialName(value = "lastPostCreatedAt") val lastPostCreatedAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "onlineMemberCount") val onlineMemberCount: kotlin.Int? = null,
 

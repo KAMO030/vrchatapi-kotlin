@@ -40,7 +40,6 @@ import kotlinx.serialization.encoding.*
  * @param unityVersion 
  */
 @Serializable
-
 data class CreateWorldRequest (
 
     @SerialName(value = "assetUrl") @Required val assetUrl: kotlin.String,

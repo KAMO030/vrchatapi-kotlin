@@ -38,7 +38,6 @@ import kotlinx.serialization.encoding.*
  * @param updatedAt 
  */
 @Serializable
-
 data class GroupRole (
 
     @SerialName(value = "id") val id: kotlin.String? = null,
@@ -51,7 +50,7 @@ data class GroupRole (
 
     @SerialName(value = "isSelfAssignable") val isSelfAssignable: kotlin.Boolean? = false,
 
-    @SerialName(value = "permissions") val permissions: kotlin.collections.List<GroupPermissions>? = null,
+    @SerialName(value = "permissions") val permissions: kotlin.collections.List<@Contextual GroupPermissions>? = null,
 
     @SerialName(value = "isManagementRole") val isManagementRole: kotlin.Boolean? = false,
 
@@ -61,9 +60,9 @@ data class GroupRole (
 
     @SerialName(value = "order") val order: kotlin.Int? = null,
 
-    @SerialName(value = "createdAt") val createdAt: kotlin.String? = null,
+    @SerialName(value = "createdAt") val createdAt: kotlinx.datetime.Instant? = null,
 
-    @SerialName(value = "updatedAt") val updatedAt: kotlin.String? = null
+    @SerialName(value = "updatedAt") val updatedAt: kotlinx.datetime.Instant? = null
 
-)
+) 
 

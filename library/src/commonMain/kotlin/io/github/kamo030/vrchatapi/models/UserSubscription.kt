@@ -44,7 +44,6 @@ import kotlinx.serialization.encoding.*
  * @param starts 
  */
 @Serializable
-
 data class UserSubscription (
 
     @SerialName(value = "id") @Required val id: kotlin.String,
@@ -66,11 +65,11 @@ data class UserSubscription (
 
     @SerialName(value = "status") @Required val status: TransactionStatus = TransactionStatus.Active,
 
-    @SerialName(value = "expires") @Required val expires: kotlin.String,
+    @SerialName(value = "expires") @Required val expires: kotlinx.datetime.Instant,
 
-    @SerialName(value = "created_at") @Required val createdAt: kotlin.String,
+    @SerialName(value = "created_at") @Required val createdAt: kotlinx.datetime.Instant,
 
-    @SerialName(value = "updated_at") @Required val updatedAt: kotlin.String,
+    @SerialName(value = "updated_at") @Required val updatedAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "licenseGroups") @Required val licenseGroups: kotlin.collections.List<kotlin.String>,
 
@@ -82,5 +81,5 @@ data class UserSubscription (
 
     @SerialName(value = "starts") val starts: kotlin.String? = null
 
-)
+) 
 

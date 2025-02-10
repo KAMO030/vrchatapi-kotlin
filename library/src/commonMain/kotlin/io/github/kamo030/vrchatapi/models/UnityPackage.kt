@@ -42,7 +42,6 @@ import kotlinx.serialization.encoding.*
  * @param variant 
  */
 @Serializable
-
 data class UnityPackage (
 
     @SerialName(value = "id") @Required val id: kotlin.String,
@@ -58,7 +57,7 @@ data class UnityPackage (
 
     @SerialName(value = "assetUrlObject") val assetUrlObject: kotlin.String? = null,
 
-    @SerialName(value = "created_at") val createdAt: kotlin.String? = null,
+    @SerialName(value = "created_at") val createdAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "impostorizerVersion") val impostorizerVersion: kotlin.String? = null,
 

@@ -26,21 +26,22 @@ import io.github.kamo030.vrchatapi.models.Verify2FAResult
 import io.github.kamo030.vrchatapi.models.VerifyAuthTokenResult
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.request.*
 import kotlinx.serialization.json.Json
 import io.ktor.http.ParametersBuilder
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
+fun ApiClient.createAuthenticationApi() = AuthenticationApi(this)
+
 open class AuthenticationApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
 
     /**
      * Check User Exists
@@ -52,11 +53,16 @@ open class AuthenticationApi(
      * @return UserExists
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun checkUserExists(email: kotlin.String? = null, displayName: kotlin.String? = null, username: kotlin.String? = null, excludeUserId: kotlin.String? = null): HttpResponse<UserExists> {
+    open suspend fun checkUserExists(
+        email: kotlin.String? = null,
+        displayName: kotlin.String? = null,
+        username: kotlin.String? = null,
+        excludeUserId: kotlin.String? = null,
+    ): HttpResponse<UserExists> {
 
         val localVariableAuthNames = listOf<String>()
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -70,10 +76,11 @@ open class AuthenticationApi(
             RequestMethod.GET,
             "/auth/exists",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = false,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -92,7 +99,7 @@ open class AuthenticationApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -102,10 +109,11 @@ open class AuthenticationApi(
             RequestMethod.PUT,
             "/users/{userId}/delete".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -119,11 +127,14 @@ open class AuthenticationApi(
      * @return CurrentUser
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getCurrentUser(): HttpResponse<CurrentUser> {
+    open suspend fun getCurrentUser(username: kotlin.String? = null, password: kotlin.String? = null): HttpResponse<CurrentUser> {
 
-        val localVariableAuthNames = listOf<String>("authCookie", "authHeader", "twoFactorAuthCookie")
+        username?.let { apiClient.setUsername(it) }
+        password?.let { apiClient.setPassword(it) }
 
-        val localVariableBody = 
+        val localVariableAuthNames = listOf<String>("authHeader", "twoFactorAuthCookie", "authCookie")
+
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -133,10 +144,11 @@ open class AuthenticationApi(
             RequestMethod.GET,
             "/auth/user",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -154,7 +166,7 @@ open class AuthenticationApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -164,10 +176,11 @@ open class AuthenticationApi(
             RequestMethod.PUT,
             "/logout",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -178,7 +191,7 @@ open class AuthenticationApi(
     /**
      * Verify 2FA code
      * Finishes the login sequence with a normal 2FA-generated code for accounts with 2FA-protection enabled.
-     * @param twoFactorAuthCode 
+     * @param twoFactorAuthCode
      * @return Verify2FAResult
      */
     @Suppress("UNCHECKED_CAST")
@@ -195,10 +208,11 @@ open class AuthenticationApi(
             RequestMethod.POST,
             "/auth/twofactorauth/totp/verify",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -206,11 +220,10 @@ open class AuthenticationApi(
     }
 
 
-
     /**
      * Verify 2FA email code
      * Finishes the login sequence with an 2FA email code.
-     * @param twoFactorEmailCode 
+     * @param twoFactorEmailCode
      * @return Verify2FAEmailCodeResult
      */
     @Suppress("UNCHECKED_CAST")
@@ -227,16 +240,16 @@ open class AuthenticationApi(
             RequestMethod.POST,
             "/auth/twofactorauth/emailotp/verify",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -249,7 +262,7 @@ open class AuthenticationApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -259,10 +272,11 @@ open class AuthenticationApi(
             RequestMethod.GET,
             "/auth",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -273,7 +287,7 @@ open class AuthenticationApi(
     /**
      * Verify 2FA code with Recovery code
      * Finishes the login sequence with an OTP (One Time Password) recovery code for accounts with 2FA-protection enabled.
-     * @param twoFactorAuthCode 
+     * @param twoFactorAuthCode
      * @return Verify2FAResult
      */
     @Suppress("UNCHECKED_CAST")
@@ -290,16 +304,16 @@ open class AuthenticationApi(
             RequestMethod.POST,
             "/auth/twofactorauth/otp/verify",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
 }

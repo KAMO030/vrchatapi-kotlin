@@ -28,17 +28,16 @@ import kotlinx.serialization.encoding.*
  * @param dateTime Date and time of the deletion request.
  */
 @Serializable
-
 data class AccountDeletionLog (
 
     /* Typically \"Deletion requested\" or \"Deletion canceled\". Other messages like \"Deletion completed\" may exist, but are these are not possible to see as a regular user. */
     @SerialName(value = "message") val message: kotlin.String? = "Deletion requested",
 
     /* When the deletion is scheduled to happen, standard is 14 days after the request. */
-    @SerialName(value = "deletionScheduled") val deletionScheduled: kotlin.String? = null,
+    @SerialName(value = "deletionScheduled") val deletionScheduled: kotlinx.datetime.Instant? = null,
 
     /* Date and time of the deletion request. */
-    @SerialName(value = "dateTime") val dateTime: kotlin.String? = null
+    @SerialName(value = "dateTime") val dateTime: kotlinx.datetime.Instant? = null
 
 )
 

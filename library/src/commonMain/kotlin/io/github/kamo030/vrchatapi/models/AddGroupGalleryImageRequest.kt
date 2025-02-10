@@ -26,7 +26,6 @@ import kotlinx.serialization.encoding.*
  * @param fileId 
  */
 @Serializable
-
 data class AddGroupGalleryImageRequest (
 
     @SerialName(value = "fileId") @Required val fileId: kotlin.String

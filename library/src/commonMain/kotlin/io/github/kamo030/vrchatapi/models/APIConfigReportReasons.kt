@@ -45,7 +45,6 @@ import kotlinx.serialization.encoding.*
  * @param visuals 
  */
 @Serializable
-
 data class APIConfigReportReasons (
 
     @SerialName(value = "billing") @Required val billing: ReportReason,

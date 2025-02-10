@@ -28,7 +28,6 @@ import kotlinx.serialization.encoding.*
  * @param buildVersionTag 
  */
 @Serializable
-
 data class APIHealth (
 
     @SerialName(value = "ok") @Required val ok: kotlin.Boolean,
@@ -37,5 +36,5 @@ data class APIHealth (
 
     @SerialName(value = "buildVersionTag") @Required val buildVersionTag: kotlin.String
 
-)
+) 
 

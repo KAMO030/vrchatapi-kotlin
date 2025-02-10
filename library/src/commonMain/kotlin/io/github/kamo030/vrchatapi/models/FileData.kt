@@ -33,7 +33,6 @@ import kotlinx.serialization.encoding.*
  * @param md5 
  */
 @Serializable
-
 data class FileData (
 
     @SerialName(value = "category") @Required val category: FileData.Category = Category.Queued,
@@ -63,5 +62,6 @@ data class FileData (
         @SerialName(value = "queued") Queued("queued"),
         @SerialName(value = "simple") Simple("simple");
     }
+
 }
 

@@ -2,12 +2,20 @@
 kotlin = "2.1.0"
 ktor="3.0.3"
 maven-publish = "0.29.0"
+kotlinx-datetime = "0.6.0"
+coroutines = "1.9.0"
+serialization = "1.7.3"
 
 [libraries]
 # test
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+
+# kotlinx
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref  = "kotlinx-datetime" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "serialization" }
 
 # Ktor-Client
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -22,3 +30,10 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
+
+[bundles]
+ktor-client = [
+    "ktor-client-core",
+    "ktor-client-content-negotiation",
+    "ktor-serialization-kotlinx-json"
+]

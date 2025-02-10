@@ -32,7 +32,6 @@ import kotlinx.serialization.encoding.*
  * @param imageUrl direct url to image
  */
 @Serializable
-
 data class TokenBundle (
 
     @SerialName(value = "id") @Required val id: kotlin.String,
@@ -52,5 +51,5 @@ data class TokenBundle (
     /* direct url to image */
     @SerialName(value = "imageUrl") @Required val imageUrl: kotlin.String
 
-)
+) 
 

@@ -28,7 +28,6 @@ import kotlinx.serialization.encoding.*
  * @param supplementary 
  */
 @Serializable
-
 data class AvatarStyles (
 
     @SerialName(value = "primary") val primary: kotlin.String? = null,
@@ -37,5 +36,5 @@ data class AvatarStyles (
 
     @SerialName(value = "supplementary") val supplementary: kotlin.collections.List<kotlin.String>? = null
 
-)
+) 
 

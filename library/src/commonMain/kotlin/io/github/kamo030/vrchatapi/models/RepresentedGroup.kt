@@ -41,7 +41,6 @@ import kotlinx.serialization.encoding.*
  * @param isRepresenting 
  */
 @Serializable
-
 data class RepresentedGroup (
 
     @SerialName(value = "name") val name: kotlin.String? = null,
@@ -73,5 +72,5 @@ data class RepresentedGroup (
 
     @SerialName(value = "isRepresenting") val isRepresenting: kotlin.Boolean? = null
 
-)
+) 
 

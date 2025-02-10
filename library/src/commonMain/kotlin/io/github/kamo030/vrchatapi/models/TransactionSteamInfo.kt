@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param transId Steam Transaction ID, NOT the same as VRChat TransactionID
  */
 @Serializable
-
 data class TransactionSteamInfo (
 
     @SerialName(value = "walletInfo") @Required val walletInfo: TransactionSteamWalletInfo,
@@ -48,5 +47,5 @@ data class TransactionSteamInfo (
     /* Steam Transaction ID, NOT the same as VRChat TransactionID */
     @SerialName(value = "transId") @Required val transId: kotlin.String
 
-)
+) 
 

@@ -20,6 +20,7 @@ import io.github.kamo030.vrchatapi.models.Jam
 import io.github.kamo030.vrchatapi.models.Submission
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -30,11 +31,32 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class JamsApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Show jam information
@@ -47,7 +69,7 @@ open class JamsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -57,10 +79,11 @@ open class JamsApi(
             RequestMethod.GET,
             "/jams/{jamId}".replace("{" + "jamId" + "}", "$jamId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -79,7 +102,7 @@ open class JamsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -89,23 +112,25 @@ open class JamsApi(
             RequestMethod.GET,
             "/jams/{jamId}/submissions".replace("{" + "jamId" + "}", "$jamId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetJamSubmissionsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetJamSubmissionsResponse.Companion::class)
     private class GetJamSubmissionsResponse(val value: List<Submission>) {
-        @Serializer(GetJamSubmissionsResponse::class)
         companion object : KSerializer<GetJamSubmissionsResponse> {
             private val serializer: KSerializer<List<Submission>> = serializer<List<Submission>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetJamSubmissionsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetJamSubmissionsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetJamSubmissionsResponse(serializer.deserialize(decoder))
         }
     }
@@ -121,7 +146,7 @@ open class JamsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -132,23 +157,25 @@ open class JamsApi(
             RequestMethod.GET,
             "/jams",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetJamsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetJamsResponse.Companion::class)
     private class GetJamsResponse(val value: List<Jam>) {
-        @Serializer(GetJamsResponse::class)
         companion object : KSerializer<GetJamsResponse> {
             private val serializer: KSerializer<List<Jam>> = serializer<List<Jam>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetJamsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetJamsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetJamsResponse(serializer.deserialize(decoder))
         }
     }

@@ -29,7 +29,6 @@ import kotlinx.serialization.encoding.*
  * @param tags Tags on FavoriteGroups are believed to do nothing.
  */
 @Serializable
-
 data class UpdateFavoriteGroupRequest (
 
     @SerialName(value = "displayName") val displayName: kotlin.String? = null,
@@ -39,5 +38,5 @@ data class UpdateFavoriteGroupRequest (
     /* Tags on FavoriteGroups are believed to do nothing. */
     @SerialName(value = "tags") val tags: kotlin.collections.List<kotlin.String>? = null
 
-)
+) 
 

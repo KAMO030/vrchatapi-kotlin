@@ -30,7 +30,6 @@ import kotlinx.serialization.encoding.*
  * @param worldstore 
  */
 @Serializable
-
 data class APIConfigReportOptionsWorld (
 
     @SerialName(value = "environment") val environment: kotlin.collections.List<kotlin.String>? = null,

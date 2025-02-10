@@ -36,7 +36,6 @@ import kotlinx.serialization.encoding.*
  * @param unityVersion 
  */
 @Serializable
-
 data class UpdateAvatarRequest (
 
     @SerialName(value = "assetUrl") val assetUrl: kotlin.String? = null,
@@ -60,5 +59,5 @@ data class UpdateAvatarRequest (
 
     @SerialName(value = "unityVersion") val unityVersion: kotlin.String? = "5.3.4p1"
 
-)
+) 
 

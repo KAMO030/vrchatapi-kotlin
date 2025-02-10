@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param requestMessage Used when using InviteMessage Slot.
  */
 @Serializable
-
 data class NotificationDetailRequestInvite (
 
     /* TODO: Does this still exist? */
@@ -36,5 +35,5 @@ data class NotificationDetailRequestInvite (
     /* Used when using InviteMessage Slot. */
     @SerialName(value = "requestMessage") val requestMessage: kotlin.String? = null
 
-)
+) 
 

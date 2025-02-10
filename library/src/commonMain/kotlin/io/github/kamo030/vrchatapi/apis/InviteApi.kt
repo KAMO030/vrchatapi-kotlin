@@ -26,6 +26,7 @@ import io.github.kamo030.vrchatapi.models.SentNotification
 import io.github.kamo030.vrchatapi.models.UpdateInviteMessageRequest
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -36,11 +37,32 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class InviteApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Get Invite Message
@@ -51,11 +73,15 @@ open class InviteApi(
      * @return InviteMessage
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getInviteMessage(userId: kotlin.String, messageType: InviteMessageType = message, slot: kotlin.Int): HttpResponse<InviteMessage> {
+    open suspend fun getInviteMessage(
+        userId: kotlin.String,
+        messageType: InviteMessageType = InviteMessageType.Message,
+        slot: kotlin.Int,
+    ): HttpResponse<InviteMessage> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -63,12 +89,14 @@ open class InviteApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/message/{userId}/{messageType}/{slot}".replace("{" + "userId" + "}", "$userId").replace("{" + "messageType" + "}", "$messageType").replace("{" + "slot" + "}", "$slot"),
+            "/message/{userId}/{messageType}/{slot}".replace("{" + "userId" + "}", "$userId")
+                .replace("{" + "messageType" + "}", "$messageType").replace("{" + "slot" + "}", "$slot"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -84,11 +112,14 @@ open class InviteApi(
      * @return kotlin.collections.List<InviteMessage>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getInviteMessages(userId: kotlin.String, messageType: InviteMessageType = message): HttpResponse<kotlin.collections.List<InviteMessage>> {
+    open suspend fun getInviteMessages(
+        userId: kotlin.String,
+        messageType: InviteMessageType = InviteMessageType.Message,
+    ): HttpResponse<kotlin.collections.List<InviteMessage>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -96,25 +127,28 @@ open class InviteApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/message/{userId}/{messageType}".replace("{" + "userId" + "}", "$userId").replace("{" + "messageType" + "}", "$messageType"),
+            "/message/{userId}/{messageType}".replace("{" + "userId" + "}", "$userId")
+                .replace("{" + "messageType" + "}", "$messageType"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetInviteMessagesResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetInviteMessagesResponse.Companion::class)
     private class GetInviteMessagesResponse(val value: List<InviteMessage>) {
-        @Serializer(GetInviteMessagesResponse::class)
         companion object : KSerializer<GetInviteMessagesResponse> {
             private val serializer: KSerializer<List<InviteMessage>> = serializer<List<InviteMessage>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetInviteMessagesResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetInviteMessagesResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetInviteMessagesResponse(serializer.deserialize(decoder))
         }
     }
@@ -131,7 +165,7 @@ open class InviteApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -139,12 +173,14 @@ open class InviteApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.POST,
-            "/invite/myself/to/{worldId}:{instanceId}".replace("{" + "worldId" + "}", "$worldId").replace("{" + "instanceId" + "}", "$instanceId"),
+            "/invite/myself/to/{worldId}:{instanceId}".replace("{" + "worldId" + "}", "$worldId")
+                .replace("{" + "instanceId" + "}", "$instanceId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -173,16 +209,16 @@ open class InviteApi(
             RequestMethod.POST,
             "/invite/{userId}".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -193,7 +229,10 @@ open class InviteApi(
      * @return Notification
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun requestInvite(userId: kotlin.String, requestInviteRequest: RequestInviteRequest? = null): HttpResponse<Notification> {
+    open suspend fun requestInvite(
+        userId: kotlin.String,
+        requestInviteRequest: RequestInviteRequest? = null,
+    ): HttpResponse<Notification> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -206,16 +245,16 @@ open class InviteApi(
             RequestMethod.POST,
             "/requestInvite/{userId}".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -227,11 +266,15 @@ open class InviteApi(
      * @return kotlin.collections.List<InviteMessage>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun resetInviteMessage(userId: kotlin.String, messageType: InviteMessageType = message, slot: kotlin.Int): HttpResponse<kotlin.collections.List<InviteMessage>> {
+    open suspend fun resetInviteMessage(
+        userId: kotlin.String,
+        messageType: InviteMessageType = InviteMessageType.Message,
+        slot: kotlin.Int,
+    ): HttpResponse<kotlin.collections.List<InviteMessage>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -239,25 +282,28 @@ open class InviteApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/message/{userId}/{messageType}/{slot}".replace("{" + "userId" + "}", "$userId").replace("{" + "messageType" + "}", "$messageType").replace("{" + "slot" + "}", "$slot"),
+            "/message/{userId}/{messageType}/{slot}".replace("{" + "userId" + "}", "$userId")
+                .replace("{" + "messageType" + "}", "$messageType").replace("{" + "slot" + "}", "$slot"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<ResetInviteMessageResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(ResetInviteMessageResponse.Companion::class)
     private class ResetInviteMessageResponse(val value: List<InviteMessage>) {
-        @Serializer(ResetInviteMessageResponse::class)
         companion object : KSerializer<ResetInviteMessageResponse> {
             private val serializer: KSerializer<List<InviteMessage>> = serializer<List<InviteMessage>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: ResetInviteMessageResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: ResetInviteMessageResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = ResetInviteMessageResponse(serializer.deserialize(decoder))
         }
     }
@@ -270,7 +316,10 @@ open class InviteApi(
      * @return Notification
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun respondInvite(notificationId: kotlin.String, inviteResponse: InviteResponse): HttpResponse<Notification> {
+    open suspend fun respondInvite(
+        notificationId: kotlin.String,
+        inviteResponse: InviteResponse,
+    ): HttpResponse<Notification> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -283,16 +332,16 @@ open class InviteApi(
             RequestMethod.POST,
             "/invite/{notificationId}/response".replace("{" + "notificationId" + "}", "$notificationId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -305,7 +354,12 @@ open class InviteApi(
      * @return kotlin.collections.List<InviteMessage>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun updateInviteMessage(userId: kotlin.String, messageType: InviteMessageType = message, slot: kotlin.Int, updateInviteMessageRequest: UpdateInviteMessageRequest? = null): HttpResponse<kotlin.collections.List<InviteMessage>> {
+    open suspend fun updateInviteMessage(
+        userId: kotlin.String,
+        messageType: InviteMessageType = InviteMessageType.Message,
+        slot: kotlin.Int,
+        updateInviteMessageRequest: UpdateInviteMessageRequest? = null,
+    ): HttpResponse<kotlin.collections.List<InviteMessage>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -316,12 +370,14 @@ open class InviteApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.PUT,
-            "/message/{userId}/{messageType}/{slot}".replace("{" + "userId" + "}", "$userId").replace("{" + "messageType" + "}", "$messageType").replace("{" + "slot" + "}", "$slot"),
+            "/message/{userId}/{messageType}/{slot}".replace("{" + "userId" + "}", "$userId")
+                .replace("{" + "messageType" + "}", "$messageType").replace("{" + "slot" + "}", "$slot"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -329,13 +385,14 @@ open class InviteApi(
     }
 
 
-    @Serializable
+    @Serializable(UpdateInviteMessageResponse.Companion::class)
     private class UpdateInviteMessageResponse(val value: List<InviteMessage>) {
-        @Serializer(UpdateInviteMessageResponse::class)
         companion object : KSerializer<UpdateInviteMessageResponse> {
             private val serializer: KSerializer<List<InviteMessage>> = serializer<List<InviteMessage>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: UpdateInviteMessageResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: UpdateInviteMessageResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = UpdateInviteMessageResponse(serializer.deserialize(decoder))
         }
     }

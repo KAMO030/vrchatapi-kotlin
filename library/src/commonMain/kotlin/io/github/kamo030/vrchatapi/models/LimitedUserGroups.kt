@@ -43,7 +43,6 @@ import kotlinx.serialization.encoding.*
  * @param lastPostReadAt 
  */
 @Serializable
-
 data class LimitedUserGroups (
 
     @SerialName(value = "id") val id: kotlin.String? = null,
@@ -66,7 +65,7 @@ data class LimitedUserGroups (
 
     @SerialName(value = "privacy") val privacy: kotlin.String? = null,
 
-    @SerialName(value = "lastPostCreatedAt") val lastPostCreatedAt: kotlin.String? = null,
+    @SerialName(value = "lastPostCreatedAt") val lastPostCreatedAt: kotlinx.datetime.Instant? = null,
 
     /* A users unique ID, usually in the form of `usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469`. Legacy players can have old IDs in the form of `8JoV9XEdpo`. The ID can never be changed. */
     @SerialName(value = "ownerId") val ownerId: kotlin.String? = null,
@@ -81,7 +80,7 @@ data class LimitedUserGroups (
 
     @SerialName(value = "mutualGroup") val mutualGroup: kotlin.Boolean? = null,
 
-    @SerialName(value = "lastPostReadAt") val lastPostReadAt: kotlin.String? = null
+    @SerialName(value = "lastPostReadAt") val lastPostReadAt: kotlinx.datetime.Instant? = null
 
 )
 

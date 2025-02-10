@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param createdAt 
  */
 @Serializable
-
 data class FileAnalysis (
 
     @SerialName(value = "avatarStats") @Required val avatarStats: FileAnalysisAvatarStats,
@@ -42,7 +41,7 @@ data class FileAnalysis (
 
     @SerialName(value = "uncompressedSize") @Required val uncompressedSize: kotlin.Int,
 
-    @SerialName(value = "created_at") val createdAt: kotlin.String? = null
+    @SerialName(value = "created_at") val createdAt: kotlinx.datetime.Instant? = null
 
 )
 

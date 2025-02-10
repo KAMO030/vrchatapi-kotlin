@@ -30,7 +30,6 @@ import kotlinx.serialization.encoding.*
  * @param licenses 
  */
 @Serializable
-
 data class LicenseGroup (
 
     @SerialName(value = "id") @Required val id: kotlin.String,
@@ -41,5 +40,5 @@ data class LicenseGroup (
 
     @SerialName(value = "licenses") @Required val licenses: kotlin.collections.List<License>
 
-)
+) 
 

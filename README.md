@@ -465,7 +465,7 @@ Class | Method | HTTP request | Description
  - [io.github.kamo030.vrchatapi.models.World](docs/World.md)
  - [io.github.kamo030.vrchatapi.models.WorldMetadata](docs/WorldMetadata.md)
  - [io.github.kamo030.vrchatapi.models.WorldPublishStatus](docs/WorldPublishStatus.md)
- - [io.github.kamo030.vrchatapi.models.io.github.kamo030.vrchatapi.infrastructure.OctetByteArray](docs/io.github.kamo030.vrchatapi.infrastructure.OctetByteArray.md)
+ - [io.github.kamo030.vrchatapi.models.OctetByteArray](docs/OctetByteArray.md)
 
 
 <a name="documentation-for-authorization"></a>

@@ -60,7 +60,6 @@ import kotlinx.serialization.encoding.*
  * @param quantifiable 
  */
 @Serializable
-
 data class ProductListing (
 
     @SerialName(value = "active") @Required val active: kotlin.Boolean,
@@ -69,7 +68,7 @@ data class ProductListing (
 
     @SerialName(value = "buyerRefundable") @Required val buyerRefundable: kotlin.Boolean,
 
-    @SerialName(value = "created") @Required val created: kotlin.String,
+    @SerialName(value = "created") @Required val created: kotlinx.datetime.Instant,
 
     @SerialName(value = "description") @Required val description: kotlin.String,
 
@@ -115,7 +114,7 @@ data class ProductListing (
 
     @SerialName(value = "tags") @Required val tags: kotlin.collections.List<kotlin.String>,
 
-    @SerialName(value = "updated") @Required val updated: kotlin.String?,
+    @SerialName(value = "updated") @Required val updated: kotlinx.datetime.Instant?,
 
     @SerialName(value = "duration") val duration: kotlin.Int? = null,
 

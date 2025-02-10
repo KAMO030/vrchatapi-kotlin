@@ -38,7 +38,6 @@ import kotlinx.serialization.encoding.*
  * @param sticker 
  */
 @Serializable
-
 data class APIConfigReportCategories (
 
     @SerialName(value = "avatar") @Required val avatar: ReportCategory,

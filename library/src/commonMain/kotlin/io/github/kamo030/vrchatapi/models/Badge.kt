@@ -33,7 +33,6 @@ import kotlinx.serialization.encoding.*
  * @param updatedAt only present in CurrentUser badges
  */
 @Serializable
-
 data class Badge (
 
     @SerialName(value = "badgeDescription") @Required val badgeDescription: kotlin.String,
@@ -48,13 +47,13 @@ data class Badge (
     @SerialName(value = "showcased") @Required val showcased: kotlin.Boolean,
 
     /* only present in CurrentUser badges */
-    @SerialName(value = "assignedAt") val assignedAt: kotlin.String? = null,
+    @SerialName(value = "assignedAt") val assignedAt: kotlinx.datetime.Instant? = null,
 
     /* only present in CurrentUser badges */
     @SerialName(value = "hidden") val hidden: kotlin.Boolean? = null,
 
     /* only present in CurrentUser badges */
-    @SerialName(value = "updatedAt") val updatedAt: kotlin.String? = null
+    @SerialName(value = "updatedAt") val updatedAt: kotlinx.datetime.Instant? = null
 
-)
+) 
 

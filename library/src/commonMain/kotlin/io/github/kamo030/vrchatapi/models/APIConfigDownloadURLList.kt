@@ -30,7 +30,6 @@ import kotlinx.serialization.encoding.*
  * @param bootstrap Download link for ???
  */
 @Serializable
-
 data class APIConfigDownloadURLList (
 
     /* Download link for legacy SDK2 */
@@ -49,5 +48,5 @@ data class APIConfigDownloadURLList (
     /* Download link for ??? */
     @SerialName(value = "bootstrap") @Required val bootstrap: kotlin.String
 
-)
+) 
 

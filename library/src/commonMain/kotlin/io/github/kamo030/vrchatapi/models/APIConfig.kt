@@ -154,7 +154,6 @@ import kotlinx.serialization.encoding.*
  * @param economyState Unknown
  */
 @Serializable
-
 data class APIConfig (
 
     /* Unknown, probably voice optimization testing */
@@ -181,7 +180,7 @@ data class APIConfig (
     @SerialName(value = "analysisRetryInterval") @Required val analysisRetryInterval: kotlin.Int,
 
     /* Public Announcements */
-    @SerialName(value = "announcements") @Required val announcements: kotlin.collections.List<APIConfigAnnouncement>,
+    @SerialName(value = "announcements") @Required val announcements: kotlin.collections.Set<APIConfigAnnouncement>,
 
     /* Unknown */
     @SerialName(value = "analyticsSegment_NewUI_PctOfUsers") @Required val analyticsSegmentNewUIPctOfUsers: kotlin.Int,
@@ -251,7 +250,7 @@ data class APIConfig (
     @SerialName(value = "devSdkVersion") @Required val devSdkVersion: kotlin.String,
 
     /* Unknown, \"dis\" maybe for disconnect? */
-    @SerialName(value = "dis-countdown") @Required val disCountdown: kotlin.String,
+    @SerialName(value = "dis-countdown") @Required val disCountdown: kotlinx.datetime.Instant,
 
     /* Toggles if copying avatars should be disabled */
     @SerialName(value = "disableAvatarCopying") @Required val disableAvatarCopying: kotlin.Boolean = false,
@@ -308,7 +307,7 @@ data class APIConfig (
     @SerialName(value = "downloadUrls") @Required val downloadUrls: APIConfigDownloadURLList,
 
     /* Array of DynamicWorldRow objects, used by the game to display the list of world rows */
-    @SerialName(value = "dynamicWorldRows") @Required val dynamicWorldRows: kotlin.collections.List<DynamicContentRow>,
+    @SerialName(value = "dynamicWorldRows") @Required val dynamicWorldRows: kotlin.collections.Set<DynamicContentRow>,
 
     @SerialName(value = "events") @Required val events: APIConfigEvents,
 

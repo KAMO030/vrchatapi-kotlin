@@ -50,7 +50,6 @@ import kotlinx.serialization.encoding.*
  * @param udonProducts 
  */
 @Serializable
-
 data class LimitedWorld (
 
     /* A users unique ID, usually in the form of `usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469`. Legacy players can have old IDs in the form of `8JoV9XEdpo`. The ID can never be changed. */
@@ -60,7 +59,7 @@ data class LimitedWorld (
 
     @SerialName(value = "capacity") @Required val capacity: kotlin.Int,
 
-    @SerialName(value = "created_at") @Required val createdAt: kotlin.String,
+    @SerialName(value = "created_at") @Required val createdAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "favorites") @Required val favorites: kotlin.Int = 0,
 
@@ -93,7 +92,7 @@ data class LimitedWorld (
     /*   */
     @SerialName(value = "unityPackages") @Required val unityPackages: kotlin.collections.List<LimitedUnityPackage>,
 
-    @SerialName(value = "updated_at") @Required val updatedAt: kotlin.String,
+    @SerialName(value = "updated_at") @Required val updatedAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "recommendedCapacity") val recommendedCapacity: kotlin.Int? = null,
 
@@ -103,5 +102,5 @@ data class LimitedWorld (
 
     @SerialName(value = "udonProducts") val udonProducts: kotlin.collections.List<kotlin.String>? = null
 
-)
+) 
 

@@ -28,7 +28,6 @@ import kotlinx.serialization.encoding.*
  * @param ios 
  */
 @Serializable
-
 data class InstancePlatforms (
 
     @SerialName(value = "android") @Required val android: kotlin.Int,
@@ -37,5 +36,5 @@ data class InstancePlatforms (
 
     @SerialName(value = "ios") val ios: kotlin.Int? = null
 
-)
+) 
 

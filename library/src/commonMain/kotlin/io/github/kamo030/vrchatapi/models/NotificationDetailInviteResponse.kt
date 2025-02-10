@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param responseMessage 
  */
 @Serializable
-
 data class NotificationDetailInviteResponse (
 
     @SerialName(value = "inResponseTo") @Required val inResponseTo: kotlin.String,

@@ -36,7 +36,6 @@ import kotlinx.serialization.encoding.*
  * @param updatedAt 
  */
 @Serializable
-
 data class Jam (
 
     @SerialName(value = "description") @Required val description: kotlin.String,
@@ -52,13 +51,13 @@ data class Jam (
 
     @SerialName(value = "stateChangeDates") @Required val stateChangeDates: JamStateChangeDates,
 
-    @SerialName(value = "submissionContentGateDate") @Required val submissionContentGateDate: kotlin.String?,
+    @SerialName(value = "submissionContentGateDate") @Required val submissionContentGateDate: kotlinx.datetime.Instant?,
 
     @SerialName(value = "submissionContentGated") @Required val submissionContentGated: kotlin.Boolean,
 
     @SerialName(value = "title") @Required val title: kotlin.String,
 
-    @SerialName(value = "updated_at") @Required val updatedAt: kotlin.String
+    @SerialName(value = "updated_at") @Required val updatedAt: kotlinx.datetime.Instant
 
-)
+) 
 

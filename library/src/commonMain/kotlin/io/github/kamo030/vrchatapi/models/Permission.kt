@@ -33,7 +33,6 @@ import kotlinx.serialization.encoding.*
  * @param `data` 
  */
 @Serializable
-
 data class Permission (
 
     @SerialName(value = "id") @Required val id: kotlin.String,
@@ -53,5 +52,5 @@ data class Permission (
 
     @SerialName(value = "data") val `data`: kotlin.String? = null
 
-)
+) 
 

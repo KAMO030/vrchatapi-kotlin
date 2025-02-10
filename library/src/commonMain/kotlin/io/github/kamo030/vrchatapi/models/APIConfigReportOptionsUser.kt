@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param text 
  */
 @Serializable
-
 data class APIConfigReportOptionsUser (
 
     @SerialName(value = "behavior") val behavior: kotlin.collections.List<kotlin.String>? = null,
@@ -46,5 +45,5 @@ data class APIConfigReportOptionsUser (
 
     @SerialName(value = "text") val text: kotlin.collections.List<kotlin.String>? = null
 
-)
+) 
 

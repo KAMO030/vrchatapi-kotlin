@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param min Minimum population for a crowded instance
  */
 @Serializable
-
 data class APIConfigConstantsINSTANCEPOPULATIONBRACKETSCROWDED (
 
     /* Maximum population for a crowded instance */
@@ -36,5 +35,5 @@ data class APIConfigConstantsINSTANCEPOPULATIONBRACKETSCROWDED (
     /* Minimum population for a crowded instance */
     @SerialName(value = "min") val min: kotlin.Int? = null
 
-)
+) 
 

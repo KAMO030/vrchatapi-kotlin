@@ -30,7 +30,6 @@ import kotlinx.serialization.encoding.*
  * @param type 
  */
 @Serializable
-
 data class Favorite (
 
     /* MUST be either AvatarID, UserID or WorldID. */
@@ -43,5 +42,5 @@ data class Favorite (
 
     @SerialName(value = "type") @Required val type: FavoriteType = FavoriteType.Friend
 
-)
+) 
 

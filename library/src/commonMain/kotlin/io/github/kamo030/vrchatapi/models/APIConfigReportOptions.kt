@@ -33,7 +33,6 @@ import kotlinx.serialization.encoding.*
  * @param world 
  */
 @Serializable
-
 data class APIConfigReportOptions (
 
     @SerialName(value = "avatar") val avatar: APIConfigReportOptionsAvatar? = null,
@@ -44,5 +43,5 @@ data class APIConfigReportOptions (
 
     @SerialName(value = "world") val world: APIConfigReportOptionsWorld? = null
 
-)
+) 
 

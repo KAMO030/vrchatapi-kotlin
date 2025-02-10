@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param parameters In case of OpenURL, this would contain the link.
  */
 @Serializable
-
 data class InfoPushDataClickable (
 
     @SerialName(value = "command") @Required val command: InfoPushDataClickable.Command,
@@ -49,5 +48,6 @@ data class InfoPushDataClickable (
         @SerialName(value = "OpenSafetyMenu") OpenSafetyMenu("OpenSafetyMenu"),
         @SerialName(value = "CannedWorldSearch") CannedWorldSearch("CannedWorldSearch");
     }
+
 }
 

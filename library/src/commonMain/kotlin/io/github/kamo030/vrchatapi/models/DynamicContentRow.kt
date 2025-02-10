@@ -33,7 +33,6 @@ import kotlinx.serialization.encoding.*
  * @param type Type is not present if it is a world.
  */
 @Serializable
-
 data class DynamicContentRow (
 
     @SerialName(value = "name") @Required val name: kotlin.String,
@@ -55,5 +54,5 @@ data class DynamicContentRow (
     /* Type is not present if it is a world. */
     @SerialName(value = "type") val type: kotlin.String? = null
 
-)
+) 
 

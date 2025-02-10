@@ -29,6 +29,7 @@ import io.github.kamo030.vrchatapi.models.User
 import io.github.kamo030.vrchatapi.models.UserNote
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -39,11 +40,32 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class UsersApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Get User by ID
@@ -56,7 +78,7 @@ open class UsersApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -66,10 +88,11 @@ open class UsersApi(
             RequestMethod.GET,
             "/users/{userId}".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -88,7 +111,7 @@ open class UsersApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -98,10 +121,11 @@ open class UsersApi(
             RequestMethod.GET,
             "/users/{username}/name".replace("{" + "username" + "}", "$username"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -119,11 +143,16 @@ open class UsersApi(
      * @return kotlin.collections.List<Feedback>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getUserFeedback(userId: kotlin.String, contentId: kotlin.Boolean? = null, n: kotlin.Int? = 60, offset: kotlin.Int? = null): HttpResponse<kotlin.collections.List<Feedback>> {
+    open suspend fun getUserFeedback(
+        userId: kotlin.String,
+        contentId: kotlin.Boolean? = null,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+    ): HttpResponse<kotlin.collections.List<Feedback>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -136,23 +165,25 @@ open class UsersApi(
             RequestMethod.GET,
             "/users/{userId}/feedback".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetUserFeedbackResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetUserFeedbackResponse.Companion::class)
     private class GetUserFeedbackResponse(val value: List<Feedback>) {
-        @Serializer(GetUserFeedbackResponse::class)
         companion object : KSerializer<GetUserFeedbackResponse> {
             private val serializer: KSerializer<List<Feedback>> = serializer<List<Feedback>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetUserFeedbackResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetUserFeedbackResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetUserFeedbackResponse(serializer.deserialize(decoder))
         }
     }
@@ -168,7 +199,7 @@ open class UsersApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -178,10 +209,11 @@ open class UsersApi(
             RequestMethod.GET,
             "/users/{userId}/instances/groups".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -200,7 +232,7 @@ open class UsersApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -210,23 +242,25 @@ open class UsersApi(
             RequestMethod.GET,
             "/users/{userId}/groups/requested".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetUserGroupRequestsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetUserGroupRequestsResponse.Companion::class)
     private class GetUserGroupRequestsResponse(val value: List<Group>) {
-        @Serializer(GetUserGroupRequestsResponse::class)
         companion object : KSerializer<GetUserGroupRequestsResponse> {
             private val serializer: KSerializer<List<Group>> = serializer<List<Group>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetUserGroupRequestsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetUserGroupRequestsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetUserGroupRequestsResponse(serializer.deserialize(decoder))
         }
     }
@@ -242,7 +276,7 @@ open class UsersApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -252,23 +286,25 @@ open class UsersApi(
             RequestMethod.GET,
             "/users/{userId}/groups".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetUserGroupsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetUserGroupsResponse.Companion::class)
     private class GetUserGroupsResponse(val value: List<LimitedUserGroups>) {
-        @Serializer(GetUserGroupsResponse::class)
         companion object : KSerializer<GetUserGroupsResponse> {
             private val serializer: KSerializer<List<LimitedUserGroups>> = serializer<List<LimitedUserGroups>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetUserGroupsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetUserGroupsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetUserGroupsResponse(serializer.deserialize(decoder))
         }
     }
@@ -284,7 +320,7 @@ open class UsersApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -294,10 +330,11 @@ open class UsersApi(
             RequestMethod.GET,
             "/userNotes/{userNoteId}".replace("{" + "userNoteId" + "}", "$userNoteId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -313,11 +350,14 @@ open class UsersApi(
      * @return kotlin.collections.List<UserNote>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getUserNotes(n: kotlin.Int? = 60, offset: kotlin.Int? = null): HttpResponse<kotlin.collections.List<UserNote>> {
+    open suspend fun getUserNotes(
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+    ): HttpResponse<kotlin.collections.List<UserNote>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -329,23 +369,25 @@ open class UsersApi(
             RequestMethod.GET,
             "/userNotes",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetUserNotesResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetUserNotesResponse.Companion::class)
     private class GetUserNotesResponse(val value: List<UserNote>) {
-        @Serializer(GetUserNotesResponse::class)
         companion object : KSerializer<GetUserNotesResponse> {
             private val serializer: KSerializer<List<UserNote>> = serializer<List<UserNote>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetUserNotesResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetUserNotesResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetUserNotesResponse(serializer.deserialize(decoder))
         }
     }
@@ -361,7 +403,7 @@ open class UsersApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -371,10 +413,11 @@ open class UsersApi(
             RequestMethod.GET,
             "/users/{userId}/groups/represented".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -392,11 +435,16 @@ open class UsersApi(
      * @return kotlin.collections.List<LimitedUser>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun searchUsers(search: kotlin.String? = null, developerType: kotlin.String? = null, n: kotlin.Int? = 60, offset: kotlin.Int? = null): HttpResponse<kotlin.collections.List<LimitedUser>> {
+    open suspend fun searchUsers(
+        search: kotlin.String? = null,
+        developerType: kotlin.String? = null,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+    ): HttpResponse<kotlin.collections.List<LimitedUser>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -410,23 +458,25 @@ open class UsersApi(
             RequestMethod.GET,
             "/users",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<SearchUsersResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(SearchUsersResponse.Companion::class)
     private class SearchUsersResponse(val value: List<LimitedUser>) {
-        @Serializer(SearchUsersResponse::class)
         companion object : KSerializer<SearchUsersResponse> {
             private val serializer: KSerializer<List<LimitedUser>> = serializer<List<LimitedUser>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: SearchUsersResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: SearchUsersResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = SearchUsersResponse(serializer.deserialize(decoder))
         }
     }
@@ -439,7 +489,10 @@ open class UsersApi(
      * @return CurrentUser
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun updateUser(userId: kotlin.String, updateUserRequest: UpdateUserRequest? = null): HttpResponse<CurrentUser> {
+    open suspend fun updateUser(
+        userId: kotlin.String,
+        updateUserRequest: UpdateUserRequest? = null,
+    ): HttpResponse<CurrentUser> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -452,10 +505,11 @@ open class UsersApi(
             RequestMethod.PUT,
             "/users/{userId}".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -463,11 +517,10 @@ open class UsersApi(
     }
 
 
-
     /**
      * Update User Note
      * Updates the currently authenticated user&#39;s note on a user
-     * @param updateUserNoteRequest 
+     * @param updateUserNoteRequest
      * @return UserNote
      */
     @Suppress("UNCHECKED_CAST")
@@ -484,16 +537,16 @@ open class UsersApi(
             RequestMethod.POST,
             "/userNotes",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
 }

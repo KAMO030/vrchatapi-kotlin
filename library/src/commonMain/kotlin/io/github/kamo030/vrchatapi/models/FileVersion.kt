@@ -34,10 +34,9 @@ import kotlinx.serialization.encoding.*
  * @param signature 
  */
 @Serializable
-
 data class FileVersion (
 
-    @SerialName(value = "created_at") @Required val createdAt: kotlin.String,
+    @SerialName(value = "created_at") @Required val createdAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "status") @Required val status: FileStatus = FileStatus.Waiting,
 
@@ -53,5 +52,5 @@ data class FileVersion (
 
     @SerialName(value = "signature") val signature: FileData? = null
 
-)
+) 
 

@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param shortName 
  */
 @Serializable
-
 data class InstanceShortNameResponse (
 
     @SerialName(value = "secureName") @Required val secureName: kotlin.String,

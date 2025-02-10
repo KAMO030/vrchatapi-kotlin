@@ -27,10 +27,9 @@ import kotlinx.serialization.encoding.*
  * @param POPULATION_BRACKETS 
  */
 @Serializable
-
 data class APIConfigConstantsINSTANCE (
 
     @SerialName(value = "POPULATION_BRACKETS") val POPULATION_BRACKETS: APIConfigConstantsINSTANCEPOPULATIONBRACKETS? = null
 
-)
+) 
 

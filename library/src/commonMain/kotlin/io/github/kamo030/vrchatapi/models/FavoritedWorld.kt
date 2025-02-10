@@ -56,7 +56,6 @@ import kotlinx.serialization.encoding.*
  * @param udonProducts 
  */
 @Serializable
-
 data class FavoritedWorld (
 
     /* A users unique ID, usually in the form of `usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469`. Legacy players can have old IDs in the form of `8JoV9XEdpo`. The ID can never be changed. */
@@ -68,7 +67,7 @@ data class FavoritedWorld (
 
     @SerialName(value = "description") @Required val description: kotlin.String,
 
-    @SerialName(value = "created_at") @Required val createdAt: kotlin.String,
+    @SerialName(value = "created_at") @Required val createdAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "favorites") @Required val favorites: kotlin.Int = 0,
 
@@ -107,7 +106,7 @@ data class FavoritedWorld (
     /*   */
     @SerialName(value = "unityPackages") @Required val unityPackages: kotlin.collections.List<UnityPackage>,
 
-    @SerialName(value = "updated_at") @Required val updatedAt: kotlin.String,
+    @SerialName(value = "updated_at") @Required val updatedAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "urlList") @Required val urlList: kotlin.collections.List<kotlin.String>,
 
@@ -121,5 +120,5 @@ data class FavoritedWorld (
 
     @SerialName(value = "udonProducts") val udonProducts: kotlin.collections.List<kotlin.String>? = null
 
-)
+) 
 

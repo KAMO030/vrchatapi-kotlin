@@ -28,7 +28,6 @@ import kotlinx.serialization.encoding.*
  * @param tiliaResponse 
  */
 @Serializable
-
 data class Balance (
 
     @SerialName(value = "balance") @Required val balance: kotlin.Int = 0,
@@ -37,5 +36,5 @@ data class Balance (
 
     @SerialName(value = "tiliaResponse") val tiliaResponse: kotlin.Boolean? = null
 
-)
+) 
 

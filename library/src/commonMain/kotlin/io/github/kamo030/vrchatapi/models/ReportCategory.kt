@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param tooltip The tooltip that describes the category
  */
 @Serializable
-
 data class ReportCategory (
 
     /* The label of the report category */

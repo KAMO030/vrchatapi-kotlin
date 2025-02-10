@@ -26,11 +26,10 @@ import kotlinx.serialization.encoding.*
  * @param SPOKEN_LANGUAGE_OPTIONS Supported spoken language options
  */
 @Serializable
-
 data class APIConfigConstantsLANGUAGE (
 
     /* Supported spoken language options */
     @SerialName(value = "SPOKEN_LANGUAGE_OPTIONS") val SPOKEN_LANGUAGE_OPTIONS: kotlin.collections.Map<kotlin.String, kotlin.String>? = null
 
-)
+) 
 

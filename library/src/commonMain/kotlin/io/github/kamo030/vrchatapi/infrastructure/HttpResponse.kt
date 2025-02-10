@@ -1,5 +1,6 @@
 package io.github.kamo030.vrchatapi.infrastructure
 
+import io.ktor.client.statement.*
 import io.ktor.http.Headers
 import io.ktor.http.isSuccess
 import io.ktor.util.reflect.TypeInfo
@@ -10,6 +11,8 @@ open class HttpResponse<T : Any>(val response: io.ktor.client.statement.HttpResp
     val success: Boolean = response.status.isSuccess()
     val headers: Map<String, List<String>> = response.headers.mapEntries()
     suspend fun body(): T = provider.body(response)
+
+    suspend fun textBody(): String = response.bodyAsText()
     suspend fun <V : Any> typedBody(type: TypeInfo): V = provider.typedBody(response, type)
 
     companion object {

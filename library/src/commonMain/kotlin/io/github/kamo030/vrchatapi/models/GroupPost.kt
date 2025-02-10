@@ -38,7 +38,6 @@ import kotlinx.serialization.encoding.*
  * @param updatedAt 
  */
 @Serializable
-
 data class GroupPost (
 
     @SerialName(value = "id") val id: kotlin.String? = null,
@@ -64,9 +63,9 @@ data class GroupPost (
 
     @SerialName(value = "imageUrl") val imageUrl: kotlin.String? = null,
 
-    @SerialName(value = "createdAt") val createdAt: kotlin.String? = null,
+    @SerialName(value = "createdAt") val createdAt: kotlinx.datetime.Instant? = null,
 
-    @SerialName(value = "updatedAt") val updatedAt: kotlin.String? = null
+    @SerialName(value = "updatedAt") val updatedAt: kotlinx.datetime.Instant? = null
 
-)
+) 
 

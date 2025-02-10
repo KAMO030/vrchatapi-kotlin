@@ -27,12 +27,11 @@ import kotlinx.serialization.encoding.*
  * @param updatedAt 
  */
 @Serializable
-
 data class PastDisplayName (
 
     @SerialName(value = "displayName") @Required val displayName: kotlin.String,
 
-    @SerialName(value = "updated_at") @Required val updatedAt: kotlin.String
+    @SerialName(value = "updated_at") @Required val updatedAt: kotlinx.datetime.Instant
 
 )
 

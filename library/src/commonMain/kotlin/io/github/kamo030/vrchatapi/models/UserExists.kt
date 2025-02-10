@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param nameOk Is the username valid?
  */
 @Serializable
-
 data class UserExists (
 
     /* Status if a user exist with that username or userId. */

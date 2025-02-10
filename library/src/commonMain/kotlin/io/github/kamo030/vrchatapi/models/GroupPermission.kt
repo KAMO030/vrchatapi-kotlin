@@ -30,7 +30,6 @@ import kotlinx.serialization.encoding.*
  * @param allowedToAdd Whether the user is allowed to add this permission to a role.
  */
 @Serializable
-
 data class GroupPermission (
 
     /* The name of the permission. */

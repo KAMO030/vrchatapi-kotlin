@@ -21,6 +21,7 @@ import io.github.kamo030.vrchatapi.models.PlayerModeration
 import io.github.kamo030.vrchatapi.models.Success
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -31,11 +32,32 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class PlayermoderationApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Clear All Player Moderations
@@ -47,7 +69,7 @@ open class PlayermoderationApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -57,10 +79,11 @@ open class PlayermoderationApi(
             RequestMethod.DELETE,
             "/auth/user/playermoderations",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -76,11 +99,14 @@ open class PlayermoderationApi(
      * @return kotlin.collections.List<PlayerModeration>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getPlayerModerations(type: kotlin.String? = null, targetUserId: kotlin.String? = null): HttpResponse<kotlin.collections.List<PlayerModeration>> {
+    open suspend fun getPlayerModerations(
+        type: kotlin.String? = null,
+        targetUserId: kotlin.String? = null,
+    ): HttpResponse<kotlin.collections.List<PlayerModeration>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -92,23 +118,25 @@ open class PlayermoderationApi(
             RequestMethod.GET,
             "/auth/user/playermoderations",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetPlayerModerationsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetPlayerModerationsResponse.Companion::class)
     private class GetPlayerModerationsResponse(val value: List<PlayerModeration>) {
-        @Serializer(GetPlayerModerationsResponse::class)
         companion object : KSerializer<GetPlayerModerationsResponse> {
             private val serializer: KSerializer<List<PlayerModeration>> = serializer<List<PlayerModeration>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetPlayerModerationsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetPlayerModerationsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetPlayerModerationsResponse(serializer.deserialize(decoder))
         }
     }
@@ -116,7 +144,7 @@ open class PlayermoderationApi(
     /**
      * Moderate User
      * Moderate a user, e.g. unmute them or show their avatar.  Please see the [Player Moderation docs](https://vrchatapi.github.io/docs/api/#tag--playermoderation) on what playerModerations are, and how they differ from staff moderations.
-     * @param moderateUserRequest 
+     * @param moderateUserRequest
      * @return PlayerModeration
      */
     @Suppress("UNCHECKED_CAST")
@@ -133,10 +161,11 @@ open class PlayermoderationApi(
             RequestMethod.POST,
             "/auth/user/playermoderations",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -144,11 +173,10 @@ open class PlayermoderationApi(
     }
 
 
-
     /**
      * Unmoderate User
      * Removes a player moderation previously added through &#x60;moderateUser&#x60;. E.g if you previously have shown their avatar, but now want to reset it to default.
-     * @param moderateUserRequest 
+     * @param moderateUserRequest
      * @return Success
      */
     @Suppress("UNCHECKED_CAST")
@@ -165,16 +193,16 @@ open class PlayermoderationApi(
             RequestMethod.PUT,
             "/auth/user/unplayermoderate",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
 }

@@ -33,7 +33,6 @@ import kotlinx.serialization.encoding.*
  * @param updatedAt 
  */
 @Serializable
-
 data class InviteMessage (
 
     @SerialName(value = "canBeUpdated") @Required val canBeUpdated: kotlin.Boolean = true,
@@ -49,7 +48,7 @@ data class InviteMessage (
 
     @SerialName(value = "slot") @Required val slot: kotlin.Int,
 
-    @SerialName(value = "updatedAt") @Required val updatedAt: kotlin.String
+    @SerialName(value = "updatedAt") @Required val updatedAt: kotlinx.datetime.Instant
 
-)
+) 
 

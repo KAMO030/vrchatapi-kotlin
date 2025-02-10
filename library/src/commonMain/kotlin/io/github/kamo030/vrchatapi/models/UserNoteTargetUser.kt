@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param userIcon 
  */
 @Serializable
-
 data class UserNoteTargetUser (
 
     @SerialName(value = "currentAvatarTags") val currentAvatarTags: kotlin.collections.List<kotlin.String>? = null,
@@ -47,5 +46,5 @@ data class UserNoteTargetUser (
 
     @SerialName(value = "userIcon") val userIcon: kotlin.String? = null
 
-)
+) 
 

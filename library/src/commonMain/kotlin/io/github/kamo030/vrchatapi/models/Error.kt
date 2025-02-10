@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param error 
  */
 @Serializable
-
 data class Error (
 
     @SerialName(value = "error") val error: Response? = null

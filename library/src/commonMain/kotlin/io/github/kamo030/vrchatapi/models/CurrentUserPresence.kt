@@ -40,7 +40,6 @@ import kotlinx.serialization.encoding.*
  * @param world WorldID be \"offline\" on User profiles if you are not friends with that user.
  */
 @Serializable
-
 data class CurrentUserPresence (
 
     @SerialName(value = "avatarThumbnail") val avatarThumbnail: kotlin.String? = null,
@@ -79,5 +78,5 @@ data class CurrentUserPresence (
     /* WorldID be \"offline\" on User profiles if you are not friends with that user. */
     @SerialName(value = "world") val world: kotlin.String? = null
 
-)
+) 
 

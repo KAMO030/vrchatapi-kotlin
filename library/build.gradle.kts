@@ -26,20 +26,27 @@ kotlin {
     sourceSets {
 
         commonMain.dependencies {
-            api(libs.ktor.client.core)
-            api(libs.ktor.client.content.negotiation)
-            api(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.kotlinx.serialization.core)
+            implementation(libs.kotlinx.datetime)
+            api(libs.bundles.ktor.client)
         }
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-//            implementation(libs.kotlinx.coroutines.test)
+            implementation(libs.kotlin.test.junit)
             implementation(libs.ktor.client.logging)
         }
 
         jvmTest.dependencies {
             implementation(libs.ktor.client.okhttp)
         }
+
+//        all {
+//            languageSettings.apply {
+//                optIn("kotlin.Experimental")
+//            }
+//        }
 
     }
 }

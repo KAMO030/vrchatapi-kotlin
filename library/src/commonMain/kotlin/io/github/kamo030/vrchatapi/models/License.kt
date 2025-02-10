@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param forAction 
  */
 @Serializable
-
 data class License (
 
     /* Either a AvatarID, LicenseGroupID, PermissionID or ProductID. This depends on the `forType` field. */

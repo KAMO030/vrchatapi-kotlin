@@ -42,7 +42,6 @@ import kotlinx.serialization.encoding.*
  * @param isTokens 
  */
 @Serializable
-
 data class Transaction (
 
     @SerialName(value = "id") @Required val id: kotlin.String,
@@ -53,9 +52,9 @@ data class Transaction (
 
     @SerialName(value = "sandbox") @Required val sandbox: kotlin.Boolean = false,
 
-    @SerialName(value = "created_at") @Required val createdAt: kotlin.String,
+    @SerialName(value = "created_at") @Required val createdAt: kotlinx.datetime.Instant,
 
-    @SerialName(value = "updated_at") @Required val updatedAt: kotlin.String,
+    @SerialName(value = "updated_at") @Required val updatedAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "error") @Required val error: kotlin.String,
 
@@ -72,5 +71,5 @@ data class Transaction (
 
     @SerialName(value = "isTokens") val isTokens: kotlin.Boolean? = false
 
-)
+) 
 

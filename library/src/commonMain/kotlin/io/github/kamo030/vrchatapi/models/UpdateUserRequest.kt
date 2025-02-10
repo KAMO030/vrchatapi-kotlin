@@ -37,12 +37,11 @@ import kotlinx.serialization.encoding.*
  * @param userIcon MUST be a valid VRChat /file/ url.
  */
 @Serializable
-
 data class UpdateUserRequest (
 
     @SerialName(value = "email") val email: kotlin.String? = null,
 
-    @SerialName(value = "birthday") val birthday: kotlin.String? = null,
+    @SerialName(value = "birthday") val birthday: kotlinx.datetime.LocalDate? = null,
 
     @SerialName(value = "acceptedTOSVersion") val acceptedTOSVersion: kotlin.Int? = null,
 

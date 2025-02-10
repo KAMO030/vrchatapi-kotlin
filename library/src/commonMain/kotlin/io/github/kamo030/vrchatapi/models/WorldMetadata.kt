@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param metadata 
  */
 @Serializable
-
 data class WorldMetadata (
 
     /* WorldID be \"offline\" on User profiles if you are not friends with that user. */
@@ -35,5 +34,5 @@ data class WorldMetadata (
 
     @SerialName(value = "metadata") @Required val metadata: kotlin.String
 
-)
+) 
 

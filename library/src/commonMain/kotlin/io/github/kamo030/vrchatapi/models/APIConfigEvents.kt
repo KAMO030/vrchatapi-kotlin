@@ -35,7 +35,6 @@ import kotlinx.serialization.encoding.*
  * @param viewSegmentLength Unknown
  */
 @Serializable
-
 data class APIConfigEvents (
 
     /* Unknown */

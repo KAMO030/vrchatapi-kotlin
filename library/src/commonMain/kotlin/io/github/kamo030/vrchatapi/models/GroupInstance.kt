@@ -30,7 +30,6 @@ import kotlinx.serialization.encoding.*
  * @param memberCount 
  */
 @Serializable
-
 data class GroupInstance (
 
     @SerialName(value = "instanceId") @Required val instanceId: kotlin.String,
@@ -42,5 +41,5 @@ data class GroupInstance (
 
     @SerialName(value = "memberCount") @Required val memberCount: kotlin.Int
 
-)
+) 
 

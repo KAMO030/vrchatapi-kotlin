@@ -36,7 +36,6 @@ import kotlinx.serialization.encoding.*
  * @param tags  
  */
 @Serializable
-
 data class UpdateGroupRequest (
 
     @SerialName(value = "name") val name: kotlin.String? = null,
@@ -61,5 +60,5 @@ data class UpdateGroupRequest (
     /*   */
     @SerialName(value = "tags") val tags: kotlin.collections.List<kotlin.String>? = null
 
-)
+) 
 

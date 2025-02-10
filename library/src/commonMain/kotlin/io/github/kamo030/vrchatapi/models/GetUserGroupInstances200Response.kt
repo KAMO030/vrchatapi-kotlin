@@ -28,12 +28,11 @@ import kotlinx.serialization.encoding.*
  * @param instances 
  */
 @Serializable
-
 data class GetUserGroupInstances200Response (
 
-    @SerialName(value = "fetchedAt") val fetchedAt: kotlin.String? = null,
+    @SerialName(value = "fetchedAt") val fetchedAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "instances") val instances: kotlin.collections.List<Instance>? = null
 
-)
+) 
 

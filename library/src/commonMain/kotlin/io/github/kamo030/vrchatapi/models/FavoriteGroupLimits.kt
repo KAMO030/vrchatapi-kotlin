@@ -28,7 +28,6 @@ import kotlinx.serialization.encoding.*
  * @param world 
  */
 @Serializable
-
 data class FavoriteGroupLimits (
 
     @SerialName(value = "avatar") @Required val avatar: kotlin.Int,
@@ -37,5 +36,5 @@ data class FavoriteGroupLimits (
 
     @SerialName(value = "world") @Required val world: kotlin.Int
 
-)
+) 
 

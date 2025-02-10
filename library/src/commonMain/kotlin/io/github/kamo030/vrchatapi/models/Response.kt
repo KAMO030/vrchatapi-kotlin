@@ -27,12 +27,11 @@ import kotlinx.serialization.encoding.*
  * @param message 
  */
 @Serializable
-
 data class Response (
 
     @SerialName(value = "status_code") @Required val statusCode: kotlin.Int,
 
     @SerialName(value = "message") val message: kotlin.String? = null
 
-)
+) 
 

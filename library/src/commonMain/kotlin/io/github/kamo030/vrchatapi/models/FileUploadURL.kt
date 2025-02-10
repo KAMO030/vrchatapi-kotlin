@@ -26,11 +26,10 @@ import kotlinx.serialization.encoding.*
  * @param url 
  */
 @Serializable
-
 data class FileUploadURL (
 
     /*  */
     @SerialName(value = "url") @Required val url: kotlin.String
 
-)
+) 
 

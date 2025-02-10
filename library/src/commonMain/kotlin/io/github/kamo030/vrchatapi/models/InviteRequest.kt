@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param messageSlot 
  */
 @Serializable
-
 data class InviteRequest (
 
     /* InstanceID can be \"offline\" on User profiles if you are not friends with that user and \"private\" if you are friends and user is in private instance. */

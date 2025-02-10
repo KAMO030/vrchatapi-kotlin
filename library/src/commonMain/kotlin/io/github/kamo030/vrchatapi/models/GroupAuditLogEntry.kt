@@ -34,12 +34,11 @@ import kotlinx.serialization.encoding.*
  * @param `data` The data associated with the event. The format of this data is dependent on the event type.
  */
 @Serializable
-
 data class GroupAuditLogEntry (
 
     @SerialName(value = "id") val id: kotlin.String? = null,
 
-    @SerialName(value = "created_at") val createdAt: kotlin.String? = null,
+    @SerialName(value = "created_at") val createdAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "groupId") val groupId: kotlin.String? = null,
 

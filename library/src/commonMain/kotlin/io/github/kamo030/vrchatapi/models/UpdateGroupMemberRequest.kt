@@ -29,7 +29,6 @@ import kotlinx.serialization.encoding.*
  * @param managerNotes 
  */
 @Serializable
-
 data class UpdateGroupMemberRequest (
 
     @SerialName(value = "visibility") val visibility: GroupUserVisibility? = null,

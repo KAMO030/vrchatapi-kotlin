@@ -26,10 +26,9 @@ import kotlinx.serialization.encoding.*
  * @param message 
  */
 @Serializable
-
 data class UpdateInviteMessageRequest (
 
     @SerialName(value = "message") @Required val message: kotlin.String
 
-)
+) 
 

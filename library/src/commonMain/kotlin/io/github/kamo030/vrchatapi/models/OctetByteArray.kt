@@ -15,12 +15,7 @@
 
 package io.github.kamo030.vrchatapi.models
 
-import io.github.kamo030.vrchatapi.models.FileVersion
-import io.github.kamo030.vrchatapi.models.MIMEType
-
 import kotlinx.serialization.*
-import kotlinx.serialization.descriptors.*
-import kotlinx.serialization.encoding.*
 
 /**
  * 
@@ -34,8 +29,7 @@ import kotlinx.serialization.encoding.*
  * @param versions  
  */
 @Serializable
-
-data class io.github.kamo030.vrchatapi.infrastructure.OctetByteArray (
+data class OctetByteArray (
 
     @SerialName(value = "extension") @Required val extension: kotlin.String,
 
@@ -53,7 +47,7 @@ data class io.github.kamo030.vrchatapi.infrastructure.OctetByteArray (
     @SerialName(value = "tags") @Required val tags: kotlin.collections.List<kotlin.String>,
 
     /*   */
-    @SerialName(value = "versions") @Required val versions: kotlin.collections.List<FileVersion>
+    @SerialName(value = "versions") @Required val versions: kotlin.collections.Set<FileVersion>
 
-)
+) 
 

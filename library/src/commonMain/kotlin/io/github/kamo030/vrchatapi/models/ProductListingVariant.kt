@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param effectiveFrom 
  */
 @Serializable
-
 data class ProductListingVariant (
 
     @SerialName(value = "listingVariantId") @Required val listingVariantId: kotlin.String,
@@ -44,7 +43,7 @@ data class ProductListingVariant (
 
     @SerialName(value = "unitPriceTokens") @Required val unitPriceTokens: kotlin.Int,
 
-    @SerialName(value = "effectiveFrom") val effectiveFrom: kotlin.String? = null
+    @SerialName(value = "effectiveFrom") val effectiveFrom: kotlinx.datetime.Instant? = null
 
-)
+) 
 

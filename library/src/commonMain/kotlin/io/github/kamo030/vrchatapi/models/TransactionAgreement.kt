@@ -43,7 +43,6 @@ import kotlinx.serialization.encoding.*
  * @param failedAttempts 
  */
 @Serializable
-
 data class TransactionAgreement (
 
     @SerialName(value = "agreementId") @Required val agreementId: kotlin.String,

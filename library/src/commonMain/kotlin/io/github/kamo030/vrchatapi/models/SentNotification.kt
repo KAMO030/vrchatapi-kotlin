@@ -34,10 +34,9 @@ import kotlinx.serialization.encoding.*
  * @param senderUsername -| **DEPRECATED:** VRChat API no longer return usernames of other users. [See issue by Tupper for more information](https://github.com/pypy-vrc/VRCX/issues/429).
  */
 @Serializable
-
 data class SentNotification (
 
-    @SerialName(value = "created_at") @Required val createdAt: kotlin.String,
+    @SerialName(value = "created_at") @Required val createdAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "details") @Required val details: kotlin.String,
 
@@ -58,5 +57,5 @@ data class SentNotification (
     @Deprecated(message = "This property is deprecated.")
     @SerialName(value = "senderUsername") val senderUsername: kotlin.String? = null
 
-)
+) 
 

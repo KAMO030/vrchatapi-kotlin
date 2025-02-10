@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param etags Unknown
  */
 @Serializable
-
 data class FileVersionUploadStatus (
 
     @SerialName(value = "uploadId") @Required val uploadId: kotlin.String,

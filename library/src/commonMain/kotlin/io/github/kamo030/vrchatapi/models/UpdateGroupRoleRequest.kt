@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param order 
  */
 @Serializable
-
 data class UpdateGroupRoleRequest (
 
     @SerialName(value = "name") val name: kotlin.String? = null,
@@ -40,7 +39,7 @@ data class UpdateGroupRoleRequest (
 
     @SerialName(value = "isSelfAssignable") val isSelfAssignable: kotlin.Boolean? = false,
 
-    @SerialName(value = "permissions") val permissions: kotlin.collections.List<GroupPermissions>? = null,
+    @SerialName(value = "permissions") val permissions: kotlin.collections.List<@Contextual GroupPermissions>? = null,
 
     @SerialName(value = "order") val order: kotlin.Int? = null
 

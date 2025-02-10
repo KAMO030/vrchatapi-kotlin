@@ -48,7 +48,6 @@ import kotlinx.serialization.encoding.*
  * @param friendKey 
  */
 @Serializable
-
 data class LimitedUser (
 
     @SerialName(value = "developerType") @Required val developerType: DeveloperType = DeveloperType.None,
@@ -85,7 +84,7 @@ data class LimitedUser (
 
     @SerialName(value = "fallbackAvatar") val fallbackAvatar: kotlin.String? = null,
 
-    @SerialName(value = "last_login") val lastLogin: kotlin.String? = null,
+    @SerialName(value = "last_login") val lastLogin: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "profilePicOverride") val profilePicOverride: kotlin.String? = null,
 
@@ -101,5 +100,5 @@ data class LimitedUser (
 
     @SerialName(value = "friendKey") val friendKey: kotlin.String? = null
 
-)
+) 
 

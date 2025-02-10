@@ -29,7 +29,6 @@ import kotlinx.serialization.encoding.*
  * @param fileSizeInBytes 
  */
 @Serializable
-
 data class CreateFileVersionRequest (
 
     @SerialName(value = "signatureMd5") @Required val signatureMd5: kotlin.String,
@@ -40,5 +39,5 @@ data class CreateFileVersionRequest (
 
     @SerialName(value = "fileSizeInBytes") val fileSizeInBytes: kotlin.Int? = null
 
-)
+) 
 

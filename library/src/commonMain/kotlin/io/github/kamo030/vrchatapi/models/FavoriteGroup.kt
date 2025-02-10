@@ -35,7 +35,6 @@ import kotlinx.serialization.encoding.*
  * @param visibility 
  */
 @Serializable
-
 data class FavoriteGroup (
 
     @SerialName(value = "displayName") @Required val displayName: kotlin.String,
@@ -56,5 +55,5 @@ data class FavoriteGroup (
 
     @SerialName(value = "visibility") @Required val visibility: FavoriteGroupVisibility = FavoriteGroupVisibility.Private
 
-)
+) 
 

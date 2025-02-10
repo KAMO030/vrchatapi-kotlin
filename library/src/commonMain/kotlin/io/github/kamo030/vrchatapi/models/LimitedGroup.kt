@@ -44,7 +44,6 @@ import kotlinx.serialization.encoding.*
  * @param galleries  
  */
 @Serializable
-
 data class LimitedGroup (
 
     @SerialName(value = "id") val id: kotlin.String? = null,
@@ -75,7 +74,7 @@ data class LimitedGroup (
     /*   */
     @SerialName(value = "tags") val tags: kotlin.collections.List<kotlin.String>? = null,
 
-    @SerialName(value = "createdAt") val createdAt: kotlin.String? = null,
+    @SerialName(value = "createdAt") val createdAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "membershipStatus") val membershipStatus: GroupMemberStatus? = GroupMemberStatus.Inactive,
 
@@ -84,5 +83,5 @@ data class LimitedGroup (
     /*   */
     @SerialName(value = "galleries") val galleries: kotlin.collections.List<GroupGallery>? = null
 
-)
+) 
 

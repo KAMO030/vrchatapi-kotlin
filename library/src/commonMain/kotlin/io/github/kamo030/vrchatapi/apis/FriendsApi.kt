@@ -22,6 +22,7 @@ import io.github.kamo030.vrchatapi.models.Notification
 import io.github.kamo030.vrchatapi.models.Success
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -32,11 +33,32 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class FriendsApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Delete Friend Request
@@ -49,7 +71,7 @@ open class FriendsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -59,10 +81,11 @@ open class FriendsApi(
             RequestMethod.DELETE,
             "/user/{userId}/friendRequest".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -81,7 +104,7 @@ open class FriendsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -91,10 +114,11 @@ open class FriendsApi(
             RequestMethod.POST,
             "/user/{userId}/friendRequest".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -113,7 +137,7 @@ open class FriendsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -123,10 +147,11 @@ open class FriendsApi(
             RequestMethod.GET,
             "/user/{userId}/friendStatus".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -143,11 +168,15 @@ open class FriendsApi(
      * @return kotlin.collections.List<LimitedUser>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getFriends(offset: kotlin.Int? = null, n: kotlin.Int? = 60, offline: kotlin.Boolean? = null): HttpResponse<kotlin.collections.List<LimitedUser>> {
+    open suspend fun getFriends(
+        offset: kotlin.Int? = null,
+        n: kotlin.Int? = 60,
+        offline: kotlin.Boolean? = null,
+    ): HttpResponse<kotlin.collections.List<LimitedUser>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -160,10 +189,11 @@ open class FriendsApi(
             RequestMethod.GET,
             "/auth/user/friends",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -172,11 +202,12 @@ open class FriendsApi(
 
     @Serializable(GetFriendsResponse.Companion::class)
     private class GetFriendsResponse(val value: List<LimitedUser>) {
-        @Serializer(GetFriendsResponse::class)
         companion object : KSerializer<GetFriendsResponse> {
             private val serializer: KSerializer<List<LimitedUser>> = serializer<List<LimitedUser>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetFriendsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetFriendsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetFriendsResponse(serializer.deserialize(decoder))
         }
     }
@@ -192,7 +223,7 @@ open class FriendsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -202,10 +233,11 @@ open class FriendsApi(
             RequestMethod.DELETE,
             "/auth/user/friends/{userId}".replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames

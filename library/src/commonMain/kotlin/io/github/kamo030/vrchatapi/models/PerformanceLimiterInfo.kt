@@ -26,7 +26,6 @@ import kotlinx.serialization.encoding.*
  * @param maxSeats Maximum amount of seats. -1 means no limit.
  */
 @Serializable
-
 data class PerformanceLimiterInfo (
 
     /* Maximum amount of seats. -1 means no limit. */

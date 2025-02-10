@@ -21,6 +21,7 @@ import io.github.kamo030.vrchatapi.models.Instance
 import io.github.kamo030.vrchatapi.models.InstanceShortNameResponse
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -31,11 +32,32 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class InstancesApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Close Instance
@@ -47,11 +69,16 @@ open class InstancesApi(
      * @return Instance
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun closeInstance(worldId: kotlin.String, instanceId: kotlin.String, hardClose: kotlin.Boolean? = null, closedAt: kotlin.String? = null): HttpResponse<Instance> {
+    open suspend fun closeInstance(
+        worldId: kotlin.String,
+        instanceId: kotlin.String,
+        hardClose: kotlin.Boolean? = null,
+        closedAt: kotlinx.datetime.Instant? = null,
+    ): HttpResponse<Instance> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -61,12 +88,14 @@ open class InstancesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/instances/{worldId}:{instanceId}".replace("{" + "worldId" + "}", "$worldId").replace("{" + "instanceId" + "}", "$instanceId"),
+            "/instances/{worldId}:{instanceId}".replace("{" + "worldId" + "}", "$worldId")
+                .replace("{" + "instanceId" + "}", "$instanceId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -77,7 +106,7 @@ open class InstancesApi(
     /**
      * Create Instance
      * Create an instance
-     * @param createInstanceRequest 
+     * @param createInstanceRequest
      * @return Instance
      */
     @Suppress("UNCHECKED_CAST")
@@ -94,16 +123,16 @@ open class InstancesApi(
             RequestMethod.POST,
             "/instances",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
     /**
@@ -118,7 +147,7 @@ open class InstancesApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -126,12 +155,14 @@ open class InstancesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/instances/{worldId}:{instanceId}".replace("{" + "worldId" + "}", "$worldId").replace("{" + "instanceId" + "}", "$instanceId"),
+            "/instances/{worldId}:{instanceId}".replace("{" + "worldId" + "}", "$worldId")
+                .replace("{" + "instanceId" + "}", "$instanceId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -150,7 +181,7 @@ open class InstancesApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -160,10 +191,11 @@ open class InstancesApi(
             RequestMethod.GET,
             "/instances/s/{shortName}".replace("{" + "shortName" + "}", "$shortName"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -179,11 +211,14 @@ open class InstancesApi(
      * @return InstanceShortNameResponse
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getShortName(worldId: kotlin.String, instanceId: kotlin.String): HttpResponse<InstanceShortNameResponse> {
+    open suspend fun getShortName(
+        worldId: kotlin.String,
+        instanceId: kotlin.String,
+    ): HttpResponse<InstanceShortNameResponse> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -191,12 +226,14 @@ open class InstancesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/instances/{worldId}:{instanceId}/shortName".replace("{" + "worldId" + "}", "$worldId").replace("{" + "instanceId" + "}", "$instanceId"),
+            "/instances/{worldId}:{instanceId}/shortName".replace("{" + "worldId" + "}", "$worldId")
+                .replace("{" + "instanceId" + "}", "$instanceId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames

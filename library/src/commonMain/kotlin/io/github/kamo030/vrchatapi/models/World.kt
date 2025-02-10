@@ -58,7 +58,6 @@ import kotlinx.serialization.encoding.*
  * @param udonProducts 
  */
 @Serializable
-
 data class World (
 
     /* A users unique ID, usually in the form of `usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469`. Legacy players can have old IDs in the form of `8JoV9XEdpo`. The ID can never be changed. */
@@ -70,7 +69,7 @@ data class World (
 
     @SerialName(value = "recommendedCapacity") @Required val recommendedCapacity: kotlin.Int,
 
-    @SerialName(value = "created_at") @Required val createdAt: kotlin.String,
+    @SerialName(value = "created_at") @Required val createdAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "description") @Required val description: kotlin.String,
 
@@ -100,7 +99,7 @@ data class World (
 
     @SerialName(value = "thumbnailImageUrl") @Required val thumbnailImageUrl: kotlin.String,
 
-    @SerialName(value = "updated_at") @Required val updatedAt: kotlin.String,
+    @SerialName(value = "updated_at") @Required val updatedAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "version") @Required val version: kotlin.Int = 0,
 
@@ -109,7 +108,7 @@ data class World (
     @SerialName(value = "favorites") val favorites: kotlin.Int? = 0,
 
     /* Will always be an empty list when unauthenticated. */
-    @SerialName(value = "instances") val instances: kotlin.collections.List<kotlin.collections.List<kotlin.Any>>? = null,
+    @SerialName(value = "instances") val instances: kotlin.collections.List<@Contextual kotlin.collections.List<String>>? = null,
 
     @SerialName(value = "namespace") val namespace: kotlin.String? = null,
 
@@ -131,5 +130,5 @@ data class World (
 
     @SerialName(value = "udonProducts") val udonProducts: kotlin.collections.List<kotlin.String>? = null
 
-)
+) 
 

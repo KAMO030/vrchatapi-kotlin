@@ -32,5 +32,5 @@ data class AvatarUnityPackageUrlObject (
 
     @SerialName(value = "unityPackageUrl") val unityPackageUrl: kotlin.String? = null
 
-)
+) 
 

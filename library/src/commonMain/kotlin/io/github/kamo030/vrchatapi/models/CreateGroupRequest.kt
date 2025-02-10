@@ -36,7 +36,6 @@ import kotlinx.serialization.encoding.*
  * @param privacy 
  */
 @Serializable
-
 data class CreateGroupRequest (
 
     @SerialName(value = "name") @Required val name: kotlin.String,

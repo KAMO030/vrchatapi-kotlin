@@ -32,7 +32,6 @@ import kotlinx.serialization.encoding.*
  * @param iOSMobile 
  */
 @Serializable
-
 data class APIConfigAvatarPerfLimiter (
 
     @SerialName(value = "AndroidMobile") @Required val androidMobile: PerformanceLimiterInfo,
@@ -47,5 +46,5 @@ data class APIConfigAvatarPerfLimiter (
 
     @SerialName(value = "iOSMobile") @Required val iOSMobile: PerformanceLimiterInfo
 
-)
+) 
 

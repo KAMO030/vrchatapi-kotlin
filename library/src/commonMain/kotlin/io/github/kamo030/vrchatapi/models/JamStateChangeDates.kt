@@ -29,16 +29,15 @@ import kotlinx.serialization.encoding.*
  * @param winnersSelected 
  */
 @Serializable
-
 data class JamStateChangeDates (
 
-    @SerialName(value = "closed") val closed: kotlin.String? = null,
+    @SerialName(value = "closed") val closed: kotlinx.datetime.Instant? = null,
 
-    @SerialName(value = "submissionsClosed") val submissionsClosed: kotlin.String? = null,
+    @SerialName(value = "submissionsClosed") val submissionsClosed: kotlinx.datetime.Instant? = null,
 
-    @SerialName(value = "submissionsOpened") val submissionsOpened: kotlin.String? = null,
+    @SerialName(value = "submissionsOpened") val submissionsOpened: kotlinx.datetime.Instant? = null,
 
-    @SerialName(value = "winnersSelected") val winnersSelected: kotlin.String? = null
+    @SerialName(value = "winnersSelected") val winnersSelected: kotlinx.datetime.Instant? = null
 
-)
+) 
 

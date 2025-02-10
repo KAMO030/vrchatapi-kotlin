@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param min Minimum population for a few instance
  */
 @Serializable
-
 data class APIConfigConstantsINSTANCEPOPULATIONBRACKETSFEW (
 
     /* Maximum population for a few instance */
@@ -36,5 +35,5 @@ data class APIConfigConstantsINSTANCEPOPULATIONBRACKETSFEW (
     /* Minimum population for a few instance */
     @SerialName(value = "min") val min: kotlin.Int? = null
 
-)
+) 
 

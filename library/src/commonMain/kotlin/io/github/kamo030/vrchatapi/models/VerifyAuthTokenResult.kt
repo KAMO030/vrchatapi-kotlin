@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param token 
  */
 @Serializable
-
 data class VerifyAuthTokenResult (
 
     @SerialName(value = "ok") @Required val ok: kotlin.Boolean,

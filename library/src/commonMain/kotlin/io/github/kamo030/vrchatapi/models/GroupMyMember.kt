@@ -45,7 +45,6 @@ import kotlinx.serialization.encoding.*
  * @param permissions 
  */
 @Serializable
-
 data class GroupMyMember (
 
     @SerialName(value = "id") val id: kotlin.String? = null,
@@ -61,7 +60,7 @@ data class GroupMyMember (
 
     @SerialName(value = "acceptedById") val acceptedById: kotlin.String? = null,
 
-    @SerialName(value = "createdAt") val createdAt: kotlin.String? = null,
+    @SerialName(value = "createdAt") val createdAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "managerNotes") val managerNotes: kotlin.String? = null,
 
@@ -73,7 +72,7 @@ data class GroupMyMember (
 
     @SerialName(value = "isRepresenting") val isRepresenting: kotlin.Boolean? = false,
 
-    @SerialName(value = "joinedAt") val joinedAt: kotlin.String? = null,
+    @SerialName(value = "joinedAt") val joinedAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "bannedAt") val bannedAt: kotlin.String? = null,
 
@@ -81,11 +80,11 @@ data class GroupMyMember (
 
     @SerialName(value = "hasJoinedFromPurchase") val hasJoinedFromPurchase: kotlin.Boolean? = false,
 
-    @SerialName(value = "lastPostReadAt") val lastPostReadAt: kotlin.String? = null,
+    @SerialName(value = "lastPostReadAt") val lastPostReadAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "mRoleIds") val mRoleIds: kotlin.collections.List<kotlin.String>? = null,
 
-    @SerialName(value = "permissions") val permissions: kotlin.collections.List<GroupPermissions>? = null
+    @SerialName(value = "permissions") val permissions: kotlin.collections.List<@Contextual GroupPermissions>? = null
 
 )
 

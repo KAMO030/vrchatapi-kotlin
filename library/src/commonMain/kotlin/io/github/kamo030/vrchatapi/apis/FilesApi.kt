@@ -22,8 +22,9 @@ import io.github.kamo030.vrchatapi.models.FileAnalysis
 import io.github.kamo030.vrchatapi.models.FileUploadURL
 import io.github.kamo030.vrchatapi.models.FileVersionUploadStatus
 import io.github.kamo030.vrchatapi.models.FinishFileDataUploadRequest
-
+import io.github.kamo030.vrchatapi.models.OctetByteArray
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -34,20 +35,41 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class FilesApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Create File
      * Creates a new File object
      * @param createFileRequest  (optional)
-     * @return io.github.kamo030.vrchatapi.infrastructure.OctetByteArray
+     * @return OctetByteArray
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun createFile(createFileRequest: CreateFileRequest? = null): HttpResponse<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray> {
+    open suspend fun createFile(createFileRequest: CreateFileRequest? = null): HttpResponse<OctetByteArray> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -60,10 +82,11 @@ open class FilesApi(
             RequestMethod.POST,
             "/file",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -71,16 +94,18 @@ open class FilesApi(
     }
 
 
-
     /**
      * Create File Version
      * Creates a new FileVersion. Once a Version has been created, proceed to the &#x60;/file/{fileId}/{versionId}/file/start&#x60; endpoint to start a file upload.
      * @param fileId Must be a valid file ID.
      * @param createFileVersionRequest  (optional)
-     * @return io.github.kamo030.vrchatapi.infrastructure.OctetByteArray
+     * @return OctetByteArray
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun createFileVersion(fileId: kotlin.String, createFileVersionRequest: CreateFileVersionRequest? = null): HttpResponse<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray> {
+    open suspend fun createFileVersion(
+        fileId: kotlin.String,
+        createFileVersionRequest: CreateFileVersionRequest? = null,
+    ): HttpResponse<OctetByteArray> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -93,10 +118,11 @@ open class FilesApi(
             RequestMethod.POST,
             "/file/{fileId}".replace("{" + "fileId" + "}", "$fileId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -104,19 +130,18 @@ open class FilesApi(
     }
 
 
-
     /**
      * Delete File
      * Deletes a File object.
      * @param fileId Must be a valid file ID.
-     * @return io.github.kamo030.vrchatapi.infrastructure.OctetByteArray
+     * @return OctetByteArray
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun deleteFile(fileId: kotlin.String): HttpResponse<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray> {
+    open suspend fun deleteFile(fileId: kotlin.String): HttpResponse<OctetByteArray> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -126,10 +151,11 @@ open class FilesApi(
             RequestMethod.DELETE,
             "/file/{fileId}".replace("{" + "fileId" + "}", "$fileId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -142,14 +168,17 @@ open class FilesApi(
      * Delete a specific version of a file. You can only delete the latest version.
      * @param fileId Must be a valid file ID.
      * @param versionId Version ID of the asset.
-     * @return io.github.kamo030.vrchatapi.infrastructure.OctetByteArray
+     * @return OctetByteArray
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun deleteFileVersion(fileId: kotlin.String, versionId: kotlin.Int): HttpResponse<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray> {
+    open suspend fun deleteFileVersion(
+        fileId: kotlin.String,
+        versionId: kotlin.Int,
+    ): HttpResponse<OctetByteArray> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -157,12 +186,14 @@ open class FilesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/file/{fileId}/{versionId}".replace("{" + "fileId" + "}", "$fileId").replace("{" + "versionId" + "}", "$versionId"),
+            "/file/{fileId}/{versionId}".replace("{" + "fileId" + "}", "$fileId")
+                .replace("{" + "versionId" + "}", "$versionId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -181,7 +212,7 @@ open class FilesApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -189,12 +220,14 @@ open class FilesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/file/{fileId}/{versionId}".replace("{" + "fileId" + "}", "$fileId").replace("{" + "versionId" + "}", "$versionId"),
+            "/file/{fileId}/{versionId}".replace("{" + "fileId" + "}", "$fileId")
+                .replace("{" + "versionId" + "}", "$versionId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -203,16 +236,38 @@ open class FilesApi(
 
 
     /**
+     * enum for parameter fileType
+     */
+    @Serializable
+    enum class FileTypeFinishFileDataUpload(val value: kotlin.String) {
+
+        @SerialName(value = "file")
+        File("file"),
+
+        @SerialName(value = "signature")
+        Signature("signature"),
+
+        @SerialName(value = "delta")
+        Delta("delta")
+
+    }
+
+    /**
      * Finish FileData Upload
      * Finish an upload of a FileData. This will mark it as \&quot;complete\&quot;. After uploading the &#x60;file&#x60; for Avatars and Worlds you then have to upload a &#x60;signature&#x60; file.
      * @param fileId Must be a valid file ID.
      * @param versionId Version ID of the asset.
      * @param fileType Type of file.
      * @param finishFileDataUploadRequest Please see documentation on ETag&#39;s: [https://teppen.io/2018/06/23/aws_s3_etags/](https://teppen.io/2018/06/23/aws_s3_etags/)  ETag&#39;s should NOT be present when uploading a &#x60;signature&#x60;. (optional)
-     * @return io.github.kamo030.vrchatapi.infrastructure.OctetByteArray
+     * @return OctetByteArray
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun finishFileDataUpload(fileId: kotlin.String, versionId: kotlin.Int, fileType: kotlin.String, finishFileDataUploadRequest: FinishFileDataUploadRequest? = null): HttpResponse<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray> {
+    open suspend fun finishFileDataUpload(
+        fileId: kotlin.String,
+        versionId: kotlin.Int,
+        fileType: FileTypeFinishFileDataUpload,
+        finishFileDataUploadRequest: FinishFileDataUploadRequest? = null,
+    ): HttpResponse<OctetByteArray> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -223,12 +278,14 @@ open class FilesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.PUT,
-            "/file/{fileId}/{versionId}/{fileType}/finish".replace("{" + "fileId" + "}", "$fileId").replace("{" + "versionId" + "}", "$versionId").replace("{" + "fileType" + "}", "$fileType"),
+            "/file/{fileId}/{versionId}/{fileType}/finish".replace("{" + "fileId" + "}", "$fileId")
+                .replace("{" + "versionId" + "}", "$versionId").replace("{" + "fileType" + "}", "${fileType.value}"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -236,19 +293,18 @@ open class FilesApi(
     }
 
 
-
     /**
      * Show File
      * Shows general information about the \&quot;File\&quot; object. Each File can have several \&quot;Version\&quot;&#39;s, and each Version can have multiple real files or \&quot;Data\&quot; blobs.
      * @param fileId Must be a valid file ID.
-     * @return io.github.kamo030.vrchatapi.infrastructure.OctetByteArray
+     * @return OctetByteArray
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getFile(fileId: kotlin.String): HttpResponse<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray> {
+    open suspend fun getFile(fileId: kotlin.String): HttpResponse<OctetByteArray> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -258,10 +314,11 @@ open class FilesApi(
             RequestMethod.GET,
             "/file/{fileId}".replace("{" + "fileId" + "}", "$fileId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -281,7 +338,7 @@ open class FilesApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -289,12 +346,14 @@ open class FilesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/analysis/{fileId}/{versionId}".replace("{" + "fileId" + "}", "$fileId").replace("{" + "versionId" + "}", "$versionId"),
+            "/analysis/{fileId}/{versionId}".replace("{" + "fileId" + "}", "$fileId")
+                .replace("{" + "versionId" + "}", "$versionId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -314,7 +373,7 @@ open class FilesApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -322,12 +381,14 @@ open class FilesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/analysis/{fileId}/{versionId}/security".replace("{" + "fileId" + "}", "$fileId").replace("{" + "versionId" + "}", "$versionId"),
+            "/analysis/{fileId}/{versionId}/security".replace("{" + "fileId" + "}", "$fileId")
+                .replace("{" + "versionId" + "}", "$versionId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -347,7 +408,7 @@ open class FilesApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -355,18 +416,37 @@ open class FilesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/analysis/{fileId}/{versionId}/standard".replace("{" + "fileId" + "}", "$fileId").replace("{" + "versionId" + "}", "$versionId"),
+            "/analysis/{fileId}/{versionId}/standard".replace("{" + "fileId" + "}", "$fileId")
+                .replace("{" + "versionId" + "}", "$versionId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
 
+
+    /**
+     * enum for parameter fileType
+     */
+    @Serializable
+    enum class FileTypeGetFileDataUploadStatus(val value: kotlin.String) {
+
+        @SerialName(value = "file")
+        File("file"),
+
+        @SerialName(value = "signature")
+        Signature("signature"),
+
+        @SerialName(value = "delta")
+        Delta("delta")
+
+    }
 
     /**
      * Check FileData Upload Status
@@ -377,11 +457,15 @@ open class FilesApi(
      * @return FileVersionUploadStatus
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getFileDataUploadStatus(fileId: kotlin.String, versionId: kotlin.Int, fileType: kotlin.String): HttpResponse<FileVersionUploadStatus> {
+    open suspend fun getFileDataUploadStatus(
+        fileId: kotlin.String,
+        versionId: kotlin.Int,
+        fileType: FileTypeGetFileDataUploadStatus,
+    ): HttpResponse<FileVersionUploadStatus> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -389,12 +473,14 @@ open class FilesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/file/{fileId}/{versionId}/{fileType}/status".replace("{" + "fileId" + "}", "$fileId").replace("{" + "versionId" + "}", "$versionId").replace("{" + "fileType" + "}", "$fileType"),
+            "/file/{fileId}/{versionId}/{fileType}/status".replace("{" + "fileId" + "}", "$fileId")
+                .replace("{" + "versionId" + "}", "$versionId").replace("{" + "fileType" + "}", "${fileType.value}"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -409,14 +495,19 @@ open class FilesApi(
      * @param userId UserID, will always generate a 500 permission error. (optional)
      * @param n The number of objects to return. (optional, default to 60)
      * @param offset A zero-based offset from the default object sorting from where search results start. (optional)
-     * @return kotlin.collections.List<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray>
+     * @return kotlin.collections.List<OctetByteArray>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getFiles(tag: kotlin.String? = null, userId: kotlin.String? = null, n: kotlin.Int? = 60, offset: kotlin.Int? = null): HttpResponse<kotlin.collections.List<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray>> {
+    open suspend fun getFiles(
+        tag: kotlin.String? = null,
+        userId: kotlin.String? = null,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+    ): HttpResponse<kotlin.collections.List<OctetByteArray>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -430,10 +521,11 @@ open class FilesApi(
             RequestMethod.GET,
             "/files",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -441,13 +533,34 @@ open class FilesApi(
     }
 
     @Serializable(GetFilesResponse.Companion::class)
-    data class GetFilesResponse(val value: List<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray>) {
+    private class GetFilesResponse(val value: List<OctetByteArray>) {
         companion object : KSerializer<GetFilesResponse> {
-            private val serializer: KSerializer<List<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray>> = serializer<List<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray>>()
+            private val serializer: KSerializer<List<OctetByteArray>> =
+                serializer<List<OctetByteArray>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetFilesResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetFilesResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetFilesResponse(serializer.deserialize(decoder))
         }
+    }
+
+
+    /**
+     * enum for parameter fileType
+     */
+    @Serializable
+    enum class FileTypeStartFileDataUpload(val value: kotlin.String) {
+
+        @SerialName(value = "file")
+        File("file"),
+
+        @SerialName(value = "signature")
+        Signature("signature"),
+
+        @SerialName(value = "delta")
+        Delta("delta")
+
     }
 
     /**
@@ -460,11 +573,16 @@ open class FilesApi(
      * @return FileUploadURL
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun startFileDataUpload(fileId: kotlin.String, versionId: kotlin.Int, fileType: kotlin.String, partNumber: kotlin.Int? = null): HttpResponse<FileUploadURL> {
+    open suspend fun startFileDataUpload(
+        fileId: kotlin.String,
+        versionId: kotlin.Int,
+        fileType: FileTypeStartFileDataUpload,
+        partNumber: kotlin.Int? = null,
+    ): HttpResponse<FileUploadURL> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -473,12 +591,14 @@ open class FilesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.PUT,
-            "/file/{fileId}/{versionId}/{fileType}/start".replace("{" + "fileId" + "}", "$fileId").replace("{" + "versionId" + "}", "$versionId").replace("{" + "fileType" + "}", "$fileType"),
+            "/file/{fileId}/{versionId}/{fileType}/start".replace("{" + "fileId" + "}", "$fileId")
+                .replace("{" + "versionId" + "}", "$versionId").replace("{" + "fileType" + "}", "${fileType.value}"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames

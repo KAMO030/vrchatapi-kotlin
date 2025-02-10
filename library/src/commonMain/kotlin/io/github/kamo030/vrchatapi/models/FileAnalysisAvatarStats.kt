@@ -68,7 +68,6 @@ import kotlinx.serialization.encoding.*
  * @param cameraCount 
  */
 @Serializable
-
 data class FileAnalysisAvatarStats (
 
     @SerialName(value = "animatorCount") @Required val animatorCount: kotlin.Int,
@@ -157,5 +156,5 @@ data class FileAnalysisAvatarStats (
 
     @SerialName(value = "cameraCount") val cameraCount: kotlin.Int? = null
 
-)
+) 
 

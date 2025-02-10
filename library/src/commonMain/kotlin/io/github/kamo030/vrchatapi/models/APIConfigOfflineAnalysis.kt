@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param standalonewindows Whether to allow offline analysis
  */
 @Serializable
-
 data class APIConfigOfflineAnalysis (
 
     /* Whether to allow offline analysis */

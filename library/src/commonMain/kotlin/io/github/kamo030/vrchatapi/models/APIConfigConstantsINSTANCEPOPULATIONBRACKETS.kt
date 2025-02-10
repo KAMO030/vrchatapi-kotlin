@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param MANY 
  */
 @Serializable
-
 data class APIConfigConstantsINSTANCEPOPULATIONBRACKETS (
 
     @SerialName(value = "CROWDED") val CROWDED: APIConfigConstantsINSTANCEPOPULATIONBRACKETSCROWDED? = null,
@@ -40,5 +39,5 @@ data class APIConfigConstantsINSTANCEPOPULATIONBRACKETS (
 
     @SerialName(value = "MANY") val MANY: APIConfigConstantsINSTANCEPOPULATIONBRACKETSMANY? = null
 
-)
+) 
 

@@ -36,7 +36,6 @@ import kotlinx.serialization.encoding.*
  * @param article 
  */
 @Serializable
-
 data class InfoPushData (
 
     @SerialName(value = "contentList") val contentList: DynamicContentRow? = null,

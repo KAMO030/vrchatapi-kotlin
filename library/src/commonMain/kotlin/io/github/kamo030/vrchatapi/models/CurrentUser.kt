@@ -103,7 +103,6 @@ import kotlinx.serialization.encoding.*
  * @param username -| **DEPRECATED:** VRChat API no longer return usernames of other users. [See issue by Tupper for more information](https://github.com/pypy-vrc/VRCX/issues/429).
  */
 @Serializable
-
 data class CurrentUser (
 
     @SerialName(value = "acceptedTOSVersion") @Required val acceptedTOSVersion: kotlin.Int,
@@ -131,7 +130,7 @@ data class CurrentUser (
 
     @SerialName(value = "currentAvatarTags") @Required val currentAvatarTags: kotlin.collections.List<kotlin.String>,
 
-    @SerialName(value = "date_joined") @Required val dateJoined: kotlin.String,
+    @SerialName(value = "date_joined") @Required val dateJoined: kotlinx.datetime.LocalDate,
 
     @SerialName(value = "developerType") @Required val developerType: DeveloperType = DeveloperType.None,
 
@@ -165,9 +164,9 @@ data class CurrentUser (
 
     @SerialName(value = "isFriend") @Required val isFriend: kotlin.Boolean = false,
 
-    @SerialName(value = "last_login") @Required val lastLogin: kotlin.String,
+    @SerialName(value = "last_login") @Required val lastLogin: kotlinx.datetime.Instant,
 
-    @SerialName(value = "last_mobile") @Required val lastMobile: kotlin.String?,
+    @SerialName(value = "last_mobile") @Required val lastMobile: kotlinx.datetime.Instant?,
 
     /* This can be `standalonewindows` or `android`, but can also pretty much be any random Unity verison such as `2019.2.4-801-Release` or `2019.2.2-772-Release` or even `unknownplatform`. */
     @SerialName(value = "last_platform") @Required val lastPlatform: kotlin.String,
@@ -197,7 +196,7 @@ data class CurrentUser (
 
     @SerialName(value = "statusHistory") @Required val statusHistory: kotlin.collections.List<kotlin.String>,
 
-    @SerialName(value = "steamDetails") @Required val steamDetails: kotlin.String,
+    @SerialName(value = "steamDetails") @Required val steamDetails: kotlin.collections.Map<kotlin.String, kotlin.String> = emptyMap(),
 
     @SerialName(value = "steamId") @Required val steamId: kotlin.String,
 
@@ -211,7 +210,7 @@ data class CurrentUser (
 
     @SerialName(value = "acceptedPrivacyVersion") val acceptedPrivacyVersion: kotlin.Int? = null,
 
-    @SerialName(value = "accountDeletionDate") val accountDeletionDate: kotlin.String? = null,
+    @SerialName(value = "accountDeletionDate") val accountDeletionDate: kotlinx.datetime.LocalDate? = null,
 
     /*   */
     @SerialName(value = "accountDeletionLog") val accountDeletionLog: kotlin.collections.List<AccountDeletionLog>? = null,
@@ -232,11 +231,11 @@ data class CurrentUser (
 
     @SerialName(value = "isBoopingEnabled") val isBoopingEnabled: kotlin.Boolean? = true,
 
-    @SerialName(value = "last_activity") val lastActivity: kotlin.String? = null,
+    @SerialName(value = "last_activity") val lastActivity: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "googleId") val googleId: kotlin.String? = null,
 
-    @SerialName(value = "googleDetails") val googleDetails: kotlin.String? = null,
+    @SerialName(value = "googleDetails") val googleDetails: kotlin.collections.Map<kotlin.String, kotlin.String> = emptyMap(),
 
     @SerialName(value = "picoId") val picoId: kotlin.String? = null,
 
@@ -252,13 +251,13 @@ data class CurrentUser (
 
     @SerialName(value = "receiveMobileInvitations") val receiveMobileInvitations: kotlin.Boolean? = null,
 
-    @SerialName(value = "twoFactorAuthEnabledDate") val twoFactorAuthEnabledDate: kotlin.String? = null,
+    @SerialName(value = "twoFactorAuthEnabledDate") val twoFactorAuthEnabledDate: kotlinx.datetime.Instant? = null,
 
-    @SerialName(value = "updated_at") val updatedAt: kotlin.String? = null,
+    @SerialName(value = "updated_at") val updatedAt: kotlinx.datetime.Instant? = null,
 
     /* -| **DEPRECATED:** VRChat API no longer return usernames of other users. [See issue by Tupper for more information](https://github.com/pypy-vrc/VRCX/issues/429). */
     @Deprecated(message = "This property is deprecated.")
     @SerialName(value = "username") val username: kotlin.String? = null
 
-)
+) 
 

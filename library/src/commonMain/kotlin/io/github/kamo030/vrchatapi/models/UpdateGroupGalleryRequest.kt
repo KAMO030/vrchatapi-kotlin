@@ -32,7 +32,6 @@ import kotlinx.serialization.encoding.*
  * @param roleIdsToManage  
  */
 @Serializable
-
 data class UpdateGroupGalleryRequest (
 
     /* Name of the gallery. */
@@ -56,5 +55,5 @@ data class UpdateGroupGalleryRequest (
     /*   */
     @SerialName(value = "roleIdsToManage") val roleIdsToManage: kotlin.collections.List<kotlin.String>? = null
 
-)
+) 
 

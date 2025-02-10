@@ -35,10 +35,9 @@ import kotlinx.serialization.encoding.*
  * @param senderUsername -| **DEPRECATED:** VRChat API no longer return usernames of other users. [See issue by Tupper for more information](https://github.com/pypy-vrc/VRCX/issues/429).
  */
 @Serializable
-
 data class Notification (
 
-    @SerialName(value = "created_at") @Required val createdAt: kotlin.String,
+    @SerialName(value = "created_at") @Required val createdAt: kotlinx.datetime.Instant,
 
     /* **NOTICE:** This is not a JSON object when received from the REST API, but it is when received from the Websocket API. When received from the REST API, this is a json **encoded** object, meaning you have to json-de-encode to get the NotificationDetail object depending on the NotificationType. */
     @SerialName(value = "details") @Required val details: kotlin.String = "{}",
@@ -63,5 +62,5 @@ data class Notification (
     @Deprecated(message = "This property is deprecated.")
     @SerialName(value = "senderUsername") val senderUsername: kotlin.String? = null
 
-)
+) 
 

@@ -67,7 +67,6 @@ import kotlinx.serialization.encoding.*
  * @param worldId WorldID be \"offline\" on User profiles if you are not friends with that user.
  */
 @Serializable
-
 data class User (
 
     @SerialName(value = "ageVerificationStatus") @Required val ageVerificationStatus: AgeVerificationStatus,
@@ -88,7 +87,7 @@ data class User (
 
     @SerialName(value = "currentAvatarTags") @Required val currentAvatarTags: kotlin.collections.List<kotlin.String>,
 
-    @SerialName(value = "date_joined") @Required val dateJoined: kotlin.String,
+    @SerialName(value = "date_joined") @Required val dateJoined: kotlinx.datetime.LocalDate,
 
     @SerialName(value = "developerType") @Required val developerType: DeveloperType = DeveloperType.None,
 

@@ -26,10 +26,9 @@ import kotlinx.serialization.encoding.*
  * @param responseSlot 
  */
 @Serializable
-
 data class InviteResponse (
 
     @SerialName(value = "responseSlot") @Required val responseSlot: kotlin.Int
 
-)
+) 
 

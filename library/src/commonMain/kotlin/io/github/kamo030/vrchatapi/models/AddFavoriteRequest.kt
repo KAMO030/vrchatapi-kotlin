@@ -29,7 +29,6 @@ import kotlinx.serialization.encoding.*
  * @param tags Tags indicate which group this favorite belongs to. Adding multiple groups makes it show up in all. Removing it from one in that case removes it from all.
  */
 @Serializable
-
 data class AddFavoriteRequest (
 
     @SerialName(value = "type") @Required val type: FavoriteType = FavoriteType.Friend,

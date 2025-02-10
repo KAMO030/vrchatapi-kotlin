@@ -32,13 +32,12 @@ import kotlinx.serialization.encoding.*
  * @param ratingScore 
  */
 @Serializable
-
 data class Submission (
 
     /* Either world ID or avatar ID */
     @SerialName(value = "contentId") @Required val contentId: kotlin.String,
 
-    @SerialName(value = "created_at") @Required val createdAt: kotlin.String,
+    @SerialName(value = "created_at") @Required val createdAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "description") @Required val description: kotlin.String,
 
@@ -51,5 +50,5 @@ data class Submission (
 
     @SerialName(value = "ratingScore") val ratingScore: kotlin.Int? = null
 
-)
+) 
 

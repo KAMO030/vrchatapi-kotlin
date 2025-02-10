@@ -26,10 +26,9 @@ import kotlinx.serialization.encoding.*
  * @param verified 
  */
 @Serializable
-
 data class Verify2FAEmailCodeResult (
 
     @SerialName(value = "verified") @Required val verified: kotlin.Boolean
 
-)
+) 
 

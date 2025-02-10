@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param success 
  */
 @Serializable
-
 data class Success (
 
     @SerialName(value = "success") val success: Response? = null

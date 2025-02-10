@@ -20,6 +20,7 @@ import io.github.kamo030.vrchatapi.models.Notification
 import io.github.kamo030.vrchatapi.models.Success
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
@@ -30,11 +31,32 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class NotificationsApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
 
     /**
      * Accept Friend Request
@@ -47,7 +69,7 @@ open class NotificationsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -57,10 +79,11 @@ open class NotificationsApi(
             RequestMethod.PUT,
             "/auth/user/notifications/{notificationId}/accept".replace("{" + "notificationId" + "}", "$notificationId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -78,7 +101,7 @@ open class NotificationsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -88,10 +111,11 @@ open class NotificationsApi(
             RequestMethod.PUT,
             "/auth/user/notifications/clear",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -110,7 +134,7 @@ open class NotificationsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -120,10 +144,11 @@ open class NotificationsApi(
             RequestMethod.PUT,
             "/auth/user/notifications/{notificationId}/hide".replace("{" + "notificationId" + "}", "$notificationId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -142,7 +167,7 @@ open class NotificationsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -152,10 +177,11 @@ open class NotificationsApi(
             RequestMethod.GET,
             "/auth/user/notifications/{notificationId}".replace("{" + "notificationId" + "}", "$notificationId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -175,11 +201,18 @@ open class NotificationsApi(
      * @return kotlin.collections.List<Notification>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getNotifications(type: kotlin.String? = null, sent: kotlin.Boolean? = null, hidden: kotlin.Boolean? = null, after: kotlin.String? = null, n: kotlin.Int? = 60, offset: kotlin.Int? = null): HttpResponse<kotlin.collections.List<Notification>> {
+    open suspend fun getNotifications(
+        type: kotlin.String? = null,
+        sent: kotlin.Boolean? = null,
+        hidden: kotlin.Boolean? = null,
+        after: kotlin.String? = null,
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+    ): HttpResponse<kotlin.collections.List<Notification>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -195,23 +228,25 @@ open class NotificationsApi(
             RequestMethod.GET,
             "/auth/user/notifications",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap<GetNotificationsResponse>().map { value }
     }
 
-    @Serializable
+    @Serializable(GetNotificationsResponse.Companion::class)
     private class GetNotificationsResponse(val value: List<Notification>) {
-        @Serializer(GetNotificationsResponse::class)
         companion object : KSerializer<GetNotificationsResponse> {
             private val serializer: KSerializer<List<Notification>> = serializer<List<Notification>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetNotificationsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetNotificationsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetNotificationsResponse(serializer.deserialize(decoder))
         }
     }
@@ -227,7 +262,7 @@ open class NotificationsApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -237,10 +272,11 @@ open class NotificationsApi(
             RequestMethod.PUT,
             "/auth/user/notifications/{notificationId}/see".replace("{" + "notificationId" + "}", "$notificationId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames

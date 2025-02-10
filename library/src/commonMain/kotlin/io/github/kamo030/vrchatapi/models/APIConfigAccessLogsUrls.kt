@@ -29,7 +29,6 @@ import kotlinx.serialization.encoding.*
  * @param xrElite 
  */
 @Serializable
-
 data class APIConfigAccessLogsUrls (
 
     @SerialName(value = "Default") val default: kotlin.String? = null,

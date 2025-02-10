@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param warnings 
  */
 @Serializable
-
 data class APIConfigReportOptionsAvatar (
 
     @SerialName(value = "avatar") val avatar: kotlin.collections.List<kotlin.String>? = null,

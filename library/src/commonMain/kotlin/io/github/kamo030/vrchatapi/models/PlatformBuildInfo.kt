@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param redirectionAddress Redirection URL for updating the app
  */
 @Serializable
-
 data class PlatformBuildInfo (
 
     /* Minimum build number required for the platform */
@@ -36,5 +35,5 @@ data class PlatformBuildInfo (
     /* Redirection URL for updating the app */
     @SerialName(value = "redirectionAddress") val redirectionAddress: kotlin.String? = null
 
-)
+) 
 

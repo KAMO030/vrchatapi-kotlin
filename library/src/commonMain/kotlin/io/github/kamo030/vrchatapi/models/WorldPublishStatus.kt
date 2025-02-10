@@ -26,10 +26,9 @@ import kotlinx.serialization.encoding.*
  * @param canPublish 
  */
 @Serializable
-
 data class WorldPublishStatus (
 
     @SerialName(value = "canPublish") @Required val canPublish: kotlin.Boolean = true
 
-)
+) 
 

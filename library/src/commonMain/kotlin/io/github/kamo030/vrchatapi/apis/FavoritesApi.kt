@@ -24,9 +24,11 @@ import io.github.kamo030.vrchatapi.models.Success
 import io.github.kamo030.vrchatapi.models.UpdateFavoriteGroupRequest
 
 import io.github.kamo030.vrchatapi.infrastructure.*
+import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.request.forms.formData
 import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.request.*
 import kotlinx.serialization.json.Json
 import io.ktor.http.ParametersBuilder
 import kotlinx.serialization.*
@@ -34,11 +36,34 @@ import kotlinx.serialization.descriptors.*
 import kotlinx.serialization.encoding.*
 
 open class FavoritesApi(
-    baseUrl: String = ApiClient.BASE_URL,
-    httpClientEngine: HttpClientEngine? = null,
-    httpClientConfig: ((HttpClientConfig<*>) -> Unit)? = null,
-    jsonSerializer: Json = ApiClient.JSON_DEFAULT
-) : ApiClient(baseUrl, httpClientEngine, httpClientConfig, jsonSerializer) {
+    private val apiClient: ApiClient,
+) {
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClientEngine: HttpClientEngine? = null,
+        jsonSerializer: Json = ApiClient.JSON_DEFAULT,
+        httpClientConfig: (HttpClientConfig<*>.() -> Unit)? = null,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClientEngine = httpClientEngine,
+            httpClientConfig = httpClientConfig,
+            jsonBlock = jsonSerializer
+        )
+    )
+
+    constructor(
+        baseUrl: String = ApiClient.BASE_URL,
+        httpClient: HttpClient,
+    ) : this(
+        ApiClient(
+            baseUrl = baseUrl,
+            httpClient = httpClient,
+        )
+    )
+
+
 
     /**
      * Add Favorite
@@ -60,10 +85,11 @@ open class FavoritesApi(
             RequestMethod.POST,
             "/favorites",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -71,6 +97,22 @@ open class FavoritesApi(
     }
 
 
+    /**
+     * enum for parameter favoriteGroupType
+     */
+    @Serializable
+    enum class FavoriteGroupTypeClearFavoriteGroup(val value: kotlin.String) {
+
+        @SerialName(value = "world")
+        World("world"),
+
+        @SerialName(value = "friend")
+        Friend("friend"),
+
+        @SerialName(value = "avatar")
+        Avatar("avatar")
+
+    }
 
     /**
      * Clear Favorite Group
@@ -81,11 +123,15 @@ open class FavoritesApi(
      * @return Success
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun clearFavoriteGroup(favoriteGroupType: kotlin.String, favoriteGroupName: kotlin.String, userId: kotlin.String): HttpResponse<Success> {
+    open suspend fun clearFavoriteGroup(
+        favoriteGroupType: FavoriteGroupTypeClearFavoriteGroup,
+        favoriteGroupName: kotlin.String,
+        userId: kotlin.String,
+    ): HttpResponse<Success> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -93,12 +139,16 @@ open class FavoritesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.DELETE,
-            "/favorite/group/{favoriteGroupType}/{favoriteGroupName}/{userId}".replace("{" + "favoriteGroupType" + "}", "$favoriteGroupType").replace("{" + "favoriteGroupName" + "}", "$favoriteGroupName").replace("{" + "userId" + "}", "$userId"),
+            "/favorite/group/{favoriteGroupType}/{favoriteGroupName}/{userId}".replace(
+                "{" + "favoriteGroupType" + "}",
+                "${favoriteGroupType.value}"
+            ).replace("{" + "favoriteGroupName" + "}", "$favoriteGroupName").replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -117,7 +167,7 @@ open class FavoritesApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -127,16 +177,34 @@ open class FavoritesApi(
             RequestMethod.GET,
             "/favorites/{favoriteId}".replace("{" + "favoriteId" + "}", "$favoriteId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
 
+
+    /**
+     * enum for parameter favoriteGroupType
+     */
+    @Serializable
+    enum class FavoriteGroupTypeGetFavoriteGroup(val value: kotlin.String) {
+
+        @SerialName(value = "world")
+        World("world"),
+
+        @SerialName(value = "friend")
+        Friend("friend"),
+
+        @SerialName(value = "avatar")
+        Avatar("avatar")
+
+    }
 
     /**
      * Show Favorite Group
@@ -147,11 +215,15 @@ open class FavoritesApi(
      * @return FavoriteGroup
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getFavoriteGroup(favoriteGroupType: kotlin.String, favoriteGroupName: kotlin.String, userId: kotlin.String): HttpResponse<FavoriteGroup> {
+    open suspend fun getFavoriteGroup(
+        favoriteGroupType: FavoriteGroupTypeGetFavoriteGroup,
+        favoriteGroupName: kotlin.String,
+        userId: kotlin.String,
+    ): HttpResponse<FavoriteGroup> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -159,12 +231,16 @@ open class FavoritesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.GET,
-            "/favorite/group/{favoriteGroupType}/{favoriteGroupName}/{userId}".replace("{" + "favoriteGroupType" + "}", "$favoriteGroupType").replace("{" + "favoriteGroupName" + "}", "$favoriteGroupName").replace("{" + "userId" + "}", "$userId"),
+            "/favorite/group/{favoriteGroupType}/{favoriteGroupName}/{userId}".replace(
+                "{" + "favoriteGroupType" + "}",
+                "${favoriteGroupType.value}"
+            ).replace("{" + "favoriteGroupName" + "}", "$favoriteGroupName").replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -181,11 +257,15 @@ open class FavoritesApi(
      * @return kotlin.collections.List<FavoriteGroup>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getFavoriteGroups(n: kotlin.Int? = 60, offset: kotlin.Int? = null, ownerId: kotlin.String? = null): HttpResponse<kotlin.collections.List<FavoriteGroup>> {
+    open suspend fun getFavoriteGroups(
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+        ownerId: kotlin.String? = null,
+    ): HttpResponse<kotlin.collections.List<FavoriteGroup>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -198,10 +278,11 @@ open class FavoritesApi(
             RequestMethod.GET,
             "/favorite/groups",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -210,11 +291,12 @@ open class FavoritesApi(
 
     @Serializable(GetFavoriteGroupsResponse.Companion::class)
     private class GetFavoriteGroupsResponse(val value: List<FavoriteGroup>) {
-        @Serializer(GetFavoriteGroupsResponse::class)
         companion object : KSerializer<GetFavoriteGroupsResponse> {
             private val serializer: KSerializer<List<FavoriteGroup>> = serializer<List<FavoriteGroup>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetFavoriteGroupsResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetFavoriteGroupsResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetFavoriteGroupsResponse(serializer.deserialize(decoder))
         }
     }
@@ -229,7 +311,7 @@ open class FavoritesApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -239,10 +321,11 @@ open class FavoritesApi(
             RequestMethod.GET,
             "/auth/user/favoritelimits",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -260,11 +343,16 @@ open class FavoritesApi(
      * @return kotlin.collections.List<Favorite>
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun getFavorites(n: kotlin.Int? = 60, offset: kotlin.Int? = null, type: kotlin.String? = null, tag: kotlin.String? = null): HttpResponse<kotlin.collections.List<Favorite>> {
+    open suspend fun getFavorites(
+        n: kotlin.Int? = 60,
+        offset: kotlin.Int? = null,
+        type: kotlin.String? = null,
+        tag: kotlin.String? = null,
+    ): HttpResponse<kotlin.collections.List<Favorite>> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -278,10 +366,11 @@ open class FavoritesApi(
             RequestMethod.GET,
             "/favorites",
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
@@ -290,11 +379,12 @@ open class FavoritesApi(
 
     @Serializable(GetFavoritesResponse.Companion::class)
     private class GetFavoritesResponse(val value: List<Favorite>) {
-        @Serializer(GetFavoritesResponse::class)
         companion object : KSerializer<GetFavoritesResponse> {
             private val serializer: KSerializer<List<Favorite>> = serializer<List<Favorite>>()
             override val descriptor = serializer.descriptor
-            override fun serialize(encoder: Encoder, obj: GetFavoritesResponse) = serializer.serialize(encoder, obj.value)
+            override fun serialize(encoder: Encoder, value: GetFavoritesResponse) =
+                serializer.serialize(encoder, value.value)
+
             override fun deserialize(decoder: Decoder) = GetFavoritesResponse(serializer.deserialize(decoder))
         }
     }
@@ -310,7 +400,7 @@ open class FavoritesApi(
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
-        val localVariableBody = 
+        val localVariableBody =
             io.ktor.client.utils.EmptyContent
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
@@ -320,16 +410,34 @@ open class FavoritesApi(
             RequestMethod.DELETE,
             "/favorites/{favoriteId}".replace("{" + "favoriteId" + "}", "$favoriteId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return request(
+        return apiClient.request(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
 
+
+    /**
+     * enum for parameter favoriteGroupType
+     */
+    @Serializable
+    enum class FavoriteGroupTypeUpdateFavoriteGroup(val value: kotlin.String) {
+
+        @SerialName(value = "world")
+        World("world"),
+
+        @SerialName(value = "friend")
+        Friend("friend"),
+
+        @SerialName(value = "avatar")
+        Avatar("avatar")
+
+    }
 
     /**
      * Update Favorite Group
@@ -340,7 +448,12 @@ open class FavoritesApi(
      * @param updateFavoriteGroupRequest  (optional)
      * @return void
      */
-    open suspend fun updateFavoriteGroup(favoriteGroupType: kotlin.String, favoriteGroupName: kotlin.String, userId: kotlin.String, updateFavoriteGroupRequest: UpdateFavoriteGroupRequest? = null): HttpResponse<Unit> {
+    open suspend fun updateFavoriteGroup(
+        favoriteGroupType: FavoriteGroupTypeUpdateFavoriteGroup,
+        favoriteGroupName: kotlin.String,
+        userId: kotlin.String,
+        updateFavoriteGroupRequest: UpdateFavoriteGroupRequest? = null,
+    ): HttpResponse<Unit> {
 
         val localVariableAuthNames = listOf<String>("authCookie")
 
@@ -351,18 +464,21 @@ open class FavoritesApi(
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.PUT,
-            "/favorite/group/{favoriteGroupType}/{favoriteGroupName}/{userId}".replace("{" + "favoriteGroupType" + "}", "$favoriteGroupType").replace("{" + "favoriteGroupName" + "}", "$favoriteGroupName").replace("{" + "userId" + "}", "$userId"),
+            "/favorite/group/{favoriteGroupType}/{favoriteGroupName}/{userId}".replace(
+                "{" + "favoriteGroupType" + "}",
+                "${favoriteGroupType.value}"
+            ).replace("{" + "favoriteGroupName" + "}", "$favoriteGroupName").replace("{" + "userId" + "}", "$userId"),
             query = localVariableQuery,
-            headers = localVariableHeaders
+            headers = localVariableHeaders,
+            requiresAuthentication = true,
         )
 
-        return jsonRequest(
+        return apiClient.jsonRequest(
             localVariableConfig,
             localVariableBody,
             localVariableAuthNames
         ).wrap()
     }
-
 
 
 }

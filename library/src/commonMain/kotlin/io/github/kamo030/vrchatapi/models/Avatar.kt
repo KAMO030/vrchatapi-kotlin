@@ -48,7 +48,6 @@ import kotlinx.serialization.encoding.*
  * @param assetUrlObject Not present from general serach `/avatars`, only on specific requests `/avatars/{avatarId}`. **Deprecation:** `Object` has unknown usage/fields, and is always empty. Use normal `Url` field instead.
  */
 @Serializable
-
 data class Avatar (
 
     /* A users unique ID, usually in the form of `usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469`. Legacy players can have old IDs in the form of `8JoV9XEdpo`. The ID can never be changed. */
@@ -56,7 +55,7 @@ data class Avatar (
 
     @SerialName(value = "authorName") @Required val authorName: kotlin.String,
 
-    @SerialName(value = "created_at") @Required val createdAt: kotlin.String,
+    @SerialName(value = "created_at") @Required val createdAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "description") @Required val description: kotlin.String,
 
@@ -82,9 +81,9 @@ data class Avatar (
     @Deprecated(message = "This property is deprecated.")
     @SerialName(value = "unityPackageUrlObject") @Required val unityPackageUrlObject: AvatarUnityPackageUrlObject,
 
-    @SerialName(value = "unityPackages") @Required val unityPackages: kotlin.collections.List<UnityPackage>,
+    @SerialName(value = "unityPackages") @Required val unityPackages: kotlin.collections.Set<UnityPackage>,
 
-    @SerialName(value = "updated_at") @Required val updatedAt: kotlin.String,
+    @SerialName(value = "updated_at") @Required val updatedAt: kotlinx.datetime.Instant,
 
     @SerialName(value = "version") @Required val version: kotlin.Int = 0,
 
@@ -94,5 +93,5 @@ data class Avatar (
     /* Not present from general serach `/avatars`, only on specific requests `/avatars/{avatarId}`. **Deprecation:** `Object` has unknown usage/fields, and is always empty. Use normal `Url` field instead. */
     @SerialName(value = "assetUrlObject") val assetUrlObject: kotlin.String? = null
 
-)
+) 
 

@@ -27,7 +27,6 @@ import kotlinx.serialization.encoding.*
  * @param unityVersion 
  */
 @Serializable
-
 data class LimitedUnityPackage (
 
     /* This can be `standalonewindows` or `android`, but can also pretty much be any random Unity verison such as `2019.2.4-801-Release` or `2019.2.2-772-Release` or even `unknownplatform`. */
@@ -35,5 +34,5 @@ data class LimitedUnityPackage (
 
     @SerialName(value = "unityVersion") @Required val unityVersion: kotlin.String
 
-)
+) 
 

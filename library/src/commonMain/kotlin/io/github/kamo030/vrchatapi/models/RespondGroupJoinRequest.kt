@@ -28,7 +28,6 @@ import kotlinx.serialization.encoding.*
  * @param block Whether to block the user from requesting again
  */
 @Serializable
-
 data class RespondGroupJoinRequest (
 
     @SerialName(value = "action") @Required val action: GroupJoinRequestAction,
@@ -36,5 +35,5 @@ data class RespondGroupJoinRequest (
     /* Whether to block the user from requesting again */
     @SerialName(value = "block") val block: kotlin.Boolean? = null
 
-)
+) 
 

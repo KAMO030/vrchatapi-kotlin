@@ -30,7 +30,6 @@ import kotlinx.serialization.encoding.*
  * @param tags  
  */
 @Serializable
-
 data class CreateFileRequest (
 
     @SerialName(value = "name") @Required val name: kotlin.String,

@@ -36,7 +36,6 @@ import kotlinx.serialization.encoding.*
  * @param picoSku 
  */
 @Serializable
-
 data class Subscription (
 
     @SerialName(value = "id") @Required val id: kotlin.String,
@@ -59,5 +58,5 @@ data class Subscription (
 
     @SerialName(value = "picoSku") val picoSku: kotlin.String? = null
 
-)
+) 
 

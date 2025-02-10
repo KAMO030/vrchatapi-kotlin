@@ -26,10 +26,9 @@ import kotlinx.serialization.encoding.*
  * @param signedTos 
  */
 @Serializable
-
 data class TiliaTOS (
 
     @SerialName(value = "signed_tos") @Required val signedTos: kotlin.Boolean
 
-)
+) 
 

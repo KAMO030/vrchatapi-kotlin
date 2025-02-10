@@ -41,7 +41,6 @@ import kotlinx.serialization.encoding.*
  * @param hasJoinedFromPurchase 
  */
 @Serializable
-
 data class GroupLimitedMember (
 
     @SerialName(value = "id") val id: kotlin.String? = null,
@@ -58,7 +57,7 @@ data class GroupLimitedMember (
 
     @SerialName(value = "mRoleIds") val mRoleIds: kotlin.collections.List<kotlin.String>? = null,
 
-    @SerialName(value = "joinedAt") val joinedAt: kotlin.String? = null,
+    @SerialName(value = "joinedAt") val joinedAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "membershipStatus") val membershipStatus: GroupMemberStatus? = GroupMemberStatus.Inactive,
 
@@ -67,15 +66,15 @@ data class GroupLimitedMember (
     @SerialName(value = "isSubscribedToAnnouncements") val isSubscribedToAnnouncements: kotlin.Boolean? = false,
 
     /* Only visible via the /groups/:groupId/members endpoint, **not** when fetching a specific user. */
-    @SerialName(value = "createdAt") val createdAt: kotlin.String? = null,
+    @SerialName(value = "createdAt") val createdAt: kotlinx.datetime.Instant? = null,
 
     /* Only visible via the /groups/:groupId/members endpoint, **not** when fetching a specific user. */
-    @SerialName(value = "bannedAt") val bannedAt: kotlin.String? = null,
+    @SerialName(value = "bannedAt") val bannedAt: kotlinx.datetime.Instant? = null,
 
     /* Only visible via the /groups/:groupId/members endpoint, **not** when fetching a specific user. */
     @SerialName(value = "managerNotes") val managerNotes: kotlin.String? = null,
 
-    @SerialName(value = "lastPostReadAt") val lastPostReadAt: kotlin.String? = null,
+    @SerialName(value = "lastPostReadAt") val lastPostReadAt: kotlinx.datetime.Instant? = null,
 
     @SerialName(value = "hasJoinedFromPurchase") val hasJoinedFromPurchase: kotlin.Boolean? = null
 

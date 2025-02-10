@@ -38,7 +38,6 @@ import kotlinx.serialization.encoding.*
  * @param endDate 
  */
 @Serializable
-
 data class InfoPush (
 
     @SerialName(value = "id") @Required val id: kotlin.String,
@@ -57,14 +56,14 @@ data class InfoPush (
     /* Unknown usage, MD5 */
     @SerialName(value = "hash") @Required val hash: kotlin.String,
 
-    @SerialName(value = "createdAt") @Required val createdAt: kotlin.String,
+    @SerialName(value = "createdAt") @Required val createdAt: kotlinx.datetime.Instant,
 
-    @SerialName(value = "updatedAt") @Required val updatedAt: kotlin.String,
+    @SerialName(value = "updatedAt") @Required val updatedAt: kotlinx.datetime.Instant,
 
     /*  */
-    @SerialName(value = "startDate") val startDate: kotlin.String? = null,
+    @SerialName(value = "startDate") val startDate: kotlinx.datetime.Instant? = null,
 
-    @SerialName(value = "endDate") val endDate: kotlin.String? = null
+    @SerialName(value = "endDate") val endDate: kotlinx.datetime.Instant? = null
 
 )
 

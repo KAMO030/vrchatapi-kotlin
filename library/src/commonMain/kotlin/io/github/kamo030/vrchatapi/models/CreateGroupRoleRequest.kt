@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param permissions 
  */
 @Serializable
-
 data class CreateGroupRoleRequest (
 
     @SerialName(value = "id") val id: kotlin.String? = null,
@@ -42,7 +41,7 @@ data class CreateGroupRoleRequest (
 
     @SerialName(value = "isSelfAssignable") val isSelfAssignable: kotlin.Boolean? = false,
 
-    @SerialName(value = "permissions") val permissions: kotlin.collections.List<GroupPermissions>? = null
+    @SerialName(value = "permissions") val permissions: kotlin.collections.List<@Contextual GroupPermissions>? = null
 
-)
+) 
 

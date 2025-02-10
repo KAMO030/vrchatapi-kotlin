@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 <a name="createFile"></a>
 # **createFile**
-> io.github.kamo030.vrchatapi.infrastructure.OctetByteArray createFile(createFileRequest)
+> OctetByteArray createFile(createFileRequest)
 
 Create File
 
@@ -36,7 +36,7 @@ Creates a new File object
 val apiInstance = FilesApi()
 val createFileRequest : CreateFileRequest =  // CreateFileRequest | 
 try {
-    val result : io.github.kamo030.vrchatapi.infrastructure.OctetByteArray = apiInstance.createFile(createFileRequest)
+    val result : OctetByteArray = apiInstance.createFile(createFileRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FilesApi#createFile")
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**io.github.kamo030.vrchatapi.infrastructure.OctetByteArray**](io.github.kamo030.vrchatapi.infrastructure.OctetByteArray.md)
+[**OctetByteArray**](OctetByteArray.md)
 
 ### Authorization
 
@@ -71,7 +71,7 @@ Configure authCookie:
 
 <a name="createFileVersion"></a>
 # **createFileVersion**
-> io.github.kamo030.vrchatapi.infrastructure.OctetByteArray createFileVersion(fileId, createFileVersionRequest)
+> OctetByteArray createFileVersion(fileId, createFileVersionRequest)
 
 Create File Version
 
@@ -84,10 +84,10 @@ Creates a new FileVersion. Once a Version has been created, proceed to the &#x60
 //import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FilesApi()
-val fileId : kotlin.String = file_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid file ID.
+val fileId : kotlin.String = "file_00000000-0000-0000-0000-000000000000" // kotlin.String | Must be a valid file ID.
 val createFileVersionRequest : CreateFileVersionRequest =  // CreateFileVersionRequest | 
 try {
-    val result : io.github.kamo030.vrchatapi.infrastructure.OctetByteArray = apiInstance.createFileVersion(fileId, createFileVersionRequest)
+    val result : OctetByteArray = apiInstance.createFileVersion(fileId, createFileVersionRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FilesApi#createFileVersion")
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**io.github.kamo030.vrchatapi.infrastructure.OctetByteArray**](io.github.kamo030.vrchatapi.infrastructure.OctetByteArray.md)
+[**OctetByteArray**](OctetByteArray.md)
 
 ### Authorization
 
@@ -123,7 +123,7 @@ Configure authCookie:
 
 <a name="deleteFile"></a>
 # **deleteFile**
-> io.github.kamo030.vrchatapi.infrastructure.OctetByteArray deleteFile(fileId)
+> OctetByteArray deleteFile(fileId)
 
 Delete File
 
@@ -136,9 +136,9 @@ Deletes a File object.
 //import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FilesApi()
-val fileId : kotlin.String = file_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid file ID.
+val fileId : kotlin.String = "file_00000000-0000-0000-0000-000000000000" // kotlin.String | Must be a valid file ID.
 try {
-    val result : io.github.kamo030.vrchatapi.infrastructure.OctetByteArray = apiInstance.deleteFile(fileId)
+    val result : OctetByteArray = apiInstance.deleteFile(fileId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FilesApi#deleteFile")
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**io.github.kamo030.vrchatapi.infrastructure.OctetByteArray**](io.github.kamo030.vrchatapi.infrastructure.OctetByteArray.md)
+[**OctetByteArray**](OctetByteArray.md)
 
 ### Authorization
 
@@ -173,7 +173,7 @@ Configure authCookie:
 
 <a name="deleteFileVersion"></a>
 # **deleteFileVersion**
-> io.github.kamo030.vrchatapi.infrastructure.OctetByteArray deleteFileVersion(fileId, versionId)
+> OctetByteArray deleteFileVersion(fileId, versionId)
 
 Delete File Version
 
@@ -186,10 +186,10 @@ Delete a specific version of a file. You can only delete the latest version.
 //import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FilesApi()
-val fileId : kotlin.String = file_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid file ID.
+val fileId : kotlin.String = "file_00000000-0000-0000-0000-000000000000" // kotlin.String | Must be a valid file ID.
 val versionId : kotlin.Int = 1 // kotlin.Int | Version ID of the asset.
 try {
-    val result : io.github.kamo030.vrchatapi.infrastructure.OctetByteArray = apiInstance.deleteFileVersion(fileId, versionId)
+    val result : OctetByteArray = apiInstance.deleteFileVersion(fileId, versionId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FilesApi#deleteFileVersion")
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**io.github.kamo030.vrchatapi.infrastructure.OctetByteArray**](io.github.kamo030.vrchatapi.infrastructure.OctetByteArray.md)
+[**OctetByteArray**](OctetByteArray.md)
 
 ### Authorization
 
@@ -238,7 +238,7 @@ Downloads the file with the provided version number.  **Version Note:** Version 
 //import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FilesApi()
-val fileId : kotlin.String = file_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid file ID.
+val fileId : kotlin.String = "file_00000000-0000-0000-0000-000000000000" // kotlin.String | Must be a valid file ID.
 val versionId : kotlin.Int = 1 // kotlin.Int | Version ID of the asset.
 try {
     apiInstance.downloadFileVersion(fileId, versionId)
@@ -276,7 +276,7 @@ Configure authCookie:
 
 <a name="finishFileDataUpload"></a>
 # **finishFileDataUpload**
-> io.github.kamo030.vrchatapi.infrastructure.OctetByteArray finishFileDataUpload(fileId, versionId, fileType, finishFileDataUploadRequest)
+> OctetByteArray finishFileDataUpload(fileId, versionId, fileType, finishFileDataUploadRequest)
 
 Finish FileData Upload
 
@@ -289,12 +289,12 @@ Finish an upload of a FileData. This will mark it as \&quot;complete\&quot;. Aft
 //import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FilesApi()
-val fileId : kotlin.String = file_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid file ID.
+val fileId : kotlin.String = "file_00000000-0000-0000-0000-000000000000" // kotlin.String | Must be a valid file ID.
 val versionId : kotlin.Int = 1 // kotlin.Int | Version ID of the asset.
 val fileType : kotlin.String = file // kotlin.String | Type of file.
 val finishFileDataUploadRequest : FinishFileDataUploadRequest = {"etags":["xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy"],"nextPartNumber":"0","maxParts":"0"} // FinishFileDataUploadRequest | Please see documentation on ETag's: [https://teppen.io/2018/06/23/aws_s3_etags/](https://teppen.io/2018/06/23/aws_s3_etags/)  ETag's should NOT be present when uploading a `signature`.
 try {
-    val result : io.github.kamo030.vrchatapi.infrastructure.OctetByteArray = apiInstance.finishFileDataUpload(fileId, versionId, fileType, finishFileDataUploadRequest)
+    val result : OctetByteArray = apiInstance.finishFileDataUpload(fileId, versionId, fileType, finishFileDataUploadRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FilesApi#finishFileDataUpload")
@@ -316,7 +316,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**io.github.kamo030.vrchatapi.infrastructure.OctetByteArray**](io.github.kamo030.vrchatapi.infrastructure.OctetByteArray.md)
+[**OctetByteArray**](OctetByteArray.md)
 
 ### Authorization
 
@@ -332,7 +332,7 @@ Configure authCookie:
 
 <a name="getFile"></a>
 # **getFile**
-> io.github.kamo030.vrchatapi.infrastructure.OctetByteArray getFile(fileId)
+> OctetByteArray getFile(fileId)
 
 Show File
 
@@ -345,9 +345,9 @@ Shows general information about the \&quot;File\&quot; object. Each File can hav
 //import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FilesApi()
-val fileId : kotlin.String = file_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid file ID.
+val fileId : kotlin.String = "file_00000000-0000-0000-0000-000000000000" // kotlin.String | Must be a valid file ID.
 try {
-    val result : io.github.kamo030.vrchatapi.infrastructure.OctetByteArray = apiInstance.getFile(fileId)
+    val result : OctetByteArray = apiInstance.getFile(fileId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FilesApi#getFile")
@@ -366,7 +366,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**io.github.kamo030.vrchatapi.infrastructure.OctetByteArray**](io.github.kamo030.vrchatapi.infrastructure.OctetByteArray.md)
+[**OctetByteArray**](OctetByteArray.md)
 
 ### Authorization
 
@@ -395,7 +395,7 @@ Get the performance analysis for the uploaded assets of an avatar
 //import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FilesApi()
-val fileId : kotlin.String = file_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid file ID.
+val fileId : kotlin.String = "file_00000000-0000-0000-0000-000000000000" // kotlin.String | Must be a valid file ID.
 val versionId : kotlin.Int = 1 // kotlin.Int | Version ID of the asset.
 try {
     val result : FileAnalysis = apiInstance.getFileAnalysis(fileId, versionId)
@@ -447,7 +447,7 @@ Get the security performance analysis for the uploaded assets of an avatar
 //import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FilesApi()
-val fileId : kotlin.String = file_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid file ID.
+val fileId : kotlin.String = "file_00000000-0000-0000-0000-000000000000" // kotlin.String | Must be a valid file ID.
 val versionId : kotlin.Int = 1 // kotlin.Int | Version ID of the asset.
 try {
     val result : FileAnalysis = apiInstance.getFileAnalysisSecurity(fileId, versionId)
@@ -499,7 +499,7 @@ Get the standard performance analysis for the uploaded assets of an avatar
 //import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FilesApi()
-val fileId : kotlin.String = file_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid file ID.
+val fileId : kotlin.String = "file_00000000-0000-0000-0000-000000000000" // kotlin.String | Must be a valid file ID.
 val versionId : kotlin.Int = 1 // kotlin.Int | Version ID of the asset.
 try {
     val result : FileAnalysis = apiInstance.getFileAnalysisStandard(fileId, versionId)
@@ -551,7 +551,7 @@ Retrieves the upload status for file upload. Can currently only be accessed when
 //import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FilesApi()
-val fileId : kotlin.String = file_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid file ID.
+val fileId : kotlin.String = "file_00000000-0000-0000-0000-000000000000" // kotlin.String | Must be a valid file ID.
 val versionId : kotlin.Int = 1 // kotlin.Int | Version ID of the asset.
 val fileType : kotlin.String = file // kotlin.String | Type of file.
 try {
@@ -592,7 +592,7 @@ Configure authCookie:
 
 <a name="getFiles"></a>
 # **getFiles**
-> kotlin.collections.List&lt;io.github.kamo030.vrchatapi.infrastructure.OctetByteArray&gt; getFiles(tag, userId, n, offset)
+> kotlin.collections.List&lt;OctetByteArray&gt; getFiles(tag, userId, n, offset)
 
 List Files
 
@@ -610,7 +610,7 @@ val userId : kotlin.String = userId_example // kotlin.String | UserID, will alwa
 val n : kotlin.Int = 56 // kotlin.Int | The number of objects to return.
 val offset : kotlin.Int = 56 // kotlin.Int | A zero-based offset from the default object sorting from where search results start.
 try {
-    val result : kotlin.collections.List<io.github.kamo030.vrchatapi.infrastructure.OctetByteArray> = apiInstance.getFiles(tag, userId, n, offset)
+    val result : kotlin.collections.List<OctetByteArray> = apiInstance.getFiles(tag, userId, n, offset)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling FilesApi#getFiles")
@@ -632,7 +632,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**kotlin.collections.List&lt;io.github.kamo030.vrchatapi.infrastructure.OctetByteArray&gt;**](io.github.kamo030.vrchatapi.infrastructure.OctetByteArray.md)
+[**kotlin.collections.List&lt;OctetByteArray&gt;**](OctetByteArray.md)
 
 ### Authorization
 
@@ -661,7 +661,7 @@ Starts an upload of a specific FilePart. This endpoint will return an AWS URL wh
 //import io.github.kamo030.vrchatapi.models.*
 
 val apiInstance = FilesApi()
-val fileId : kotlin.String = file_00000000-0000-0000-0000-000000000000 // kotlin.String | Must be a valid file ID.
+val fileId : kotlin.String = "file_00000000-0000-0000-0000-000000000000" // kotlin.String | Must be a valid file ID.
 val versionId : kotlin.Int = 1 // kotlin.Int | Version ID of the asset.
 val fileType : kotlin.String = file // kotlin.String | Type of file.
 val partNumber : kotlin.Int = 1 // kotlin.Int | The part number to start uploading. If not provided, the first part will be started.

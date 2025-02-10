@@ -26,10 +26,9 @@ import kotlinx.serialization.encoding.*
  * @param messageSlot 
  */
 @Serializable
-
 data class RequestInviteRequest (
 
     @SerialName(value = "messageSlot") val messageSlot: kotlin.Int? = null
 
-)
+) 
 
