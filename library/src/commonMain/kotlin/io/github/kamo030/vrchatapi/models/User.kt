@@ -71,6 +71,7 @@ data class User (
 
     @SerialName(value = "ageVerificationStatus") @Required val ageVerificationStatus: AgeVerificationStatus,
 
+    /* `true` if, user is age verified 18 or above. but `false`, when status is not shared. Otherwise always `false`. */
     @SerialName(value = "ageVerified") @Required val ageVerified: kotlin.Boolean,
 
     @SerialName(value = "allowAvatarCopying") @Required val allowAvatarCopying: kotlin.Boolean = true,

@@ -6,9 +6,6 @@ plugins {
 }
 
 openApiGenerate {
-    cleanupOutput = true
-    skipOverwrite = true
-    templateDir
     generatorName = "kotlin"
     remoteInputSpec = "https://raw.githubusercontent.com/vrchatapi/specification/gh-pages/openapi.yaml"
     outputDir = "generated"

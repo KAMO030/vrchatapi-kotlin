@@ -19,7 +19,7 @@ package io.github.kamo030.vrchatapi.models
 import kotlinx.serialization.*
 
 /**
- * 
+ * obsolete, use `ageVerified` instead.  `ageVerificationStatus == \"18+\"` => `ageVerified == true` `ageVerificationStatus != \"18+\"` => `ageVerified == false`
  *
  * Values: hidden,verified,plus18
  */
