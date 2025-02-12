@@ -1,8 +1,11 @@
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.mavenPublish)
 }
+
 kotlin {
 
     js(IR) {
@@ -11,6 +14,7 @@ kotlin {
         binaries.executable()
     }
 
+    @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         nodejs()
         browser()
@@ -42,18 +46,19 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
         }
 
-//        all {
-//            languageSettings.apply {
-//                optIn("kotlin.Experimental")
-//            }
-//        }
+        all {
+            languageSettings.apply {
+                optIn("kotlin.Experimental")
+            }
+        }
 
     }
 }
+
 val publishVersion = properties["publish.versions"] as String
 
 val publishGroup = properties["publish.group"] as String
 
 mavenPublishing {
-    coordinates(publishGroup, name, publishVersion)
+    coordinates(publishGroup, rootProject.name, publishVersion)
 }

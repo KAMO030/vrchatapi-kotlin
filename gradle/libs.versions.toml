@@ -5,6 +5,7 @@ maven-publish = "0.29.0"
 kotlinx-datetime = "0.6.0"
 coroutines = "1.9.0"
 serialization = "1.7.3"
+openapi-generator = "7.11.0"
 
 [libraries]
 # test
@@ -30,6 +31,7 @@ ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "k
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
+openapi-generator = { id = "org.openapi.generator", version.ref = "openapi-generator" }
 
 [bundles]
 ktor-client = [

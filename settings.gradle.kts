@@ -1,4 +1,5 @@
 rootProject.name = "vrchatapi-kotlin"
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

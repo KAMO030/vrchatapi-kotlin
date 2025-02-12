@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
     alias(libs.plugins.kotlinxSerialization) apply false
-    alias(libs.plugins.mavenPublish)
-    id("org.openapi.generator") version "7.11.0"
+    alias(libs.plugins.mavenPublish) apply false
+    alias(libs.plugins.openapi.generator)
 }
 
 openApiGenerate {
@@ -27,12 +27,4 @@ openApiGenerate {
         "serializationLibrary" to "kotlinx_serialization",
         "dateLibrary" to "kotlinx-datetime",
     )
-}
-
-val publishVersion = properties["publish.versions"] as String
-
-val publishGroup = properties["publish.group"] as String
-
-mavenPublishing{
-    coordinates(publishGroup, name, publishVersion)
 }
