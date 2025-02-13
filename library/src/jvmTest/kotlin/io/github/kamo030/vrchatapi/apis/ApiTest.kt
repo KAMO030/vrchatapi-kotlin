@@ -14,7 +14,7 @@ class ApiTest {
             install(HttpCookies)
         }
 
-        val authApi = apiClient.createAuthenticationApi()
+        val authApi = AuthenticationApi(apiClient)
         runBlocking {
             val currentUser = runCatching {
                 val response = authApi.getCurrentUser("username", "password")
